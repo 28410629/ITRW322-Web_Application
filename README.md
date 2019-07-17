@@ -8,18 +8,9 @@ See [Trello]([https://trello.com/en](https://trello.com/en)) board for progress 
 
 ## Technologies used
 
-- Node 8.11.1
-
 - Angular CLI 7.0.7
 
-- Angular 7.0.7
-
 - Firebase
-
-- RxJS 6.3.3
-
-- Typescript 3.1.6
-
 
 ## Installation Process
 
