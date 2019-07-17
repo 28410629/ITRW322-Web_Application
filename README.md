@@ -4,7 +4,7 @@
 This is the Angular Web Application for our messaging system:
 Published at [https://coenraadhuman.github.io/ITRW322-Semester_Project](https://coenraadhuman.github.io/ITRW322-Semester_Project/).
   
-See [Trello]([https://trello.com/en](https://trello.com/en)) board for progress on the project!  
+See [Trello](https://trello.com/en) board for progress on the project!  
 
 ## Technologies used
 
