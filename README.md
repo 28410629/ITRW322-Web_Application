@@ -50,6 +50,40 @@ ng build --prod --output-path docs --base-href "https://coenraadhuman.github.io/
 1. Make a copy of index.html and rename it to 404.html
 1. It is now ready for a commit and push on the **gh-pages branch**.
 
+## Branching Naming Convention - Quick Legend
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance</th>
+      <th>Branch</th>
+      <th>Description, Instructions, Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Stable</td>
+      <td>master</td>
+      <td>Accepts merges from Working and Hotfixes</td>
+    </tr>
+    <tr>
+      <td>Working</td>
+      <td>develop</td>
+      <td>Accepts merges from Features and Hotfixes/Issues</td>
+    </tr>
+    <tr>
+      <td>Features</td>
+      <td>feature-<b>your_name</b>-<b>feature_name</b></td>
+      <td>Always branch off HEAD of Working (create from develop)</td>
+    </tr>
+    <tr>
+      <td>Hotfix/Issues</td>
+      <td>hotfix-<b>your_name</b>-<b>fix_name</b></td>
+      <td>Always branch off Stable (create from master)</td>
+    </tr>
+  </tbody>
+</table>
+
 ## References
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
