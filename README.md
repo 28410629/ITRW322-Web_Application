@@ -69,7 +69,7 @@ ng build --prod --output-path docs --base-href "https://coenraadhuman.github.io/
     <tr>
       <td>Working</td>
       <td>develop</td>
-      <td>Accepts merges from Features/Issues and Hotfixes</td>
+      <td>Accepts merges from Features and Hotfixes/Issues</td>
     </tr>
     <tr>
       <td>Features</td>
