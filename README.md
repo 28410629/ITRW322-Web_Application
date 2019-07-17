@@ -33,7 +33,7 @@ Download and install: [https://nodejs.org/dist/v10.16.0/node-v10.16.0-x64.msi](h
 
 4. Run `npm install` within the repository to install all the required dependencies in bash or powershell.
 
-5. Run `ng serve --open` for a dev server `(http://localhost:4200)` in bash or powershell. Please note: the application will automatically reload if you change any of the source files.
+5. Run `ng serve --open` for a **development server** `(http://localhost:4200)` in bash or powershell. Please note: the application will automatically reload if you change any of the source files.
 
 ## Creating New Components
 
