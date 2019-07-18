@@ -8,9 +8,38 @@ See [Trello](https://trello.com/en) board for progress on the project!
 
 ## Technologies used
 
-- Angular CLI 7.0.7
+```
+PS D:\Desktop\ITRW322-Semester_Project> ng --version
 
-- Firebase
+     _                      _                 ____ _     ___
+    / \   _ __   __ _ _   _| | __ _ _ __     / ___| |   |_ _|
+   / △ \ | '_ \ / _` | | | | |/ _` | '__|   | |   | |    | |
+  / ___ \| | | | (_| | |_| | | (_| | |      | |___| |___ | |
+ /_/   \_\_| |_|\__, |\__,_|_|\__,_|_|       \____|_____|___|
+                |___/
+
+
+Angular CLI: 8.1.2
+Node: 10.16.0
+OS: win32 x64
+Angular:
+...
+
+Package                      Version
+------------------------------------------------------
+@angular-devkit/architect    0.801.2
+@angular-devkit/core         8.1.2
+@angular-devkit/schematics   8.1.2
+@schematics/angular          8.1.2
+@schematics/update           0.801.2
+rxjs                         6.4.0
+
+PS D:\Desktop\ITRW322-Semester_Project> node --version
+v10.16.0
+PS D:\Desktop\ITRW322-Semester_Project> npm --version
+6.10.1
+PS D:\Desktop\ITRW322-Semester_Project>
+```
 
 ## Installation Process
 
