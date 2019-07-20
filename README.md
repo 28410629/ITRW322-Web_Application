@@ -4,10 +4,22 @@
 This is the Angular Web Application for our messaging system:
 Published at [https://coenraadhuman.github.io/ITRW322-Semester_Project](https://coenraadhuman.github.io/ITRW322-Semester_Project/).
   
-See [Trello](https://trello.com/en) board for progress on the project!  
+See [Trello](https://trello.com/en) board for progress and what needs to be done on the project!  
 
 ## Technologies used
 
+### Overview
+So we have finalised on the following for the project:
+* Firebase will be used as a back-end.
+* Angular CLI will be used for the front-end.
+* When development is finished, the Angular CLI project will be ported to both desktop and mobile.
+
+#### Porting to desktop and mobile
+Suggestions will be helpful for this part.
+* Mobile, currently Ionic is consider for the Angular to mobile port.
+* Desktop, currently Electron is consider for the Angular to desktop port.
+
+### Angular CLI/ Node.js/ NPM Versions
 ```
 PS D:\Desktop\ITRW322-Semester_Project> ng --version
 
