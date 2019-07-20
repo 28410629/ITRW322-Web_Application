@@ -28,28 +28,8 @@ export class SignInComponent implements OnInit {
     });
   }
 
-  tryFacebookLogin() {
-    this.authService.doFacebookLogin()
-      .then(res => {
-        this.router.navigate(['/user']);
-      });
-  }
-
-  tryTwitterLogin() {
-    this.authService.doTwitterLogin()
-      .then(res => {
-        this.router.navigate(['/user']);
-      });
-  }
-
-  tryGoogleLogin() {
-    this.authService.doGoogleLogin()
-      .then(res => {
-        this.router.navigate(['/user']);
-      });
-  }
-
   tryLogin(value) {
+    this.errorMessage = '';
     this.authService.doLogin(value)
       .then(res => {
         this.router.navigate(['/user']);
