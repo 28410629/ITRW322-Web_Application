@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-
-class AuthService {
-}
+import {AuthService} from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -30,35 +28,35 @@ export class SignInComponent implements OnInit {
     });
   }
 
-  tryFacebookLogin(){
+  tryFacebookLogin() {
     this.authService.doFacebookLogin()
       .then(res => {
         this.router.navigate(['/user']);
-      })
+      });
   }
 
-  tryTwitterLogin(){
+  tryTwitterLogin() {
     this.authService.doTwitterLogin()
       .then(res => {
         this.router.navigate(['/user']);
-      })
+      });
   }
 
-  tryGoogleLogin(){
+  tryGoogleLogin() {
     this.authService.doGoogleLogin()
       .then(res => {
         this.router.navigate(['/user']);
-      })
+      });
   }
 
-  tryLogin(value){
+  tryLogin(value) {
     this.authService.doLogin(value)
       .then(res => {
         this.router.navigate(['/user']);
       }, err => {
         console.log(err);
         this.errorMessage = err.message;
-      })
+      });
   }
 
   ngOnInit() {

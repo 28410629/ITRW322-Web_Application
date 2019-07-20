@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
     private router: Router
   ) {}
 
-  canActivate(): Promise<boolean>{
+  canActivate(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.userService.getCurrentUser()
       .then(user => {
@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
         return resolve(false);
       }, err => {
         return resolve(true);
-      })
-    })
+      });
+    });
   }
 }

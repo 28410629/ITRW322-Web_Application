@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import {AuthService} from '../../services/auth/auth.service';
 import {FirebaseUserModel} from '../../models/user.model';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-profile',
@@ -41,14 +42,14 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  save(value){
+  save(value) {
     this.userService.updateCurrentUser(value)
       .then(res => {
         console.log(res);
       }, err => console.log(err));
   }
 
-  logout(){
+  logout() {
     this.authService.doLogout()
       .then((res) => {
         this.location.back();

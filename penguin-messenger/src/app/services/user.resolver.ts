@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, Router } from "@angular/router";
+import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { UserService } from './user.service';
 import { FirebaseUserModel } from '../models/user.model';
 
@@ -11,7 +11,7 @@ export class UserResolver implements Resolve<FirebaseUserModel> {
 
   resolve(route: ActivatedRouteSnapshot): Promise<FirebaseUserModel> {
 
-    let user = new FirebaseUserModel();
+    const user = new FirebaseUserModel();
 
     return new Promise((resolve, reject) => {
       this.userService.getCurrentUser()
