@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { HomeComponent } from './components/home/home.component';
 import { SettingsComponent } from './components/settings/settings.component';
@@ -50,7 +49,6 @@ export function markedOptions(): MarkedOptions {
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    SignUpComponent,
     SignInComponent,
     HomeComponent,
     SettingsComponent,
