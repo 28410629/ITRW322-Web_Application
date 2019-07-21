@@ -37,9 +37,13 @@ export class AuthService {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['application']);
+          if (result.user.emailVerified) {
+            this.router.navigate(['application']);
+          } else {
+            this.SendVerificationMail();
+          }
+          this.SetUserData(result.user);
         });
-        this.SetUserData(result.user);
       }).catch((error) => {
         window.alert(error.message);
       });
@@ -66,7 +70,7 @@ export class AuthService {
     });
   }
 
-  // Reset Forggot password
+  // Reset Forgot password
   ForgotPassword(passwordResetEmail) {
     return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail)
     .then(() => {
@@ -80,24 +84,6 @@ export class AuthService {
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
     return (user !== null && user.emailVerified !== false) ? true : false;
-  }
-
-  // Sign in with Google
-  GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider());
-  }
-
-  // Auth logic to run auth providers
-  AuthLogin(provider) {
-    return this.afAuth.auth.signInWithPopup(provider)
-    .then((result) => {
-       this.ngZone.run(() => {
-          this.router.navigate(['application']);
-        })
-       this.SetUserData(result.user);
-    }).catch((error) => {
-      window.alert(error);
-    });
   }
 
   /* Setting up user data when sign in with username/password,
