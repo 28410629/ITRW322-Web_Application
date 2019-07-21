@@ -78,7 +78,10 @@ Download and install: [https://nodejs.org/dist/v10.16.0/node-v10.16.0-x64.msi](h
 
 ## Creating New Components
 
-Run `ng generate component component-name` to generate a new component. 
+Run `ng generate component component-name` to generate a new component. Or `ng g c component-name` for short.
+
+## Creating New Directives
+Run `ng generate directive component-name` to generate a new directive. Or `ng g d directive-name` for short.
 
 ## Build (Publish to Github Pages)
 I, `Coenraad`, will normally do this, but here are the steps:
