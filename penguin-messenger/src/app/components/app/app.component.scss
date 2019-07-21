@@ -2,7 +2,6 @@
   width: 100vw;
   height: 100vh;
   display: grid;
-  background: #47ff47;
   grid-template-columns: auto auto auto;
   grid-template-rows: 56px auto 56px;
   grid-template-areas:
@@ -13,13 +12,10 @@
 
 .my-header {
   grid-area: header;
-  background: #ff4b52;
 }
 .my-footer {
   grid-area: footer;
-  background: cornflowerblue;
 }
 .my-main {
   grid-area: main;
-  background: coral;
 }
