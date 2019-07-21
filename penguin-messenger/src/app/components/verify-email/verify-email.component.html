@@ -1,33 +1,25 @@
-<div class="displayTable">
-  <div class="displayTableCell">
+<div class="body">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 style="margin: 0px;" class="card-title text-center">Penguin Messenger Thanks you For Registering</h5>
+            <img class="mx-auto d-block" src="assets/12545216.png" width="150" height="150">
+            <div class="form-signin" *ngIf="authService.userData as user">
 
-    <div class="px-logo">
-      <a href="https://www.positronx.io" target="_blank">
-        <img src="https://www.positronx.io/wp-content/themes/positronx/img/logo-positronx-white.svg" alt="positronX.io - Learn Full Stack Development">
-      </a>
-    </div>
+              <label class="text-center">We have sent a confirmation email to <strong>{{user.email}}</strong></label>
 
-    <div class="authBlock">
-      <h3>Thank You for Registering</h3>
+              <label class="text-center">Please check your email and click on the link to verfiy your email address</label>
 
-      <div class="formGroup" *ngIf="authService.userData as user">
-        <p class="text-center">We have sent a confirmation email to <strong>{{user.email}}</strong>.</p>
-        <p class="text-center">Please check your email and click on the link to verfiy your email address.</p>
+
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="goToSignIn()">Sign in</button>
+              <hr class="my-4">
+              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit" ((click)="authService.SendVerificationMail()">Resend Verificaiton Email</button>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <!-- Calling SendVerificationMail() method using authService Api -->
-      <div class="formGroup">
-        <button type="button" class="btn btnPrimary" (click)="authService.SendVerificationMail()">
-          <i class="fas fa-redo-alt"></i>
-          Resend Verification Email
-        </button>
-      </div>
-
     </div>
-
-    <div class="redirectToLogin">
-      <span>Go back to?<span class="redirect" routerLink="/sign-in"> Sign in</span></span>
-    </div>
-
   </div>
 </div>
