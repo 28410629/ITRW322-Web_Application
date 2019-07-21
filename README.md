@@ -2,7 +2,7 @@
 # ITRW322-Semester_Project
 
 This is the Angular Web Application for our messaging system:
-Published at [https://coenraadhuman.github.io/ITRW322-Semester_Project](https://coenraadhuman.github.io/ITRW322-Semester_Project/).
+Published at [https://coenraadhuman.github.io/ITRW322-Semester_Project](https://coenraadhuman.github.io/ITRW322-Semester_Project/) or the alternative link: [penguinmessenger.ddns.net](penguinmessenger.ddns.net).
   
 See [Trello](https://trello.com/en) board for progress and what needs to be done on the project!  
 
