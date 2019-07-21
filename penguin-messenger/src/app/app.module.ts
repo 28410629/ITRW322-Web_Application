@@ -20,6 +20,7 @@ import { FirebaseService } from './services/firebase.service';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AuthService} from './services/auth.service';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 
 export function markedOptions(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -49,7 +50,8 @@ export function markedOptions(): MarkedOptions {
     HomeComponent,
     SettingsComponent,
     ConversationComponent,
-    ProfileComponent
+    ProfileComponent,
+    VerifyEmailComponent
   ],
   imports: [
     BrowserModule,
