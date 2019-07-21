@@ -138,5 +138,5 @@ To get more help on the Firebase go check out the [Firebase Documentation]([http
 
 Sign in/up source code, [site](https://startbootstrap.com/snippets/login/).
 
-Messenger home source code, [site](https://bootsnipp.com/snippets/exR5v).
+Very good authentication example for firebase, [site](https://github.com/SinghDigamber/angularfirebase-authentication).
 

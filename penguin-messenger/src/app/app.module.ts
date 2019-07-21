@@ -18,11 +18,8 @@ import { HttpClient } from '@angular/common/http';
 import { FirebaseService } from './services/firebase.service';
 
 import {AngularFireAuthModule} from '@angular/fire/auth';
-import {AuthGuard} from './services/auth/auth.guard';
-import {UserService} from './services/user.service';
-import {AuthService} from './services/auth/auth.service';
-import {UserResolver} from './services/user.resolver';
 import {ReactiveFormsModule} from '@angular/forms';
+import {AuthService} from './services/auth.service';
 
 export function markedOptions(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -69,7 +66,7 @@ export function markedOptions(): MarkedOptions {
     AngularFireAuthModule,
     ReactiveFormsModule
   ],
-  providers: [FirebaseService, AuthService, UserService, UserResolver, AuthGuard],
+  providers: [FirebaseService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

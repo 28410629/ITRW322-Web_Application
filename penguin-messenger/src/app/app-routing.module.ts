@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-// import { AuthGuard} from './services/auth/auth.guard';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { HomeComponent } from './components/home/home.component';
+import { SecureInnerPagesGuard } from './services/secure-inner-pages.guard';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: SignInComponent },
-  { path: 'application', component: HomeComponent }
+  { path: '', component: SignInComponent, canActivate: [SecureInnerPagesGuard] },
+  { path: 'application', component: HomeComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

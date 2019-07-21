@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {AuthService} from '../../services/auth/auth.service';
+import {AuthService} from '../../services/auth.service';
+
 
 @Component({
   selector: 'app-sign-in',
@@ -29,19 +30,19 @@ export class SignInComponent implements OnInit {
     });
   }
 
-  tryLogin(value) {
+  tryLogin(email, password) {
     this.errorMessage = '';
-    this.authService.doLogin(value)
+    this.authService.SignIn(email, password)
       .then(res => {
-        this.router.navigate(['/user']);
+        this.router.navigate(['application']);
       }, err => {
         console.log(err);
         this.errorMessage = err.message;
       });
   }
 
-  tryRegister(value) {
-    this.authService.doRegister(value)
+  tryRegister(email, password) {
+    this.authService.SignUp(email, password)
       .then(res => {
         console.log(res);
         this.errorMessage = '';

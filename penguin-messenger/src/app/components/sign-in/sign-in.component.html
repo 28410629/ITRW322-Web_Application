@@ -11,16 +11,16 @@
             <form class="form-signin" [formGroup]="loginForm">
               <label>Email address</label>
               <div class="form-label-group">
-                <input style="height: 53px;" type="email" formControlName="email" id="inputEmail" class="form-control" required autofocus>
+                <input style="height: 53px;" type="email" formControlName="email" id="inputEmail" class="form-control" #userName required autofocus>
               </div>
               <label>Password</label>
               <div class="form-label-group">
-                <input style="height: 53px;" type="password" formControlName="password" id="inputPassword" class="form-control" required>
+                <input style="height: 53px;" type="password" formControlName="password" id="inputPassword" class="form-control" #userPassword required>
               </div>
 
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="tryLogin(loginForm.value)">Sign in</button>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="tryLogin(userName.value, userPassword.value)">Sign in</button>
               <hr class="my-4">
-              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit" (click)="tryRegister(loginForm.value)">Sign up</button>
+              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit" (click)="tryRegister(userName.value, userPassword.value)">Sign up</button>
             </form>
           </div>
         </div>
