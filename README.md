@@ -2,7 +2,7 @@
 # ITRW322-Semester_Project
 
 This is the Angular Web Application for our messaging system:
-Published at [https://coenraadhuman.github.io/ITRW322-Semester_Project](https://coenraadhuman.github.io/ITRW322-Semester_Project/) or the alternative link: [penguinmessenger.ddns.net](penguinmessenger.ddns.net).
+Published at [https://penguinmessenger.tech](https://penguinmessenger.tech).
   
 See [Trello](https://trello.com/en) board for progress and what needs to be done on the project!  
 
@@ -88,11 +88,12 @@ I, `Coenraad`, will normally do this, but here are the steps:
 
 Within the development directory of the repository:
 ```bash
-ng build --prod --output-path docs --base-href "https://coenraadhuman.github.io/ITRW322-Semester_Project"
+ng build --prod --output-path docs --base-href "https://penguinmessenger.tech/"
 ```
 1. Move all files within `docs` to **gh-pages branch.** 
 1. Make a copy of index.html and rename it to 404.html
-1. It is now ready for a commit and push on the **gh-pages branch**.
+1. Ensure that a file exists 'CNAME', no extensions, with the content: 'penguinmessenger.tech'.
+1. That is it, it is now ready for a commit and push on the **gh-pages branch** and will be served.
 
 ## Branching Naming Convention - Quick Legend
 
