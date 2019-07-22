@@ -2,7 +2,7 @@
 # ITRW322-Semester_Project
 
 This is the Angular Web Application for our messaging system:
-Published at [https://penguinmessenger.tech](https://penguinmessenger.tech).
+published at [https://penguinmessenger.tech](https://penguinmessenger.tech) using Github Pages.
   
 See [Trello](https://trello.com/en) board for progress and what needs to be done on the project!  
 
