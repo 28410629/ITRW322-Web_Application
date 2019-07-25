@@ -12,5 +12,16 @@
 
   height: 75vh;
 
+}
 
+.grid-container {
+  display: grid;
+  grid-row-gap: 5px;
+  grid-template-columns: auto;
+  padding: 2px;
+}
+
+.grid-item {
+  padding: 2px;
+  text-align: center;
 }
