@@ -9,16 +9,16 @@
             <form class="form-signin" [formGroup]="loginForm">
               <label>Email address</label>
               <div class="form-label-group">
-                <input style="height: 53px; padding-left: 10px" type="email" formControlName="email" id="inputEmail" class="form-control" #userName required autofocus>
+                <input style="height: 53px; padding-left: 10px" type="email" formControlName="email" class="form-control" required autofocus>
               </div>
               <label>Password</label>
               <div class="form-label-group">
-                <input style="height: 53px; padding-left: 10px" type="password" formControlName="password" id="inputPassword" class="form-control" #userPassword required>
+                <input style="height: 53px; padding-left: 10px" type="password" formControlName="password" class="form-control" required>
               </div>
 
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="tryLogin(userName.value, userPassword.value)">Sign in</button>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="button" (click)="tryLogin()">Sign in</button>
               <hr class="my-4">
-              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit" (click)="tryRegister(userName.value, userPassword.value)">Sign up</button>
+              <button class="btn btn-lg btn-google btn-block text-uppercase" type="button" (click)="tryRegister()">Sign up</button>
               <div class="text-center" >
                 <label class="text-center" routerLink="/forgot-password" style="margin-top: 8px; margin-bottom: 0px">Forgot Password?</label>
               </div>
