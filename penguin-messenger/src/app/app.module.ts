@@ -25,6 +25,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { ActiveConversationsComponent } from './components/conversation/active-conversations/active-conversations.component';
 import { CurrentChatComponent } from './components/conversation/current-chat/current-chat.component';
 import { MessageBubbleComponent } from './components/conversation/current-chat/message-bubble/message-bubble.component';
+import { ChatItemComponent } from './components/conversation/active-conversations/chat-item/chat-item.component';
 
 export function markedOptions(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -59,7 +60,8 @@ export function markedOptions(): MarkedOptions {
     ForgotPasswordComponent,
     ActiveConversationsComponent,
     CurrentChatComponent,
-    MessageBubbleComponent
+    MessageBubbleComponent,
+    ChatItemComponent
   ],
   imports: [
     BrowserModule,
