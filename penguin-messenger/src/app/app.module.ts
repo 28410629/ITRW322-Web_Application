@@ -24,6 +24,7 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ActiveConversationsComponent } from './components/conversation/active-conversations/active-conversations.component';
 import { CurrentChatComponent } from './components/conversation/current-chat/current-chat.component';
+import { MessageBubbleComponent } from './components/conversation/current-chat/message-bubble/message-bubble.component';
 
 export function markedOptions(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -57,7 +58,8 @@ export function markedOptions(): MarkedOptions {
     VerifyEmailComponent,
     ForgotPasswordComponent,
     ActiveConversationsComponent,
-    CurrentChatComponent
+    CurrentChatComponent,
+    MessageBubbleComponent
   ],
   imports: [
     BrowserModule,
