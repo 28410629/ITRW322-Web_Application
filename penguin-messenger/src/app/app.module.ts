@@ -17,12 +17,11 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { HttpClient } from '@angular/common/http';
 import { FirebaseService } from './services/firebase.service';
 
-import {AngularFireAuthModule} from '@angular/fire/auth';
-import {ReactiveFormsModule} from '@angular/forms';
-import {AuthService} from './services/auth.service';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from './services/auth.service';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { HeaderUserComponent } from './components/header-user/header-user.component';
 
 export function markedOptions(): MarkedOptions {
@@ -56,7 +55,6 @@ export function markedOptions(): MarkedOptions {
     ProfileComponent,
     VerifyEmailComponent,
     ForgotPasswordComponent,
-    SignUpComponent,
     HeaderUserComponent
   ],
   imports: [

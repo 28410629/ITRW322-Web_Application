@@ -64,6 +64,23 @@ export class AuthService {
       });
   }
 
+  GoogleAuth() {
+    return this.AuthLogin(new auth.GoogleAuthProvider());
+  }
+
+  // Auth logic to run auth providers
+  AuthLogin(provider) {
+    return this.afAuth.auth.signInWithPopup(provider)
+      .then((result) => {
+        this.ngZone.run(() => {
+          this.router.navigate(['application']);
+        })
+        this.SetUserData(result.user);
+      }).catch((error) => {
+        window.alert(error);
+      });
+  }
+
   // Send email verification when new user sign up
   SendVerificationMail() {
     return this.afAuth.auth.currentUser.sendEmailVerification()

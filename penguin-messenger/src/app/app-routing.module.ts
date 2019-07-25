@@ -6,14 +6,12 @@ import { SecureInnerPagesGuard } from './services/secure-inner-pages.guard';
 import { AuthGuard } from './services/auth.guard';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 const routes: Routes = [
   { path: '', component: SignInComponent, canActivate: [SecureInnerPagesGuard] },
   { path: 'application', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'verify-email', component: VerifyEmailComponent, canActivate: [SecureInnerPagesGuard]},
-  { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] },
-  { path: 'sign-up', component: SignUpComponent, canActivate: [SecureInnerPagesGuard] }
+  { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] }
 ];
 
 @NgModule({

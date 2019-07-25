@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {User} from '../../models/user.model';
 
 @Component({
   selector: 'app-header-user',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderUserComponent implements OnInit {
 
+  user: User;
+
   constructor() { }
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('user'));
   }
 
 }
