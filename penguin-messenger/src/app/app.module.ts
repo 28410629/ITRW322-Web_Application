@@ -22,6 +22,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {AuthService} from './services/auth.service';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ActiveConversationsComponent } from './components/conversation/active-conversations/active-conversations.component';
+import { CurrentChatComponent } from './components/conversation/current-chat/current-chat.component';
 
 export function markedOptions(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -53,7 +55,9 @@ export function markedOptions(): MarkedOptions {
     ConversationComponent,
     ProfileComponent,
     VerifyEmailComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ActiveConversationsComponent,
+    CurrentChatComponent
   ],
   imports: [
     BrowserModule,
