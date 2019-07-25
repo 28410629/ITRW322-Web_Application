@@ -2,5 +2,18 @@
 {
   margin-right: auto;
   margin-left: auto;
-  max-width: 75%;
+  margin-top: auto;
+  margin-bottom: auto;
+  max-width: 60%;
+  max-height: 80%;
+
+}
+.row {
+  display: flex;
+}
+
+
+.column {
+  flex: 25%;
+  padding: 9px;
 }
