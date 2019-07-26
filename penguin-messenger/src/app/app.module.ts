@@ -62,8 +62,7 @@ export function markedOptions(): MarkedOptions {
     ActiveConversationsComponent,
     CurrentChatComponent,
     MessageBubbleComponent,
-    ChatItemComponent
-    ForgotPasswordComponent,
+    ChatItemComponent,
     HeaderUserComponent
   ],
   imports: [
