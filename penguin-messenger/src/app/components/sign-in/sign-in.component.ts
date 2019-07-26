@@ -29,8 +29,8 @@ export class SignInComponent implements OnInit {
   }
 
   tryLogin() {
-    // this.authService.SignIn(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value);
-    this.authService.GoogleAuth();
+    this.authService.SignIn(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value);
+    // this.authService.GoogleAuth();
   }
 
   tryRegister() {
