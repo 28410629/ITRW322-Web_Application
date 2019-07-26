@@ -7,21 +7,20 @@
             <h5 style="margin: 0px;" class="card-title text-center">Sign Into Penguin Messenger</h5>
             <img style="margin-top: 15px" class="mx-auto d-block" src="assets/12545216.png" width="150" height="150">
             <form class="form-signin" [formGroup]="loginForm">
-              <label>Email address</label>
-              <div class="form-label-group">
-                <input style="height: 53px; padding-left: 10px" type="email" formControlName="email" class="form-control" required autofocus>
-              </div>
-              <label>Password</label>
-              <div class="form-label-group">
-                <input style="height: 53px; padding-left: 10px" type="password" formControlName="password" class="form-control" required>
-              </div>
-
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="button" (click)="tryLogin()">Sign in</button>
-              <hr class="my-4">
-              <button class="btn btn-lg btn-google btn-block text-uppercase" type="button" (click)="tryRegister()">Sign up</button>
-              <div class="text-center" >
-                <label class="text-center" routerLink="/forgot-password" style="margin-top: 8px; margin-bottom: 0px">Forgot Password?</label>
-              </div>
+<!--              <label>Email address</label>-->
+<!--              <div class="form-label-group">-->
+<!--                <input style="height: 53px; padding-left: 10px" type="email" formControlName="email" class="form-control" required autofocus>-->
+<!--              </div>-->
+<!--              <label>Password</label>-->
+<!--              <div class="form-label-group">-->
+<!--                <input style="height: 53px; padding-left: 10px" type="password" formControlName="password" class="form-control" required>-->
+<!--              </div>-->
+<!--              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="button" (click)="tryLogin()">Sign in/up with Facebook</button>-->
+<!--              <hr class="my-4">-->
+              <button class="btn btn-lg btn-google btn-block text-uppercase" type="button" (click)="tryRegister()">Sign in/up with Google</button>
+<!--              <div class="text-center" >-->
+<!--                <label class="text-center" routerLink="/forgot-password" style="margin-top: 8px; margin-bottom: 0px">Forgot Password?</label>-->
+<!--              </div>-->
             </form>
           </div>
         </div>
