@@ -17,11 +17,16 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { HttpClient } from '@angular/common/http';
 import { FirebaseService } from './services/firebase.service';
 
-import {AngularFireAuthModule} from '@angular/fire/auth';
-import {ReactiveFormsModule} from '@angular/forms';
-import {AuthService} from './services/auth.service';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from './services/auth.service';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ActiveConversationsComponent } from './components/conversation/active-conversations/active-conversations.component';
+import { CurrentChatComponent } from './components/conversation/current-chat/current-chat.component';
+import { MessageBubbleComponent } from './components/conversation/current-chat/message-bubble/message-bubble.component';
+import { ChatItemComponent } from './components/conversation/active-conversations/chat-item/chat-item.component';
+import { HeaderUserComponent } from './components/header-user/header-user.component';
 
 export function markedOptions(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -53,7 +58,12 @@ export function markedOptions(): MarkedOptions {
     ConversationComponent,
     ProfileComponent,
     VerifyEmailComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ActiveConversationsComponent,
+    CurrentChatComponent,
+    MessageBubbleComponent,
+    ChatItemComponent,
+    HeaderUserComponent
   ],
   imports: [
     BrowserModule,

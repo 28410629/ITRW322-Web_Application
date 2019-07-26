@@ -28,12 +28,13 @@ export class SignInComponent implements OnInit {
     });
   }
 
-  tryLogin(email, password) {
-    this.authService.SignIn(email, password);
+  tryLogin() {
+    this.authService.SignIn(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value);
+    // this.authService.GoogleAuth();
   }
 
-  tryRegister(email, password) {
-    this.authService.SignUp(email, password);
+  tryRegister() {
+    this.authService.GoogleAuth();
   }
 
   ngOnInit() {

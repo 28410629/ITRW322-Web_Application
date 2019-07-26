@@ -1,0 +1,35 @@
+.message-box{
+
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-style: solid;
+  border-color: lightgrey;
+  border-width: 1px;
+  border-radius: 2px;
+
+
+  margin-top: auto;
+  margin-bottom: auto;
+
+
+
+  height: 75vh;
+
+
+}
+
+.grid-container {
+  display: grid;
+  grid-row-gap: 5px;
+  grid-template-columns: auto;
+  padding: 2px;
+}
+
+.grid-item {
+  padding: 2px;
+  text-align: center;
+}
+
+.scrollable{
+  overflow-y: scroll;
+}
