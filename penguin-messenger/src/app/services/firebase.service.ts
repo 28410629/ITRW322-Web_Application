@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import {Post, Posts} from '../models/message.model';
+import {UserData} from "../models/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +25,8 @@ export class FirebaseService {
     );
   }
 
-  getPost(DocumentId) {
-    return this.db.doc<Post>('Posts/' + DocumentId).valueChanges();
+  getUserData(UID) {
+    return this.db.doc<UserData>('usersdata/' + UID).valueChanges();
   }
 
   updateUser(DocumentId, value) {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User, UserData } from '../../models/user.model';
 import {AngularFirestore} from '@angular/fire/firestore';
+import {FirebaseService} from '../../services/firebase.service';
 
 @Component({
   selector: 'app-header-user',
@@ -15,11 +16,20 @@ export class HeaderUserComponent implements OnInit {
     photoURL: ''
   };
 
-  constructor(public afs: AngularFirestore) { }
+  constructor(public afs: AngularFirestore, public fireBaseService: FirebaseService) { }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.GetUserData();
+    // this.GetUserData();
+    this.getData(this.user.uid);
+  }
+
+  getData(UID: string) {
+    this.fireBaseService.getUserData(UID)
+      .subscribe(
+        responseData => {
+          this.userData = responseData;
+    });
   }
 
   GetUserData() {
