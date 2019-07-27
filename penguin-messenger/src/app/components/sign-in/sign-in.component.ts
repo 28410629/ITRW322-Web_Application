@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/authorisation/auth.service';
 
 
 @Component({
@@ -28,14 +28,22 @@ export class SignInComponent implements OnInit {
     });
   }
 
-  tryLogin() {
-    this.authService.SignIn(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value);
-    // this.authService.GoogleAuth();
+  tryGoogle() {
+    this.authService.LoginWithGoogle();
   }
 
-  tryRegister() {
-    this.authService.GoogleAuth();
+  tryGithub() {
+    this.authService.LoginWithGithub();
   }
+
+  tryFacebook() {
+    this.authService.LoginWithFacebook();
+  }
+
+  tryTwitter() {
+    this.authService.LoginWithTwitter();
+  }
+
 
   ngOnInit() {
   }

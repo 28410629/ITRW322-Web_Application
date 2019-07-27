@@ -19,7 +19,7 @@ import { FirebaseService } from './services/firebase.service';
 
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './services/authorisation/auth.service';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ActiveConversationsComponent } from './components/conversation/active-conversations/active-conversations.component';
