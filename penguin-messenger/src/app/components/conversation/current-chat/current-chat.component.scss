@@ -23,13 +23,29 @@
   grid-row-gap: 5px;
   grid-template-columns: auto;
   padding: 2px;
+
 }
 
 .grid-item {
-  padding: 2px;
-  text-align: center;
+  padding: auto;
+  align-items: center;
 }
 
 .scrollable{
   overflow-y: scroll;
+}
+
+.empty-space{
+  width: 100%;
+
+}
+
+.mine
+{
+  float: right;
+}
+
+.other
+{
+  float: left;
 }
