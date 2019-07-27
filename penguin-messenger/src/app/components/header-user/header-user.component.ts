@@ -12,8 +12,8 @@ export class HeaderUserComponent implements OnInit {
   user: User;
   userData: UserData = {
     displayName: 'Loading...',
-    photoURL: 'https://firebasestorage.googleapis.com/v0/b/itrw322-semester-project.appspot.com/o/defaults%2FdefaultUserPhoto.png?alt=media&token=5222876d-ea95-4cb9-a8a4-71d898c595d4'
-};
+    photoURL: ''
+  };
 
   constructor(public afs: AngularFirestore) { }
 

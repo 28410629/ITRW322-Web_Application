@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { AuthService } from '../../services/authorisation/auth.service';
 import {User, UserData} from '../../models/user.model';
+import {AngularFirestore} from "@angular/fire/firestore";
 
 @Component({
   selector: 'app-profile',
@@ -11,12 +12,16 @@ import {User, UserData} from '../../models/user.model';
 export class ProfileComponent implements OnInit {
 
   user: User;
-  userData: UserData;
+  userData: UserData = {
+    displayName: 'Loading...',
+    photoURL: ''
+  };
+
 
   angForm: FormGroup;
 
   constructor(
-    public authService: AuthService,
+    public afs: AngularFirestore,
     private fb: FormBuilder
   ) {
     this.angForm = this.fb.group({
@@ -25,14 +30,11 @@ export class ProfileComponent implements OnInit {
       UID: ['', Validators.required]
     });
     this.user = JSON.parse(localStorage.getItem('user'));
-    // this.userData = JSON.parse(localStorage.getItem('userData'));
-    console.log('This is the user data from Firebase Authorisation:');
-    console.log(this.user);
-    console.log('This is the user data from Firebase Database:');
-    console.log(this.userData);
   }
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.GetUserData();
     this.loadUser();
   }
 
@@ -49,7 +51,17 @@ export class ProfileComponent implements OnInit {
   loadUser() {
     this.angForm.controls['Email'].setValue(this.user.email);
     this.angForm.controls['UID'].setValue(this.user.uid);
-    // this.angForm.controls['DisplayName'].setValue(this.userData.displayName);
+    this.angForm.controls['DisplayName'].setValue(this.userData.displayName);
     // this.angForm.controls['ProfileURL'].setValue(this.userData.photoURL);
+  }
+
+  GetUserData() {
+    const followDoc =
+      this.afs.collection(`usersdata`).doc(this.user.uid).ref;
+
+    followDoc.get().then((doc) => {
+      this.userData = doc.data() as UserData;
+    });
+
   }
 }

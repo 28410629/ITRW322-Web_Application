@@ -29,7 +29,6 @@ export class AuthService {
         JSON.parse(localStorage.getItem('user'));
       } else {
         localStorage.setItem('user', null);
-        localStorage.setItem('userData', null);
         JSON.parse(localStorage.getItem('user'));
       }
     });
