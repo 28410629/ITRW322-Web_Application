@@ -1,4 +1,10 @@
 <form [formGroup]="angForm">
+  <div>
+    <label>Account Profile Picture</label>
+  </div>
+  <div>
+    <img style="margin-bottom: 10px;" src="{{ photoURL }}" width="150" height="150">
+  </div>
   <div class="form-group">
     <label>Account Email Address</label>
     <input readonly type="email" class="form-control" aria-describedby="emailHelp" formControlName="Email">

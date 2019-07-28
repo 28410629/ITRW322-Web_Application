@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { AuthService } from '../../services/authorisation/auth.service';
 import {User, UserData} from '../../models/user.model';
-import {AngularFirestore} from "@angular/fire/firestore";
+import {FirebaseService} from '../../services/firebase.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,16 +11,11 @@ import {AngularFirestore} from "@angular/fire/firestore";
 export class ProfileComponent implements OnInit {
 
   user: User;
-  userData: UserData = {
-    displayName: 'Loading...',
-    photoURL: ''
-  };
-
-
+  photoURL = '';
   angForm: FormGroup;
 
   constructor(
-    public afs: AngularFirestore,
+    public fireBaseService: FirebaseService,
     private fb: FormBuilder
   ) {
     this.angForm = this.fb.group({
@@ -34,34 +28,28 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.GetUserData();
-    this.loadUser();
+    this.getData();
+    this.getAccountData();
   }
 
   submitChanges() {
-    // const userData: User = {
-    //   uid: this.oldUserData.uid,
-    //   email: this.angForm.controls['Email'].value,
-    //   displayName: this.angForm.controls['DisplayName'].value,
-    //   photoURL: this.oldUserData.photoURL,
-    //   emailVerified: this.oldUserData.emailVerified
-    // }
+    this.fireBaseService.updateUserData(
+      this.user.uid,
+      this.angForm.controls['DisplayName'].value,
+      this.photoURL);
   }
 
-  loadUser() {
+  getAccountData() {
     this.angForm.controls['Email'].setValue(this.user.email);
     this.angForm.controls['UID'].setValue(this.user.uid);
-    this.angForm.controls['DisplayName'].setValue(this.userData.displayName);
-    // this.angForm.controls['ProfileURL'].setValue(this.userData.photoURL);
   }
 
-  GetUserData() {
-    const followDoc =
-      this.afs.collection(`usersdata`).doc(this.user.uid).ref;
-
-    followDoc.get().then((doc) => {
-      this.userData = doc.data() as UserData;
-    });
-
+  getData() {
+    this.fireBaseService.getUserData(this.user.uid)
+      .subscribe(
+        responseData => {
+          this.angForm.controls['DisplayName'].setValue(responseData.displayName);
+          this.photoURL = responseData.photoURL;
+        });
   }
 }
