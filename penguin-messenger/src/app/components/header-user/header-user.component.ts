@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../../models/user.model';
+import { FirebaseService } from '../../services/firebase.service';
 
 @Component({
   selector: 'app-header-user',
@@ -8,12 +8,22 @@ import {User} from '../../models/user.model';
 })
 export class HeaderUserComponent implements OnInit {
 
-  user: User;
+  displayName = 'Loading...';
+  photoURL = '';
 
-  constructor() { }
+  constructor(public fireBaseService: FirebaseService) { }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('user'));
+    this.getData();
   }
 
+  getData() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    this.fireBaseService.getUserData(user.uid)
+      .subscribe(
+        responseData => {
+          this.displayName = responseData.displayName;
+          this.photoURL = responseData.photoURL;
+    });
+  }
 }

@@ -1,1 +1,32 @@
-<h1>This is the profile component!</h1>
+<form [formGroup]="angForm">
+  <div>
+    <label>Account Profile Picture</label>
+  </div>
+  <div>
+    <img style="margin-bottom: 10px;" src="{{ photoURL }}" width="150" height="150">
+  </div>
+  <div class="form-group">
+    <label>Account Email Address</label>
+    <input readonly type="email" class="form-control" aria-describedby="emailHelp" formControlName="Email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label>Account User ID</label>
+    <input readonly type="email" class="form-control" aria-describedby="emailHelp" formControlName="UID">
+  </div>
+  <div class="form-group">
+    <label>Display Name</label>
+    <input type="email" class="form-control" formControlName="DisplayName" placeholder="Enter display name.">
+  </div>
+  <label>Profile Picture</label>
+  <div class="input-group mb-3">
+    <div class="custom-file">
+
+      <input type="file" class="custom-file-input" id="inputGroupFile02" (change)="uploadPhoto($event)" accept=".png,.jpg">
+      <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary" (click)="submitChanges()">Submit</button>
+  <progress max="100" [value]="(uploadProgress | async)"></progress>
+  <p>{{ downloadURL }}</p>
+</form>
