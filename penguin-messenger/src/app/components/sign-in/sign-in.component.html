@@ -7,10 +7,13 @@
             <h5 style="margin: 0px;" class="card-title text-center">Sign Into Penguin Messenger</h5>
             <img style="margin-top: 15px" class="mx-auto d-block" src="assets/12545216.png" width="150" height="150">
             <form class="form-signin" [formGroup]="loginForm">
-              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="button" (click)="tryFacebook()">Sign in with Facebook</button>
-              <button class="btn btn-lg btn-github btn-block text-uppercase" type="button" (click)="tryGithub()">Sign in with Github</button>
-              <button class="btn btn-lg btn-google btn-block text-uppercase" type="button" (click)="tryGoogle()">Sign in with Google</button>
-              <button class="btn btn-lg btn-twitter btn-block text-uppercase" type="button" (click)="tryTwitter()">Sign in with Twitter</button>
+              <div class="text-center">
+                <label>Sign with:</label>
+              </div>
+              <button data-toggle="tooltip" data-placement="top" title="Facebook" class="btn btn-lg btn-facebook btn-block text-uppercase" type="button" (click)="tryFacebook()"><i class="fab fa-facebook-square fa-2x"></i></button>
+              <button data-toggle="tooltip" data-placement="top" title="Github" class="btn btn-lg btn-github btn-block text-uppercase" type="button" (click)="tryGithub()"><i class="fab fa-github fa-2x"></i></button>
+              <button data-toggle="tooltip" data-placement="top" title="Google" class="btn btn-lg btn-google btn-block text-uppercase" type="button" (click)="tryGoogle()"><i class="fab fa-google fa-2x"></i></button>
+              <button data-toggle="tooltip" data-placement="top" title="Twitter" class="btn btn-lg btn-twitter btn-block text-uppercase" type="button" (click)="tryTwitter()"><i class="fab fa-twitter fa-2x"></i></button>
 <!--              <hr class="my-4">-->
 <!--              <button class="btn btn-lg btn-signup btn-block text-uppercase" type="button" routerLink="/sign-up">Don't have an account, sign up</button>-->
             </form>

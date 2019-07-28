@@ -13,7 +13,7 @@ import { finalize } from 'rxjs/operators';
 export class ProfileComponent implements OnInit {
 
   user: User;
-  photoURL = '';
+  photoURL = 'assets/loadingProfile.png';
   angForm: FormGroup;
 
   // Photo upload
@@ -57,6 +57,7 @@ export class ProfileComponent implements OnInit {
         this.ref.getDownloadURL().subscribe(downloadURL => {
           this.photoURL = downloadURL;
           this.submitChanges();
+          this.uploadProgress = 0;
         });
       })
     ).subscribe();
