@@ -27,6 +27,7 @@ import { CurrentChatComponent } from './components/conversation/current-chat/cur
 import { MessageBubbleComponent } from './components/conversation/current-chat/message-bubble/message-bubble.component';
 import { ChatItemComponent } from './components/conversation/active-conversations/chat-item/chat-item.component';
 import { HeaderUserComponent } from './components/header-user/header-user.component';
+import {AngularFireStorageModule} from "@angular/fire/storage";
 
 export function markedOptions(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -78,6 +79,7 @@ export function markedOptions(): MarkedOptions {
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     ReactiveFormsModule
   ],
   providers: [FirebaseService, AuthService],

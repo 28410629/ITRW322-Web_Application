@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {User, UserData} from '../../models/user.model';
-import {FirebaseService} from '../../services/firebase.service';
+import { User } from '../../models/user.model';
+import { FirebaseService } from '../../services/firebase.service';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -14,8 +16,15 @@ export class ProfileComponent implements OnInit {
   photoURL = '';
   angForm: FormGroup;
 
+  // Photo upload
+  ref;
+  task;
+  uploadProgress;
+  downloadURL;
+
   constructor(
     public fireBaseService: FirebaseService,
+    private afStorage: AngularFireStorage,
     private fb: FormBuilder
   ) {
     this.angForm = this.fb.group({
@@ -37,6 +46,20 @@ export class ProfileComponent implements OnInit {
       this.user.uid,
       this.angForm.controls['DisplayName'].value,
       this.photoURL);
+  }
+
+  uploadPhoto(event) {
+    this.ref = this.afStorage.ref('users/' + this.user.uid + '/photo');
+    this.task = this.ref.put(event.target.files[0]);
+    this.uploadProgress = this.task.percentageChanges();
+    this.task.snapshotChanges().pipe(
+      finalize(() => {
+        this.ref.getDownloadURL().subscribe(downloadURL => {
+          this.photoURL = downloadURL;
+          this.submitChanges();
+        });
+      })
+    ).subscribe();
   }
 
   getAccountData() {

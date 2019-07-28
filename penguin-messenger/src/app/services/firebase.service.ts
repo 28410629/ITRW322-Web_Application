@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import {Post, Posts} from '../models/message.model';
-import {UserData} from '../models/user.model';
+import { Post, Posts } from '../models/message.model';
+import { UserData } from '../models/user.model';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ import {UserData} from '../models/user.model';
 
 export class FirebaseService {
 
-  constructor(public db: AngularFirestore) {}
+  constructor(private db: AngularFirestore,
+              private afStorage: AngularFireStorage) {}
 
   public getPosts(): Observable<Post[]> {
     return this.db.collection<Posts>('Posts', ref => ref.orderBy('Date', 'desc')).snapshotChanges().pipe(
@@ -34,6 +36,10 @@ export class FirebaseService {
       displayName: DisplayName,
       photoURL: PhotoURL
     });
+  }
+
+  uploadUserPhoto(UID, event) {
+    this.afStorage.upload('/users/' + UID + '/photo', event.target.files[0]);
   }
 
   deleteUser(DocumentId) {

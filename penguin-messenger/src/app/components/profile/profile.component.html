@@ -21,12 +21,12 @@
   <label>Profile Picture</label>
   <div class="input-group mb-3">
     <div class="custom-file">
-      <input type="file" class="custom-file-input" id="inputGroupFile02">
+
+      <input type="file" class="custom-file-input" id="inputGroupFile02" (change)="uploadPhoto($event)" accept=".png,.jpg">
       <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-    </div>
-    <div class="input-group-append">
-      <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
     </div>
   </div>
   <button type="button" class="btn btn-primary" (click)="submitChanges()">Submit</button>
+  <progress max="100" [value]="(uploadProgress | async)"></progress>
+  <p>{{ downloadURL }}</p>
 </form>
