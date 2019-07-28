@@ -2,13 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './components/app/app.component';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
+import { AppComponent } from './components/application/app/app.component';
+import { HeaderComponent } from './components/application/header/header.component';
+import { FooterComponent } from './components/application/footer/footer.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './components/application/home/home.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { ConversationComponent } from './components/conversation/conversation.component';
+import { ConversationComponent } from './components/chats/conversation/conversation.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
@@ -20,14 +20,12 @@ import { FirebaseService } from './services/firebase.service';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './services/authorisation/auth.service';
-import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { ActiveConversationsComponent } from './components/conversation/active-conversations/active-conversations.component';
-import { CurrentChatComponent } from './components/conversation/current-chat/current-chat.component';
-import { MessageBubbleComponent } from './components/conversation/current-chat/message-bubble/message-bubble.component';
-import { ChatItemComponent } from './components/conversation/active-conversations/chat-item/chat-item.component';
-import { HeaderUserComponent } from './components/header-user/header-user.component';
-import {AngularFireStorageModule} from "@angular/fire/storage";
+import { ActiveConversationsComponent } from './components/chats/active-conversations/active-conversations.component';
+import { CurrentChatComponent } from './components/chats/current-chat/current-chat.component';
+import { MessageBubbleComponent } from './components/chats/current-chat/message-bubble/message-bubble.component';
+import { ChatItemComponent } from './components/chats/active-conversations/chat-item/chat-item.component';
+import { HeaderUserComponent } from './components/application/header-user/header-user.component';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 export function markedOptions(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -58,8 +56,6 @@ export function markedOptions(): MarkedOptions {
     SettingsComponent,
     ConversationComponent,
     ProfileComponent,
-    VerifyEmailComponent,
-    ForgotPasswordComponent,
     ActiveConversationsComponent,
     CurrentChatComponent,
     MessageBubbleComponent,
