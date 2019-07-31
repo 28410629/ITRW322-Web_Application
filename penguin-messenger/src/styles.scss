@@ -29,13 +29,12 @@
   width: 100vw;
   height: 100vh;
   display: grid;
-  background-color: #868e96;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto;
   grid-template-rows: 112px auto 56px;
   grid-template-areas:
-    'header header header'
-    'main main main'
-    'footer footer footer';
+    'header'
+    'main'
+    'footer';
 }
 
 .app-header {
