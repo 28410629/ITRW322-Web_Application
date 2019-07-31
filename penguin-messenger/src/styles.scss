@@ -83,18 +83,30 @@
     'tool-3 tool-4';
 }
 .tool-main-1 {
+  align-content: center;
+  justify-content: center;
+  display: grid;
   background-color: #ba8b00;
   grid-area: tool-1;
 }
 .tool-main-2 {
+  align-content: center;
+  justify-content: center;
+  display: grid;
   background-color: #b21f2d;
   grid-area: tool-2;
 }
 .tool-main-3 {
+  align-content: center;
+  justify-content: center;
+  display: grid;
   background-color: #b3d7ff;
   grid-area: tool-3;
 }
 .tool-main-4 {
+  align-content: center;
+  justify-content: center;
+  display: grid;
   background-color: #3b5998;
   grid-area: tool-4;
 }
