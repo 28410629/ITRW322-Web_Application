@@ -1,1 +1,51 @@
-/* You can add global styles to this file, and also import other style files */
+// --------------------------- Sign In Layout -----------------------------
+
+.my-container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: 56px auto 56px;
+  grid-template-areas:
+    'header header header'
+    'main main main'
+    'footer footer footer';
+}
+
+.my-header {
+  grid-area: header;
+}
+.my-footer {
+  grid-area: footer;
+}
+.my-main {
+  grid-area: main;
+}
+
+// --------------------------- Application Layout -----------------------------
+
+
+.app-container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: 112px auto 56px;
+  grid-template-areas:
+    'header header header'
+    'main main main'
+    'footer footer footer';
+}
+
+.app-header {
+  grid-area: header;
+}
+.app-footer {
+  grid-area: footer;
+}
+.app-main {
+  grid-area: main;
+}
+.app-content {
+  grid-area: app;
+}
