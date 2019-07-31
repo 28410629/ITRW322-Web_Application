@@ -29,6 +29,7 @@
   width: 100vw;
   height: 100vh;
   display: grid;
+  background-color: #868e96;
   grid-template-columns: auto auto auto;
   grid-template-rows: 112px auto 56px;
   grid-template-areas:
@@ -108,4 +109,29 @@
       'tool-3'
       'tool-4';
   }
+}
+
+// --------------------------- Chats Layout -----------------------------
+
+
+.chat-container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 112px auto 56px;
+  grid-template-areas:
+    'header'
+    'main'
+    'footer';
+}
+
+.chat-header {
+  grid-area: header;
+}
+.chat-footer {
+  grid-area: footer;
+}
+.chat-main {
+  grid-area: main;
 }
