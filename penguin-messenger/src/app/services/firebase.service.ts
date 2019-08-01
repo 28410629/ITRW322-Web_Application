@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Post, Posts } from '../models/message.model';
 import { UserData } from '../models/user.model';
 import { AngularFireStorage } from '@angular/fire/storage';
+import {PublicChannel, PublicChannels} from '../models/publicChannel.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +16,12 @@ export class FirebaseService {
   constructor(private db: AngularFirestore,
               private afStorage: AngularFireStorage) {}
 
-  public getPosts(): Observable<Post[]> {
-    return this.db.collection<Posts>('Posts', ref => ref.orderBy('Date', 'desc')).snapshotChanges().pipe(
+  public getPublicChannel(): Observable<PublicChannel[]> {
+    return this.db.collection<PublicChannels>('PublicChannel', ref => ref.orderBy('Date', 'asc')).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
-          const data = a.payload.doc.data() as Post;
-          const id = a.payload.doc.id;
-          return { id, ...data };
+          const data = a.payload.doc.data() as PublicChannel;
+          return { ...data };
         });
       })
     );
@@ -68,17 +68,11 @@ export class FirebaseService {
   }
 
 
-  createPost(author: string, authorrouterurl: string, contentmdurl: string, description: string,
-             featured: boolean, imageurl: string, title: string) {
-    return this.db.collection('Posts').add({
-      Author: author,
-      AuthorRouterUrl: authorrouterurl,
-      ContentMdUrl: contentmdurl,
+  public createMessage(newmessage: string, newuid: string) {
+    return this.db.collection('PublicChannel').add({
       Date: new Date(),
-      Description: description,
-      Featured: featured,
-      HomeImageUrl: imageurl,
-      Title: title
+      Message: newmessage,
+      UID: newuid
     });
   }
 }
