@@ -1,0 +1,73 @@
+// --------------------------- Tools Layout -----------------------------
+
+.tool-container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 112px auto 56px;
+  grid-template-areas:
+    'header'
+    'main'
+    'footer';
+}
+
+.tool-header {
+  grid-area: header;
+}
+.tool-footer {
+  grid-area: footer;
+}
+.tool-main {
+  align-content: center;
+  justify-content: center;
+  background-color: #4b4b4b;
+  grid-area: main;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 40% 40%;
+  grid-template-rows: 40% 40%;
+  grid-template-areas:
+    'tool-1 tool-2'
+    'tool-3 tool-4';
+}
+.tool-main-1 {
+  align-content: center;
+  justify-content: center;
+  display: grid;
+  background-color: #ba8b00;
+  grid-area: tool-1;
+}
+.tool-main-2 {
+  align-content: center;
+  justify-content: center;
+  display: grid;
+  background-color: #b21f2d;
+  grid-area: tool-2;
+}
+.tool-main-3 {
+  align-content: center;
+  justify-content: center;
+  display: grid;
+  background-color: #b3d7ff;
+  grid-area: tool-3;
+}
+.tool-main-4 {
+  align-content: center;
+  justify-content: center;
+  display: grid;
+  background-color: #3b5998;
+  grid-area: tool-4;
+}
+
+@media (max-width: 480px) {
+  .tool-main {
+    grid-template-columns: 80%;
+    grid-template-rows: 20% 20% 20% 20%;
+    grid-template-areas:
+      'tool-1'
+      'tool-2'
+      'tool-3'
+      'tool-4';
+  }
+}
