@@ -213,6 +213,8 @@
 }
 .chat-main {
   grid-area: main;
+  align-content: center;
+  justify-content: center;
   display: grid;
   grid-template-columns: 25% 75%;
   grid-template-rows: auto;
@@ -224,13 +226,13 @@
   grid-area: tool-1;
 }
 .chat-main-2 {
-  background-color: #b21f2d;
+  //background-color: #b21f2d;
   grid-area: tool-2;
 }
 @media (max-width: 480px) {
   .chat-main {
     grid-template-columns: 100%;
-    grid-template-rows: 50% 50%;
+    grid-template-rows: auto auto;
     grid-template-areas:
       'tool-1'
       'tool-2';
