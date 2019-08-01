@@ -242,3 +242,46 @@
       'tool-2';
   }
 }
+
+//
+
+// --------------------------- Profile Layout -----------------------------
+
+
+.prof-container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 112px auto 56px;
+  grid-template-areas:
+    'header'
+    'main'
+    'footer';
+}
+
+.prof-header {
+  grid-area: header;
+}
+.prof-footer {
+  grid-area: footer;
+}
+.prof-main {
+  grid-area: main;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 25% 25% 25% 25%;
+  grid-template-areas:
+    '. . . .'
+    '. tool-1 tool-2 .'
+    '. tool-1 tool-2 .'
+    '. . . .';
+}
+.prof-main-1 {
+  background-color: #383d41;
+  grid-area: tool-1;
+}
+.prof-main-2 {
+  background-color: #b21f2d;
+  grid-area: tool-2;
+}
