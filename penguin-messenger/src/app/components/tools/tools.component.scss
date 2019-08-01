@@ -3,17 +3,8 @@
 p {
   color: white;
 }
-.tool-main-1:hover{
-  box-shadow: 0 0 10px #d39e0b;
-}
-.tool-main-2:hover{
-  box-shadow: 0 0 10px #d39e0b;;
-}
-.tool-main-3:hover{
-  box-shadow: 0 0 10px #d39e0b;;
-}
-.tool-main-4:hover{
-  box-shadow: 0 0 10px #d39e0b;;
+.hovering:hover{
+  box-shadow: 0 0 10px #FECA39;
 }
 
 // --------------------------- Tools Layout -----------------------------
@@ -53,7 +44,7 @@ p {
   align-content: center;
   justify-content: center;
   display: grid;
-  background-color: blueviolet;
+  background-color: #45C4E4;
   //border-style: solid;
   border-radius: 10px;
   grid-area: tool-1;
@@ -62,7 +53,7 @@ p {
   align-content: center;
   justify-content: center;
   display: grid;
-  background-color: lightseagreen;
+  background-color: #00AFFF;
   //border-style: solid;
   border-radius: 10px;
   grid-area: tool-2;
@@ -71,7 +62,7 @@ p {
   align-content: center;
   justify-content: center;
   display: grid;
-  background-color: #b3d7ff;
+  background-color: #0471C4;
   //border-style: solid;
   border-radius: 10px;
   grid-area: tool-3;
@@ -80,7 +71,7 @@ p {
   align-content: center;
   justify-content: center;
   display: grid;
-  background-color: #3b5998;
+  background-color: #035493;
   //border-style: solid;
   border-radius: 10px;
   grid-area: tool-4;
