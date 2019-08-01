@@ -269,16 +269,22 @@
 .prof-main {
   grid-area: main;
   display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
-  grid-template-rows: 25% 25% 25% 25%;
+  grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+  grid-template-rows: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
   grid-template-areas:
-    '. . . .'
-    '. tool-1 tool-2 .'
-    '. tool-1 tool-2 .'
-    '. . . .';
+    '. . . . . . . . . .'
+    '. . . . . . . . . .'
+    '. . . . . . . . . .'
+    '. . tool-1 tool-1 tool-2 tool-2 tool-2 tool-2 . .'
+    '. . tool-1 tool-1 tool-2 tool-2 tool-2 tool-2 . .'
+    '. . tool-1 tool-1 tool-2 tool-2 tool-2 tool-2 . .'
+    '. . tool-1 tool-1 tool-2 tool-2 tool-2 tool-2 . .'
+    '. . . . . . . . . .'
+    '. . . . . . . . . .'
+    '. . . . . . . . . .';
 }
 .prof-main-1 {
-  background-color: #383d41;
+  background-color: #007bff;
   grid-area: tool-1;
 }
 .prof-main-2 {
