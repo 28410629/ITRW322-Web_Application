@@ -64,7 +64,7 @@ export class AuthService {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['application']);
+          this.router.navigate(['chats']);
         })
         this.SetUserData(result.user);
       }).catch((error) => {
@@ -96,6 +96,14 @@ export class AuthService {
           displayName: this.user.displayName,
           photoURL: this.user.photoURL
         });
+        const x: UserData =  {
+          displayName: this.user.displayName,
+          photoURL: this.user.photoURL
+        };
+        localStorage.setItem('usersData', JSON.stringify(x));
+      } else {
+        doc.data()
+        localStorage.setItem('usersData', null);
       }
     });
 
@@ -104,53 +112,5 @@ export class AuthService {
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
     return (user !== null && user.emailVerified !== false) ? true : false;
-  }
-
-  // The following methods are specific to email and should not be used:
-
-  SignUp(email, password, displayName, uploadPhotoUrl) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        /* Call the SendVerificationMail() function when new user sign
-        up and returns promise */
-        this.SendVerificationMail();
-        result.user.displayName = displayName;
-        result.user.photoURL = uploadPhotoUrl;
-        this.SetUserData(result.user);
-      }).catch((error) => {
-        window.alert(error.message);
-      });
-  }
-
-  SignIn(email, password) {
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.ngZone.run(() => {
-          if (result.user.emailVerified) {
-            this.router.navigate(['application']);
-          } else {
-            this.SendVerificationMail();
-          }
-          // this.SetUserData(result.user);
-        });
-      }).catch((error) => {
-        window.alert(error.message);
-      });
-  }
-
-  SendVerificationMail() {
-    return this.afAuth.auth.currentUser.sendEmailVerification()
-    .then(() => {
-      this.router.navigate(['verify-email']);
-    });
-  }
-
-  ForgotPassword(passwordResetEmail) {
-    return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail)
-      .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
-      }).catch((error) => {
-        window.alert(error);
-      });
   }
 }

@@ -47,13 +47,24 @@ export class FirebaseService {
   }
 
   searchUsers(searchValue) {
-    return this.db.collection('users', ref => ref.where('nameToSearch', '>=', searchValue)
+    return this.db.collection('conversations', ref => ref.where('nameToSearch', '>=', searchValue)
       .where('nameToSearch', '<=', searchValue + '\uf8ff'))
       .snapshotChanges();
   }
 
   searchUsersByAge(value) {
     return this.db.collection('users', ref => ref.orderBy('age').startAt(value)).snapshotChanges();
+  }
+
+  searchConversationsForUser(UID) {
+    return this.db.collectionGroup('participants', ref => ref.where('uid', '==', UID)).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const id = a.payload.doc.id;
+          return { id };
+        });
+      })
+    );
   }
 
 

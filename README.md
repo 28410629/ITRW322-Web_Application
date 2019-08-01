@@ -70,11 +70,11 @@ npm --version
 **For Windows**
 Download and install: [https://nodejs.org/dist/v10.16.0/node-v10.16.0-x64.msi](https://nodejs.org/dist/v10.16.0/node-v10.16.0-x64.msi)
 
-3. Install Angular CLI by running `npm install -g @angular/cli@7.0.7` in bash or powershell.
+3. Install Angular CLI by running `npm install -g @angular/cli` in bash or powershell/cmd.
 
-4. Run `npm install` within the repository to install all the required dependencies in bash or powershell.
+4. Run `npm install` within the repository local clone (`~/ITRW322-Semester_Project/penguin-messenger/` to install all the required dependencies in bash or powershell.
 
-5. Run `ng serve --open` for a **development server** `(http://localhost:4200)` in bash or powershell. Please note: the application will automatically reload if you change any of the source files.
+5. Run `ng serve --open` for a **development server** `(http://localhost:4200)` in bash or powershell/cmd. Please note: the application will automatically reload if you change any of the source files.
 
 ## Creating New Components
 
@@ -108,7 +108,7 @@ ng build --prod --output-path docs --base-href "https://penguinmessenger.tech/"
   <tbody>
     <tr>
       <td>Stable</td>
-      <td>master</td>
+      <td>stable</td>
       <td>Accepts merges from Working and Hotfixes</td>
     </tr>
     <tr>
@@ -118,12 +118,12 @@ ng build --prod --output-path docs --base-href "https://penguinmessenger.tech/"
     </tr>
     <tr>
       <td>Features</td>
-      <td>feature-<b>your_name</b>-<b>feature_name</b></td>
+      <td><b>your_name</b>/<b>feature</b><b>feature_name</b></td>
       <td>Always branch off HEAD of Working (create from develop)</td>
     </tr>
     <tr>
       <td>Hotfix/Issues</td>
-      <td>hotfix-<b>your_name</b>-<b>fix_name</b></td>
+      <td><b>your_name</b>/<b>fix</b>/<b>fix_name</b></td>
       <td>Always branch off Stable (create from master)</td>
     </tr>
   </tbody>

@@ -1,6 +1,33 @@
-<nav class="navbar navbar-dark bg-primary">
-  <a class="navbar-brand" style="color: white">
-    <img src="{{ photoURL }}" width="30" height="30" class="d-inline-block align-top rounded-circle" alt="">
-    {{ displayName }}
-  </a>
+<!--<nav class="navbar navbar-dark bg-primary">-->
+<!--  <a class="navbar-brand" style="color: white">-->
+<!--    <img src="{{ photoURL }}" width="30" height="30" class="d-inline-block align-top rounded-circle" alt="">-->
+<!--    {{ displayName }}-->
+<!--  </a>-->
+<!--</nav>-->
+<nav class="navbar sticky-top navbar-dark bg-primary navbar-expand-md navbar-no-bg">
+  <div class="container-fluid">
+    <div class="navbar-brand" style="color: white">
+      <img src="{{ photoURL }}" width="30" height="30" class="d-inline-block align-top rounded-circle">
+      {{ displayName }}
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link scroll-link" [routerLinkActive]="['active']" routerLink="/chats">Chats</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link scroll-link" [routerLinkActive]="['active']" routerLink="/profile">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link scroll-link" [routerLinkActive]="['active']" routerLink="/tools">Tools</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link scroll-link" style="color: gold" (click)="tryLogout()">Sign Out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>

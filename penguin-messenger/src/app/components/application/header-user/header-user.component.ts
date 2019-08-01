@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../../services/firebase.service';
+import {AuthService} from '../../../services/authorisation/auth.service';
 
 @Component({
   selector: 'app-header-user',
@@ -8,13 +9,22 @@ import { FirebaseService } from '../../../services/firebase.service';
 })
 export class HeaderUserComponent implements OnInit {
 
-  displayName = 'Loading...';
+  displayName = '';
   photoURL = 'assets/loadingProfile.png';
 
-  constructor(public fireBaseService: FirebaseService) { }
+  constructor(public fireBaseService: FirebaseService,
+              public authService: AuthService) { }
 
   ngOnInit() {
     this.getData();
+  }
+
+  tryLogout() {
+    this.authService.SignOut();
+    const audio = new Audio();
+    audio.src = 'assets/LogoutSound.mp3';
+    audio.load();
+    audio.play();
   }
 
   getData() {
