@@ -1,33 +1,9 @@
-:root {
-  --input-padding-x: 1.5rem;
-  --input-padding-y: .75rem;
+h5 {
+  color: white;
 }
 
-.body {
-  width: 100%;
-  height: 100%;
-  background: #007bff;
-  background: linear-gradient(to right, #0062E6, #33AEFF);
-}
-
-.card-signin {
-  border: 0;
-  border-radius: 1rem;
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
-}
-
-.card-signin .card-title {
-  margin-bottom: 2rem;
-  font-weight: 300;
-  font-size: 1.5rem;
-}
-
-.card-signin .card-body {
-  padding: 2rem;
-}
-
-.form-signin {
-  width: 100%;
+label {
+  color: white;
 }
 
 .form-signin .btn {
@@ -69,22 +45,6 @@
   transition: all .1s ease-in-out;
 }
 
-.form-label-group input::-webkit-input-placeholder {
-  color: transparent;
-}
-
-.form-label-group input:-ms-input-placeholder {
-  color: transparent;
-}
-
-.form-label-group input::-ms-input-placeholder {
-  color: transparent;
-}
-
-.form-label-group input::-moz-placeholder {
-  color: transparent;
-}
-
 .form-label-group input::placeholder {
   color: transparent;
 }
@@ -112,6 +72,8 @@
 }
 
 .btn-twitter{
+  border-style: solid;
+  border-color: #3889d8;
   color: white;
   background-color: #38A1F3;
 }
@@ -126,60 +88,41 @@
   background-color: goldenrod;
 }
 
-/* Fallback for Edge
--------------------------------------------------- */
-
-@supports (-ms-ime-align: auto) {
-  .form-label-group>label {
-    display: none;
-  }
-  .form-label-group input::-ms-input-placeholder {
-    color: #777;
-  }
-}
-
-/* Fallback for IE
--------------------------------------------------- */
-
-@media all and (-ms-high-contrast: none),
-(-ms-high-contrast: active) {
-  .form-label-group>label {
-    display: none;
-  }
-  .form-label-group input:-ms-input-placeholder {
-    color: #777;
-  }
-}
-
 // --------------------------- Sign In Layout -----------------------------
 
-.my-container {
+.sign-container {
+  background: #007bff;
+  background: linear-gradient(to right, #0062E6, #33AEFF);
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto 400px auto;
   grid-template-rows: 56px auto 56px;
   grid-template-areas:
     'header header header'
-    'main main main'
+    '. main .'
     'footer footer footer';
 }
 
-.my-header {
+.sign-header {
   grid-area: header;
 }
-.my-footer {
+.sign-footer {
   grid-area: footer;
 }
-.my-main {
+.sign-main {
   align-content: center;
   display: grid;
   grid-area: main;
-  grid-template-columns: auto;
-  grid-template-rows: auto;
-  grid-template-areas:
-    'app-1';
 }
-.app-main-1 {
-  grid-area: app-1;
+
+@media (max-width: 399px) {
+  .sign-container {
+    grid-template-columns: auto 98% auto;
+    grid-template-rows: 56px auto 56px;
+    grid-template-areas:
+      'header header header'
+      '. main .'
+      'footer footer footer';
+  }
 }
