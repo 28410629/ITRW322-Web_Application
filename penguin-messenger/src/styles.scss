@@ -80,33 +80,33 @@
 }
 .chat-main {
   grid-area: main;
+  align-content: center;
+  justify-content: center;
   display: grid;
-  grid-template-columns: 15% 85%;
+  grid-template-columns: 20% 75%;
   grid-template-rows: auto;
   grid-template-areas:
     'tool-1 tool-2';
 }
 .chat-main-1 {
-  //align-content: center;
-  //justify-content: center;
-  //display: grid;
-  background-color: #383d41;
+  //background-color: #383d41;
   grid-area: tool-1;
 }
 .chat-main-2 {
-  //align-content: center;
-  //justify-content: center;
-  //display: grid;
-  background-color: #b21f2d;
+  //background-color: #b21f2d;
   grid-area: tool-2;
 }
-@media (max-width: 480px) {
+@media (max-width: 1090px) {
   .chat-main {
-    grid-template-columns: 100%;
-    grid-template-rows: 50% 50%;
+    grid-template-columns: 95%;
+    grid-template-rows: auto;
     grid-template-areas:
-      'tool-1'
       'tool-2';
+  }
+  .people-section
+  {
+    display: none;
+    visibility: hidden;
   }
 }
 

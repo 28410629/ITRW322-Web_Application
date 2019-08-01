@@ -1,242 +1,161 @@
-body {
-  padding: 0;
-  margin: 0;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serifs;
-}
-
-* {
-  padding: 0;
-  margin: 0;
-}
-
 .container {
-  width: 90%;
-  margin: auto
-}
-
-.navbar {
-  height: 50px;
-  margin-bottom: 5px;
-  background: #17a2b8;
-  border: 1px solid #17a2b8;
-  display: flex;
-  justify-content: flex-end;
-  border-radius: 0 0 5px 5px
-}
-
-.navbar div {
-  padding: 13px;
-  font-size: 18px;
-}
-
-.navbar div:nth-child(1) {
-  margin-right: auto;
-  font-weight: bold;
-}
-
-.navbar div a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.card {
-  position: relative;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
-
-}
-
-.card-header {
-  padding: 0.75rem 1.25rem;
-  margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-  display: flex;
-}
-
-
-.bg-info {
-  background-color: #17a2b8 !important;
-  color: #fff;
-}
-
-
-.rows {
-  display: flex;
-
-}
-.card-header img {
-  width: 48px;
-  height: 48px;
-}
-.sidebar {
-  flex: 1 1 240px;
-}
-
-.sidebar .card-body {
-  max-height: 530px;
-  overflow-y: scroll;
-}
-
-.sidebar .card {
-  border-right: 0;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-
-.sidebar .card-header p,
-.main .card-header p {
-  margin-top: 15px;
-  margin-left: 10px;
-}
-
-.sidebar .card .card-body {
-  border-right: 1px solid rgba(0, 0, 0, 0.125);
-}
-
-.sidebar .card-body .contact a {
-  height: 50px;
-  /*border: 1px solid #17a2b8*/
-
-}
-
-.sidebar .card-body .contact a img {
-  width: 48px;
-  height: 48px;
-  margin-right: 15px
-}
-
-.sidebar .card-body .contact .contact-btn {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
   padding: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  height: 50px;
-  border-bottom: 1px solid #eee;
-  text-decoration: none;
-  color: #333;
+  margin:10px 0;
 }
 
-.sidebar .card-body .contact .contact-btn div {
-  flex: 1
-}
-
-.sidebar .card-body .contact .contact-btn div:nth-child(2) {
-  flex: 4;
-  flex-shrink: 6;
-}
-
-.sidebar .card-body .contact .contact-btn:hover, .active {
-  background: #eee;
+.container-2 {
+  border: 2px solid rgba(91, 90, 89, 0.03);
+  background-color: rgba(75, 162, 222, 0.31);
+  border-radius: 40px;
+  padding: 10px;
+  margin:10px 0;
+  font-size: 25px;
+  max-height: 100px;
 }
 
 
+.darker {
+  border-color: #ccc;
+  background-color: rgba(87, 183, 217, 0.5);
+}
 
-/*Sidebar end*/
 
-/*msg body start*/
-.main {
-  flex: 3 3 500px;
+.container::after {
+  content: "";
   clear: both;
-  min-width: 400px;
-
+  display: table;
 }
 
-.main .card {
-  border-left: 0px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0px;
+
+.container-2::after {
+  content: "";
+  clear: both;
+
+  display: table;
 }
 
-.main .card-body {
-  max-height: 474px;
-  overflow-y: scroll
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
 }
 
-.media {
-  display: flex;
-  margin: 10px;
+.container-2 img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
 }
 
-.main .media img {
-  width: 48px !important;
-  height: 48px;
 
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:5px;
 }
 
-.media .message {
-  padding: 5px 10px;
-  background: #eee;
+
+.time-right {
+  float: right;
+  color: #4e4e4e;
 }
 
-.received .message {
-  border-radius: 0 10px 10px 10px;
-  margin-left: 10px;
+
+.time-left {
+  float: left;
+  color: #4e4e4e;
 }
 
-.sent {
-  flex-flow: row-reverse;
-}
+.my-card
+{
+  margin:auto;
 
-.sent .message {
-  margin-right: 10px;
-  border-radius: 10px 0px 10px 10px;
-}
+  max-height: 70vh;
+  max-width: 80%;
 
-.compose {
+  background: #fff;
+
+  border-radius: 10px 10px 10px 10px;
+
   padding: 10px;
+
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+
+  overflow-y: scroll;
+
 }
 
-.compose form {
-  display: flex;
+.my-card-2
+{
+  margin:auto;
+  min-height: 100%;
+  max-height: 70vh;
+  background: #fff;
+
+  border-radius: 10px 10px 10px 10px;
+
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+
+  overflow-y: scroll;
 
 }
 
-.compose form textarea {
-  flex: 3 3 400px;
-  border: 0px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  resize: none;
-  color: #17a2b8
+
+div.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding: 10px;
+  background-color: white;
+  text-align: center;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  border-radius: 25px;
+
+
+
 }
-.compose button{
-  flex-basis: 50px;
-  font-weight: bold;
-  border: 0px;
-  background: transparent;
-  color: #17a2b8;
-  cursor: pointer;
+
+div.sticky-bottom {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+  padding: 20px;
+  font-size: 20px;
+  background-color: white;
+  text-align: center;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  border-radius: 25px;
 }
 
-/*msg body end*/
-@media all and (max-width:700px) {
-  .sidebar {
-    flex: 1 1 30px;
+
+.main-input{
+  grid-area: main;
+  align-content: center;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 75% 25%;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'tool-1 tool-2';
+}
+.input-main-1 {
+  grid-area: tool-1;
+  height: 40px;
+  text-align: left;
+}
+.input-main-2 {
+  grid-area: tool-2;
+}
+
+@media (max-width: 700px) {
+  h1{
+    font-size: 5vw;
   }
 
-  .sidebar .card-body .contact .contact-btn div:nth-child(2) {
-    display: none;
-  }
-
-  .sidebar .card-body .contact .contact-btn div:nth-child(3) {
-    display: none;
-  }
-
-  .sidebar .card-body .contact .contact-btn {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    margin: auto
-  }
-
-  .sidebar .card-header p {
-    display: none;
-  }
 }
