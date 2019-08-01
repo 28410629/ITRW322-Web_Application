@@ -118,3 +118,37 @@ div.sticky {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
   border-radius: 25px;
 }
+
+div.sticky-bottom {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+  padding: 20px;
+  font-size: 20px;
+  background-color: white;
+  text-align: center;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  border-radius: 25px;
+}
+
+
+.main-input{
+  grid-area: main;
+  align-content: center;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 75% 25%;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'tool-1 tool-2';
+}
+.input-main-1 {
+  //background-color: #383d41;
+  grid-area: tool-1;
+  height: 60px;
+  text-align: left;
+}
+.input-main-2 {
+  //background-color: #b21f2d;
+  grid-area: tool-2;
+}

@@ -231,13 +231,14 @@
 }
 @media (max-width: 1090px) {
   .chat-main {
-    grid-template-columns: 100%;
-    grid-template-rows: auto 0;
+    grid-template-columns: 95%;
+    grid-template-rows: auto;
     grid-template-areas:
-      'tool-2' 'tool-1';
+      'tool-2';
   }
   .people-section
   {
+    display: none;
     visibility: hidden;
   }
 }
