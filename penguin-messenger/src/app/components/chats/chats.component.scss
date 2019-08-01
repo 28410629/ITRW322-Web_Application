@@ -1,0 +1,161 @@
+.container {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin:10px 0;
+}
+
+.container-2 {
+  border: 2px solid rgba(91, 90, 89, 0.03);
+  background-color: rgba(75, 162, 222, 0.31);
+  border-radius: 40px;
+  padding: 10px;
+  margin:10px 0;
+  font-size: 25px;
+  max-height: 100px;
+}
+
+
+.darker {
+  border-color: #ccc;
+  background-color: rgba(87, 183, 217, 0.5);
+}
+
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
+.container-2::after {
+  content: "";
+  clear: both;
+
+  display: table;
+}
+
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.container-2 img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:5px;
+}
+
+
+.time-right {
+  float: right;
+  color: #4e4e4e;
+}
+
+
+.time-left {
+  float: left;
+  color: #4e4e4e;
+}
+
+.my-card
+{
+  margin:auto;
+
+  max-height: 70vh;
+  max-width: 80%;
+
+  background: #fff;
+
+  border-radius: 10px 10px 10px 10px;
+
+  padding: 10px;
+
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+
+  overflow-y: scroll;
+
+}
+
+.my-card-2
+{
+  margin:auto;
+  min-height: 100%;
+  max-height: 70vh;
+  background: #fff;
+
+  border-radius: 10px 10px 10px 10px;
+
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+
+  overflow-y: scroll;
+
+}
+
+
+div.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding: 10px;
+  background-color: white;
+  text-align: center;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  border-radius: 25px;
+
+
+
+}
+
+div.sticky-bottom {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+  padding: 20px;
+  font-size: 20px;
+  background-color: white;
+  text-align: center;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  border-radius: 25px;
+}
+
+
+.main-input{
+  grid-area: main;
+  align-content: center;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 75% 25%;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'tool-1 tool-2';
+}
+.input-main-1 {
+  grid-area: tool-1;
+  height: 40px;
+  text-align: left;
+}
+.input-main-2 {
+  grid-area: tool-2;
+}
+
+@media (max-width: 700px) {
+  h1{
+    font-size: 5vw;
+  }
+
+}

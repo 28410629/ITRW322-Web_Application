@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SignInComponent } from './components/sign-in/sign-in.component';
-import { HomeComponent } from './components/home/home.component';
-import { SecureInnerPagesGuard } from './services/secure-inner-pages.guard';
-import { AuthGuard } from './services/auth.guard';
-import {VerifyEmailComponent} from './components/verify-email/verify-email.component';
-import {ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
+import { SecureInnerPagesGuard } from './services/authorisation/secure-inner-pages.guard';
+import { AuthGuard } from './services/authorisation/auth.guard';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ChatsComponent } from './components/chats/chats.component';
+import { ToolsComponent } from './components/tools/tools.component';
 
 const routes: Routes = [
   { path: '', component: SignInComponent, canActivate: [SecureInnerPagesGuard] },
-  { path: 'application', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'verify-email', component: VerifyEmailComponent, canActivate: [SecureInnerPagesGuard]},
-  { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] }
+  { path: 'chats', component: ChatsComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'tools', component: ToolsComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
