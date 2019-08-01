@@ -1,3 +1,21 @@
+// --------------------------- Tools Appearance -----------------------------
+
+p {
+  color: white;
+}
+.tool-main-1:hover{
+  box-shadow: 0 0 10px #d39e0b;
+}
+.tool-main-2:hover{
+  box-shadow: 0 0 10px #d39e0b;;
+}
+.tool-main-3:hover{
+  box-shadow: 0 0 10px #d39e0b;;
+}
+.tool-main-4:hover{
+  box-shadow: 0 0 10px #d39e0b;;
+}
+
 // --------------------------- Tools Layout -----------------------------
 
 .tool-container {
@@ -35,14 +53,18 @@
   align-content: center;
   justify-content: center;
   display: grid;
-  background-color: #ba8b00;
+  background-color: blueviolet;
+  //border-style: solid;
+  border-radius: 10px;
   grid-area: tool-1;
 }
 .tool-main-2 {
   align-content: center;
   justify-content: center;
   display: grid;
-  background-color: #b21f2d;
+  background-color: lightseagreen;
+  //border-style: solid;
+  border-radius: 10px;
   grid-area: tool-2;
 }
 .tool-main-3 {
@@ -50,6 +72,8 @@
   justify-content: center;
   display: grid;
   background-color: #b3d7ff;
+  //border-style: solid;
+  border-radius: 10px;
   grid-area: tool-3;
 }
 .tool-main-4 {
@@ -57,6 +81,8 @@
   justify-content: center;
   display: grid;
   background-color: #3b5998;
+  //border-style: solid;
+  border-radius: 10px;
   grid-area: tool-4;
 }
 
