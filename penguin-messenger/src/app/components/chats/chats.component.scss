@@ -12,6 +12,7 @@
   border-radius: 40px;
   padding: 10px;
   margin:10px 0;
+  font-size: 25px;
 }
 
 
@@ -31,6 +32,7 @@
 .container-2::after {
   content: "";
   clear: both;
+
   display: table;
 }
 
@@ -92,7 +94,7 @@
 {
   margin:auto;
   min-height: 100%;
-
+  max-height: 70vh;
   background: #fff;
 
   border-radius: 10px 10px 10px 10px;
@@ -101,4 +103,17 @@
 
   overflow-y: scroll;
 
+}
+
+
+div.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding: 20px;
+  font-size: 20px;
+  background-color: white;
+  text-align: center;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  border-radius: 25px;
 }
