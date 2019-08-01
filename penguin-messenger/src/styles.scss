@@ -139,7 +139,7 @@
 .tool-main {
   align-content: center;
   justify-content: center;
-  background-color: #868e96;
+  background-color: #4b4b4b;
   grid-area: main;
   display: grid;
   grid-gap: 10px;
@@ -267,6 +267,7 @@
   grid-area: footer;
 }
 .prof-main {
+  background-color: #4b4b4b;
   align-content: center;
   justify-content: center;
   grid-area: main;
@@ -290,11 +291,9 @@
   //  '. . . . . . . . . .';
 }
 .prof-main-1 {
-  background-color: #007bff;
   grid-area: tool-1;
 }
 .prof-main-2 {
-  background-color: #b21f2d;
   grid-area: tool-2;
 }
 @media (max-width: 600px) {
@@ -322,11 +321,4 @@
     grid-template-areas: 'tool-1 tool-2';
   }
 }
-//320px
-//480px
-//600px
-//768px
-//900px
-//1024px
-//1200px
 
