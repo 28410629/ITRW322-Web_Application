@@ -1,35 +1,26 @@
-<div class="my-container">
-  <div class="my-header">
+<div class="sign-container">
+  <div class="sign-header">
     <app-header></app-header>
   </div>
-  <div class="app-main">
-    <div class="body">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-            <div class="card card-signin my-5">
-              <div class="card-body">
-                <h5 style="margin: 0px;" class="card-title text-center">Sign Into Penguin Messenger</h5>
-                <img style="margin-top: 15px" class="mx-auto d-block" src="assets/12545216.png" width="150" height="150">
-                <form class="form-signin" [formGroup]="loginForm">
-                  <div class="text-center">
-                    <label>Sign with:</label>
-                  </div>
-                  <button data-toggle="tooltip" data-placement="top" title="Facebook" class="btn btn-lg btn-facebook btn-block text-uppercase" type="button" (click)="tryFacebook()"><i class="fab fa-facebook-square fa-2x"></i></button>
-                  <button data-toggle="tooltip" data-placement="top" title="Github" class="btn btn-lg btn-github btn-block text-uppercase" type="button" (click)="tryGithub()"><i class="fab fa-github fa-2x"></i></button>
-                  <button data-toggle="tooltip" data-placement="top" title="Google" class="btn btn-lg btn-google btn-block text-uppercase" type="button" (click)="tryGoogle()"><i class="fab fa-google fa-2x"></i></button>
-                  <button data-toggle="tooltip" data-placement="top" title="Twitter" class="btn btn-lg btn-twitter btn-block text-uppercase" type="button" (click)="tryTwitter()"><i class="fab fa-twitter fa-2x"></i></button>
-                </form>
-              </div>
-            </div>
+  <div class="sign-main">
+      <div class="card-body">
+        <h5 style="margin: 0px;" class="card-title text-center">Sign Into Penguin Messenger</h5>
+        <img style="margin-top: 15px" class="mx-auto d-block" src="assets/12545216.png" width="150" height="150">
+        <form class="form-signin" [formGroup]="loginForm">
+          <div class="text-center">
+            <label>Sign with:</label>
           </div>
-        </div>
+          <button data-toggle="tooltip" data-placement="top" title="Facebook" class="btn btn-lg btn-facebook btn-block text-uppercase" type="button" (click)="tryFacebook()"><i class="fab fa-facebook-square fa-2x"></i></button>
+          <button data-toggle="tooltip" data-placement="top" title="Github" class="btn btn-lg btn-github btn-block text-uppercase" type="button" (click)="tryGithub()"><i class="fab fa-github fa-2x"></i></button>
+          <button data-toggle="tooltip" data-placement="top" title="Google" class="btn btn-lg btn-google btn-block text-uppercase" type="button" (click)="tryGoogle()"><i class="fab fa-google fa-2x"></i></button>
+          <button data-toggle="tooltip" data-placement="top" title="Twitter" class="btn btn-lg btn-twitter btn-block text-uppercase" type="button" (click)="tryTwitter()"><i class="fab fa-twitter fa-2x"></i></button>
+        </form>
       </div>
-    </div>
   </div>
-  <div class="my-footer">
+  <div class="sign-footer">
     <app-footer></app-footer>
   </div>
 </div>
 
 
+<!--card card-signin my-5-->
