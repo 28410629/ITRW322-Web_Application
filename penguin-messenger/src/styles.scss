@@ -77,7 +77,6 @@
   grid-area: footer;
 }
 .app-main {
-  background-color: #ba8b00;
   align-content: center;
   display: grid;
   grid-area: main;
@@ -214,4 +213,32 @@
 }
 .chat-main {
   grid-area: main;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'tool-1 tool-2';
+}
+.chat-main-1 {
+  //align-content: center;
+  //justify-content: center;
+  //display: grid;
+  background-color: #383d41;
+  grid-area: tool-1;
+}
+.chat-main-2 {
+  //align-content: center;
+  //justify-content: center;
+  //display: grid;
+  background-color: #b21f2d;
+  grid-area: tool-2;
+}
+@media (max-width: 480px) {
+  .chat-main {
+    grid-template-columns: 100%;
+    grid-template-rows: 50% 50%;
+    grid-template-areas:
+      'tool-1'
+      'tool-2';
+  }
 }

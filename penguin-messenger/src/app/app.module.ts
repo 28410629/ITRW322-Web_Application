@@ -23,10 +23,6 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ToolsComponent } from './components/tools/tools.component';
 import { ChatsComponent } from './components/chats/chats.component';
-import { ActiveConversationsComponent } from './components/chats/active-conversations/active-conversations.component';
-import { CurrentChatComponent } from './components/chats/current-chat/current-chat.component';
-import { MessageBubbleComponent } from './components/chats/current-chat/message-bubble/message-bubble.component';
-import { ChatItemComponent } from './components/chats/active-conversations/chat-item/chat-item.component';
 import { HeaderUserComponent } from './components/application/header-user/header-user.component';
 
 export function markedOptions(): MarkedOptions {
@@ -55,10 +51,6 @@ export function markedOptions(): MarkedOptions {
     FooterComponent,
     SignInComponent,
     ProfileComponent,
-    ActiveConversationsComponent,
-    CurrentChatComponent,
-    MessageBubbleComponent,
-    ChatItemComponent,
     HeaderUserComponent,
     ToolsComponent,
     ChatsComponent
@@ -74,6 +66,7 @@ export function markedOptions(): MarkedOptions {
       },
     }),
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule.enablePersistence(),
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,

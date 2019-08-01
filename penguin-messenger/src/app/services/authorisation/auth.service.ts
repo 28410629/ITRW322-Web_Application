@@ -96,6 +96,14 @@ export class AuthService {
           displayName: this.user.displayName,
           photoURL: this.user.photoURL
         });
+        const x: UserData =  {
+          displayName: this.user.displayName,
+          photoURL: this.user.photoURL
+        };
+        localStorage.setItem('usersData', JSON.stringify(x));
+      } else {
+        doc.data()
+        localStorage.setItem('usersData', null);
       }
     });
 
