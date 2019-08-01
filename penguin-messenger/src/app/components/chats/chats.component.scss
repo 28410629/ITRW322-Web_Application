@@ -1,242 +1,71 @@
-body {
-  padding: 0;
-  margin: 0;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serifs;
-}
-
-* {
-  padding: 0;
-  margin: 0;
-}
-
 .container {
-  width: 90%;
-  margin: auto
-}
-
-.navbar {
-  height: 50px;
-  margin-bottom: 5px;
-  background: #17a2b8;
-  border: 1px solid #17a2b8;
-  display: flex;
-  justify-content: flex-end;
-  border-radius: 0 0 5px 5px
-}
-
-.navbar div {
-  padding: 13px;
-  font-size: 18px;
-}
-
-.navbar div:nth-child(1) {
-  margin-right: auto;
-  font-weight: bold;
-}
-
-.navbar div a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.card {
-  position: relative;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
-
-}
-
-.card-header {
-  padding: 0.75rem 1.25rem;
-  margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-  display: flex;
-}
-
-
-.bg-info {
-  background-color: #17a2b8 !important;
-  color: #fff;
-}
-
-
-.rows {
-  display: flex;
-
-}
-.card-header img {
-  width: 48px;
-  height: 48px;
-}
-.sidebar {
-  flex: 1 1 240px;
-}
-
-.sidebar .card-body {
-  max-height: 530px;
-  overflow-y: scroll;
-}
-
-.sidebar .card {
-  border-right: 0;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-
-.sidebar .card-header p,
-.main .card-header p {
-  margin-top: 15px;
-  margin-left: 10px;
-}
-
-.sidebar .card .card-body {
-  border-right: 1px solid rgba(0, 0, 0, 0.125);
-}
-
-.sidebar .card-body .contact a {
-  height: 50px;
-  /*border: 1px solid #17a2b8*/
-
-}
-
-.sidebar .card-body .contact a img {
-  width: 48px;
-  height: 48px;
-  margin-right: 15px
-}
-
-.sidebar .card-body .contact .contact-btn {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
   padding: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  height: 50px;
-  border-bottom: 1px solid #eee;
-  text-decoration: none;
-  color: #333;
-}
-
-.sidebar .card-body .contact .contact-btn div {
-  flex: 1
-}
-
-.sidebar .card-body .contact .contact-btn div:nth-child(2) {
-  flex: 4;
-  flex-shrink: 6;
-}
-
-.sidebar .card-body .contact .contact-btn:hover, .active {
-  background: #eee;
+  margin:10px 0;
 }
 
 
+.darker {
+  border-color: #ccc;
+  background-color: rgba(87, 183, 217, 0.5);
+}
 
-/*Sidebar end*/
 
-/*msg body start*/
-.main {
-  flex: 3 3 500px;
+.container::after {
+  content: "";
   clear: both;
-  min-width: 400px;
-
+  display: table;
 }
 
-.main .card {
-  border-left: 0px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0px;
+
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
 }
 
-.main .card-body {
-  max-height: 474px;
-  overflow-y: scroll
+
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:5px;
 }
 
-.media {
-  display: flex;
-  margin: 10px;
+
+.time-right {
+  float: right;
+  color: #4e4e4e;
 }
 
-.main .media img {
-  width: 48px !important;
-  height: 48px;
 
+.time-left {
+  float: left;
+  color: #4e4e4e;
 }
 
-.media .message {
-  padding: 5px 10px;
-  background: #eee;
-}
+.my-card
+{
+  background: #fff;
+  position: relative;
 
-.received .message {
-  border-radius: 0 10px 10px 10px;
-  margin-left: 10px;
-}
+  margin-top: 5px;
+  margin-right: auto;
+  margin-left: auto;
 
-.sent {
-  flex-flow: row-reverse;
-}
+  min-height: 98%;
 
-.sent .message {
-  margin-right: 10px;
-  border-radius: 10px 0px 10px 10px;
-}
+  border-radius: 10px 10px 10px 10px;
 
-.compose {
+  max-width: 900px;
+
   padding: 10px;
-}
 
-.compose form {
-  display: flex;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 
-}
+  overflow-y: scroll;
 
-.compose form textarea {
-  flex: 3 3 400px;
-  border: 0px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  resize: none;
-  color: #17a2b8
-}
-.compose button{
-  flex-basis: 50px;
-  font-weight: bold;
-  border: 0px;
-  background: transparent;
-  color: #17a2b8;
-  cursor: pointer;
-}
-
-/*msg body end*/
-@media all and (max-width:700px) {
-  .sidebar {
-    flex: 1 1 30px;
-  }
-
-  .sidebar .card-body .contact .contact-btn div:nth-child(2) {
-    display: none;
-  }
-
-  .sidebar .card-body .contact .contact-btn div:nth-child(3) {
-    display: none;
-  }
-
-  .sidebar .card-body .contact .contact-btn {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    margin: auto
-  }
-
-  .sidebar .card-header p {
-    display: none;
-  }
 }

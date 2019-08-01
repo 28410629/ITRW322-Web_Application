@@ -214,22 +214,16 @@
 .chat-main {
   grid-area: main;
   display: grid;
-  grid-template-columns: 15% 85%;
+  grid-template-columns: 25% 75%;
   grid-template-rows: auto;
   grid-template-areas:
     'tool-1 tool-2';
 }
 .chat-main-1 {
-  //align-content: center;
-  //justify-content: center;
-  //display: grid;
   background-color: #383d41;
   grid-area: tool-1;
 }
 .chat-main-2 {
-  //align-content: center;
-  //justify-content: center;
-  //display: grid;
   background-color: #b21f2d;
   grid-area: tool-2;
 }
