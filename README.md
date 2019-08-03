@@ -141,3 +141,5 @@ Sign in/up source code, [site](https://startbootstrap.com/snippets/login/).
 
 Very good authentication example for firebase, [site](https://github.com/SinghDigamber/angularfirebase-authentication).
 
+Nice chat UI, [site](https://bootsnipp.com/snippets/0e3Ma).
+
