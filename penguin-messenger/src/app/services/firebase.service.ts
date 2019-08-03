@@ -27,6 +27,18 @@ export class FirebaseService {
     );
   }
 
+  public getUsers(): Observable<UserData[]> {
+    return this.db.collection('usersdata').snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as UserData;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+  }
+
   getUserData(UID) {
     return this.db.doc<UserData>('usersdata/' + UID).valueChanges();
   }
