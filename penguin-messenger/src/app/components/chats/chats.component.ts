@@ -53,7 +53,7 @@ export class ChatsComponent implements OnInit {
 
   getSenderImage(uid) {
     for (const user of this.users) {
-      if (user.id === uid) {
+      if (user.uid === uid) {
         return user.photoURL;
       }
     }

@@ -99,7 +99,7 @@ export class AuthService {
         const x: UserData =  {
           displayName: this.user.displayName,
           photoURL: this.user.photoURL,
-          id: this.user.uid
+          uid: this.user.uid
         };
         localStorage.setItem('usersData', JSON.stringify(x));
       } else {

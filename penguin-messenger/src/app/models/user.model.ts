@@ -9,5 +9,5 @@ export interface User {
 export interface UserData {
   displayName: string;
   photoURL: string;
-  id: string;
+  uid: string;
 }

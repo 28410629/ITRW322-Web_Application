@@ -32,8 +32,7 @@ export class FirebaseService {
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as UserData;
-          const id = a.payload.doc.id;
-          return { id, ...data };
+          return { ...data };
         });
       })
     );
