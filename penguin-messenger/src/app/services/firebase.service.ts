@@ -51,8 +51,8 @@ export class FirebaseService {
     );
   }
 
-  public getConversations(cid): Observable<Conversation[]> {
-    return this.db.collection('conversations', ref => ref.where('participants', 'array-contains', cid))
+  public getConversations(userid): Observable<Conversation[]> {
+    return this.db.collection('conversations', ref => ref.where('participants', 'array-contains', userid))
       .snapshotChanges().pipe(
         map(actions => {
           return actions.map(a => {
@@ -64,8 +64,8 @@ export class FirebaseService {
       );
   }
 
-  getUserData(UID) {
-    return this.db.doc<UserData>('usersdata/' + UID).valueChanges();
+  getUserData(userid) {
+    return this.db.doc<UserData>('usersdata/' + userid).valueChanges();
   }
 
   updateUserData(UID, DisplayName, PhotoURL) {
@@ -78,32 +78,6 @@ export class FirebaseService {
   uploadUserPhoto(UID, event) {
     this.afStorage.upload('/users/' + UID + '/photo', event.target.files[0]);
   }
-
-  deleteUser(DocumentId) {
-    return this.db.collection('Posts').doc(DocumentId).delete();
-  }
-
-  searchUsers(searchValue) {
-    return this.db.collection('conversations', ref => ref.where('nameToSearch', '>=', searchValue)
-      .where('nameToSearch', '<=', searchValue + '\uf8ff'))
-      .snapshotChanges();
-  }
-
-  searchUsersByAge(value) {
-    return this.db.collection('users', ref => ref.orderBy('age').startAt(value)).snapshotChanges();
-  }
-
-  searchConversationsForUser(UID) {
-    return this.db.collectionGroup('participants', ref => ref.where('uid', '==', UID)).snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const id = a.payload.doc.id;
-          return { id };
-        });
-      })
-    );
-  }
-
 
   public createMessage(newmessage: string, newuid: string) {
     return this.db.collection('PublicChannel').add({
