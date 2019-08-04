@@ -45,7 +45,6 @@ export class ChatsComponent implements OnInit {
   }
 
   sendMessage() {
-    console.log(this.msgValue);
     this.fbService.createMessage(this.msgValue, this.activeUser.uid);
     this.msgValue = '';
   }
@@ -62,10 +61,33 @@ export class ChatsComponent implements OnInit {
     }
   }
 
+  getChatType(isgroupchat: boolean) {
+      if (isgroupchat) {
+        return 'Group conversation.';
+      } else {
+        return 'Direct conversation.';
+      }
+  }
+
+  getChatName(isgroupchat: boolean, name: string) {
+    if (isgroupchat) {
+      return name;
+    } else {
+      return 'still need to detect other person';
+    }
+  }
+
+  getChatPicture(isgroupchat: boolean) {
+    if (isgroupchat) {
+      return name;
+    } else {
+      return 'still need to detect other person';
+    }
+  }
+
   getUsers() {
     this.fbService.getUsers().subscribe(responseData => {
       this.users = responseData;
-      console.log(responseData);
     });
   }
 

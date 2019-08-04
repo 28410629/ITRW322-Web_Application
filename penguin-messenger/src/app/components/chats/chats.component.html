@@ -16,21 +16,21 @@
                 <img src="/assets/loadingProfile.png"/>
                 <div class="meta">
                   <p class="name">Public Channel</p>
-                  <p class="preview">Group based chat.</p>
+                  <p class="preview">Channel available to all users.</p>
                 </div>
               </div>
             </li>
-          </ul>
-          <ul style="list-style: none; padding-left: 0px" *ngFor="let conversation of conversations">
-            <li class="contact">
-              <div class="wrap">
-                <img src="/assets/loadingProfile.png"/>
-                <div class="meta">
-                  <p class="name">{{ conversation.name }}</p>
-                  <p class="preview">Direct based chat.</p>
+            <div *ngFor="let conversation of conversations">
+              <li class="contact">
+                <div class="wrap">
+                  <img src="/assets/loadingProfile.png"/>
+                  <div class="meta">
+                    <p class="name">{{ getChatName(conversation.isgroupchat, conversation.name) }}</p>
+                    <p class="preview">{{ getChatType(conversation.isgroupchat) }}</p>
+                  </div>
                 </div>
-              </div>
-            </li>
+              </li>
+            </div>
           </ul>
         </div>
         <div id="bottom-bar">
