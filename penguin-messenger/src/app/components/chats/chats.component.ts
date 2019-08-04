@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {FirebaseListObservable} from '@angular/fire/database-deprecated';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {FirebaseService} from '../../services/firebase.service';
 import {PublicChannel} from '../../models/publicChannel.model';
-import Timestamp = firebase.firestore.Timestamp;
 import * as firebase from 'firebase';
+import Timestamp = firebase.firestore.Timestamp;
+import {User, UserData} from '../../models/user.model';
+
 
 @Component({
   selector: 'app-chats',
@@ -14,14 +15,17 @@ import * as firebase from 'firebase';
 })
 export class ChatsComponent implements OnInit {
   angForm: FormGroup;
-  items: Array<PublicChannel>;
+  messages: Array<PublicChannel>;
   msgValue = '';
+  users: Array<UserData>;
+  activeUser: User;
 
   constructor(private fb: FormBuilder, private afs: AngularFirestore, private fbService: FirebaseService) {
+    this.activeUser = JSON.parse(localStorage.getItem('user'));
     this.createForm();
-    this.getMessage();
+    this.getMessages();
+    this.getUsers();
   }
-
 
   createForm() {
     this.angForm = this.fb.group({
@@ -31,17 +35,15 @@ export class ChatsComponent implements OnInit {
   ngOnInit() {
   }
 
-  getMessage() {
+  getMessages() {
   this.fbService.getPublicChannel().subscribe(responseData => {
-    this.items = responseData; }
+    this.messages = responseData; }
   );
   }
 
   sendMessage() {
-
-    const user = JSON.parse(localStorage.getItem('user'));
     console.log(this.msgValue);
-    this.fbService.createMessage(this.msgValue, user.uid);
+    this.fbService.createMessage(this.msgValue, this.activeUser.uid);
     this.msgValue = '';
   }
 
@@ -49,5 +51,18 @@ export class ChatsComponent implements OnInit {
     return tstmp.toDate();
   }
 
+  getSenderImage(uid) {
+    for (const user of this.users) {
+      if (user.uid === uid) {
+        return user.photoURL;
+      }
+    }
+  }
 
+  getUsers() {
+    this.fbService.getUsers().subscribe(responseData => {
+      this.users = responseData;
+      console.log(responseData);
+    });
+  }
 }
