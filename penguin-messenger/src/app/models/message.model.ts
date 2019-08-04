@@ -14,7 +14,7 @@ export interface Conversation {
   participants: string[];
 }
 
-export interface Conversations {
+export interface Messages {
   messages?: (Message)[] | null;
 }
 

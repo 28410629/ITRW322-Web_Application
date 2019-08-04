@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Conversation } from '../models/message.model';
+import {Conversation, Message, Messages} from '../models/message.model';
 import { UserData } from '../models/user.model';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { PublicChannel, PublicChannels } from '../models/publicChannel.model';
@@ -21,6 +21,19 @@ export class FirebaseService {
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as PublicChannel;
+          return { ...data };
+        });
+      })
+    );
+  }
+
+  public getMessages(conversationid): Observable<Message[]> {
+    return this.db.collection<Messages>('conversations/' + conversationid + '/messages', ref => ref.orderBy('Date', 'asc'))
+      .snapshotChanges()
+      .pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Message;
           return { ...data };
         });
       })
