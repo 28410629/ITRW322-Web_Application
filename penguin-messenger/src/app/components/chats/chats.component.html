@@ -42,7 +42,7 @@
           <img src="/assets/loadingProfile.png"/>
           <p>Public Channel</p>
         </div>
-        <div class="messages" style="margin: 0px">
+        <div #scrollMe [scrollTop]="scrollMe.scrollHeight" class="messages" style="margin: 0px">
           <ul *ngFor="let message of messages">
             <li [ngClass]="(message.UID == activeUser.uid)?'replies':'sent'">
 <!--              Database needs to store UID within userdata-->

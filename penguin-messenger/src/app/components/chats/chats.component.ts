@@ -40,8 +40,8 @@ export class ChatsComponent implements OnInit {
 
   getMessages() {
   this.fbService.getPublicChannel().subscribe(responseData => {
-    this.messages = responseData; }
-  );
+    this.messages = responseData;
+  });
   }
 
   sendMessage() {
