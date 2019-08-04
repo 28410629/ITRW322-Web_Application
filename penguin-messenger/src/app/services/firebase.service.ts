@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Post, Posts } from '../models/message.model';
+import { Conversation } from '../models/message.model';
 import { UserData } from '../models/user.model';
 import { AngularFireStorage } from '@angular/fire/storage';
-import {PublicChannel, PublicChannels} from '../models/publicChannel.model';
+import { PublicChannel, PublicChannels } from '../models/publicChannel.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +36,19 @@ export class FirebaseService {
         });
       })
     );
+  }
+
+  public getConversations(cid): Observable<Conversation[]> {
+    return this.db.collection('conversations', ref => ref.where('participants', 'array-contains', cid))
+      .snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as Conversation;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+      );
   }
 
   getUserData(UID) {

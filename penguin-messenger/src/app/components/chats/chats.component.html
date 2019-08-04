@@ -20,11 +20,13 @@
                 </div>
               </div>
             </li>
+          </ul>
+          <ul style="list-style: none; padding-left: 0px" *ngFor="let conversation of conversations">
             <li class="contact">
               <div class="wrap">
                 <img src="/assets/loadingProfile.png"/>
                 <div class="meta">
-                  <p class="name">Harvey Specter</p>
+                  <p class="name">{{ conversation.name }}</p>
                   <p class="preview">Direct based chat.</p>
                 </div>
               </div>

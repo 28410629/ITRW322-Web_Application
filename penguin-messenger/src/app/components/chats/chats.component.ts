@@ -6,6 +6,7 @@ import {PublicChannel} from '../../models/publicChannel.model';
 import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 import {User, UserData} from '../../models/user.model';
+import {Conversation} from '../../models/message.model';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class ChatsComponent implements OnInit {
   messages: Array<PublicChannel>;
   msgValue = '';
   users: Array<UserData>;
+  conversations: Array<Conversation>;
   activeUser: User;
 
   constructor(private fb: FormBuilder, private afs: AngularFirestore, private fbService: FirebaseService) {
@@ -25,6 +27,7 @@ export class ChatsComponent implements OnInit {
     this.createForm();
     this.getMessages();
     this.getUsers();
+    this.getConversations();
   }
 
   createForm() {
@@ -52,7 +55,7 @@ export class ChatsComponent implements OnInit {
   }
 
   getSenderImage(uid) {
-    for (const user of this.users) {
+    for (let user of this.users) {
       if (user.uid === uid) {
         return user.photoURL;
       }
@@ -63,6 +66,12 @@ export class ChatsComponent implements OnInit {
     this.fbService.getUsers().subscribe(responseData => {
       this.users = responseData;
       console.log(responseData);
+    });
+  }
+
+  getConversations() {
+    this.fbService.getConversations(this.activeUser.uid).subscribe(responseData => {
+      this.conversations = responseData;
     });
   }
 }
