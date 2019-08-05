@@ -12,6 +12,7 @@ export interface Conversation {
   id: string;
   name: string;
   participants: string[];
+  groupPhotoURL: string;
 }
 
 export interface Messages {
