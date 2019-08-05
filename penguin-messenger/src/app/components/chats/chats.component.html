@@ -40,7 +40,7 @@
       <div class="content">
         <div class="contact-profile">
           <img src="/assets/loadingProfile.png"/>
-          <p>Public Channel</p>
+          <p>{{ ConversationName }}</p>
         </div>
         <div #scrollMe [scrollTop]="scrollMe.scrollHeight" class="messages" style="margin: 0px">
           <ul *ngFor="let message of Messages">

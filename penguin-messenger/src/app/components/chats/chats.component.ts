@@ -51,12 +51,14 @@ export class ChatsComponent implements OnInit {
     this.firebaseService.getMessages(conversationid)
       .subscribe(responseData => {
         this.Messages = responseData;
+        this.ConversationName = 'Other chat';
     });
   }
 
   SetPublicConversation() {
     this.firebaseService.getPublicChannel().subscribe(responseData => {
       this.Messages = responseData;
+      this.ConversationName = 'Public Channel';
     });
   }
 
