@@ -51,6 +51,7 @@ export class ChatsComponent implements OnInit {
     this.firebaseService.getMessages(conversationid)
       .subscribe(responseData => {
         this.Messages = responseData;
+        console.log(this.Messages);
     });
   }
 

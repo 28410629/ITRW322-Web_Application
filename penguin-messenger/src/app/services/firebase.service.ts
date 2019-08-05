@@ -17,24 +17,28 @@ export class FirebaseService {
               private afStorage: AngularFireStorage) {}
 
   public getPublicChannel(): Observable<PublicChannel[]> {
-    return this.db.collection<PublicChannels>('PublicChannel', ref => ref.orderBy('Date', 'asc')).snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as PublicChannel;
-          return { ...data };
-        });
-      })
-    );
+    return this.db.collection<PublicChannels>('PublicChannel', ref => ref.orderBy('Date', 'asc'))
+      .snapshotChanges()
+      .pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as PublicChannel;
+            return { ...data };
+          });
+        })
+      );
   }
 
   public getMessages(conversationid): Observable<Message[]> {
-    return this.db.collection<Messages>('conversations/' + conversationid + '/messages', ref => ref.orderBy('Date', 'asc'))
+    return this.db.collection<Messages>('conversations')
+      .doc(conversationid)
+      .collection('messages', ref => ref.orderBy('Date', 'asc'))
       .snapshotChanges()
       .pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as Message;
-          return { ...data };
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as Message;
+            return { ...data };
         });
       })
     );
