@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {FirebaseService} from '../../services/firebase.service';
-import {PublicChannel} from '../../models/publicChannel.model';
+import { FirebaseService } from '../../services/firebase.service';
+import { PublicChannel } from '../../models/publicChannel.model';
 import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
-import {User, UserData} from '../../models/user.model';
+import { User, UserData} from '../../models/user.model';
+import { Conversation, Message } from '../../models/message.model';
 
 
 @Component({
@@ -14,36 +13,64 @@ import {User, UserData} from '../../models/user.model';
   styleUrls: ['./chats.component.scss']
 })
 export class ChatsComponent implements OnInit {
-  angForm: FormGroup;
+  // Current public channel message that need to be transferred to global message model
   messages: Array<PublicChannel>;
-  msgValue = '';
+
+  // All user data from firebase to add their display names and photos to the chats
   users: Array<UserData>;
+
+  // Message being sent via input box
+  msgValue = '';
+
+  // Sidebar active conversation of active user
+  conversations: Array<Conversation>;
+
+  // Current active user
   activeUser: User;
 
-  constructor(private fb: FormBuilder, private afs: AngularFirestore, private fbService: FirebaseService) {
+  // Selected conversation based firebase directory messages (global message model)
+  Messages: Array<Message>;
+  ConversationName;
+  ConversationPicture;
+  ConversationPath;
+  IsPublicChat = true;
+
+  constructor(private firebaseService: FirebaseService) {
+    // Get active user data from local storage after login
     this.activeUser = JSON.parse(localStorage.getItem('user'));
-    this.createForm();
-    this.getMessages();
+
+    // Get user data for use within messages
     this.getUsers();
+
+    // Set active user's open conversation in sidebar
+    this.getConversations();
+
+    // Get public channel messages
+    this.SetPublicConversation();
   }
 
-  createForm() {
-    this.angForm = this.fb.group({
-      message: ['', Validators.required ]
+  SetSelectedConversation(conversationid) {
+    this.IsPublicChat = false;
+    this.ConversationPath = 'conversations/' + conversationid + '/messages';
+    this.firebaseService.getMessages(conversationid)
+      .subscribe(responseData => {
+        this.Messages = responseData;
+        this.ConversationName = 'Other chat';
     });
   }
-  ngOnInit() {
-  }
 
-  getMessages() {
-  this.fbService.getPublicChannel().subscribe(responseData => {
-    this.messages = responseData; }
-  );
+  SetPublicConversation() {
+    this.IsPublicChat = true;
+    this.ConversationPath = 'channels/public/messages';
+    this.firebaseService.getPublicChannel().subscribe(responseData => {
+      this.Messages = responseData;
+      this.ConversationName = 'Public Channel';
+      this.IsPublicChat = true;
+    });
   }
 
   sendMessage() {
-    console.log(this.msgValue);
-    this.fbService.createMessage(this.msgValue, this.activeUser.uid);
+    this.firebaseService.NewMessage(this.ConversationPath, this.msgValue, this.activeUser.uid);
     this.msgValue = '';
   }
 
@@ -59,10 +86,42 @@ export class ChatsComponent implements OnInit {
     }
   }
 
+  getChatType(isgroupchat: boolean) {
+      if (isgroupchat) {
+        return 'Group conversation.';
+      } else {
+        return 'Direct conversation.';
+      }
+  }
+
+  getChatName(isgroupchat: boolean, name: string) {
+    if (isgroupchat) {
+      return name;
+    } else {
+      return 'still need to detect other person';
+    }
+  }
+
+  getChatPicture(isgroupchat: boolean) {
+    if (isgroupchat) {
+      return name;
+    } else {
+      return 'still need to detect other person';
+    }
+  }
+
   getUsers() {
-    this.fbService.getUsers().subscribe(responseData => {
+    this.firebaseService.getUsers().subscribe(responseData => {
       this.users = responseData;
-      console.log(responseData);
     });
+  }
+
+  getConversations() {
+    this.firebaseService.getConversations(this.activeUser.uid).subscribe(responseData => {
+      this.conversations = responseData;
+    });
+  }
+
+  ngOnInit() {
   }
 }

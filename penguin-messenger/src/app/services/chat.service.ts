@@ -3,13 +3,12 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Conversation, Message, Messages } from '../models/message.model';
-import { UserData } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class FirebaseService {
+export class ChatService {
 
   constructor(private db: AngularFirestore) {}
 
@@ -34,20 +33,9 @@ export class FirebaseService {
           return actions.map(a => {
             const data = a.payload.doc.data() as Message;
             return { ...data };
-        });
-      })
-    );
-  }
-
-  public getUsers(): Observable<UserData[]> {
-    return this.db.collection('usersdata').snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as UserData;
-          return { ...data };
-        });
-      })
-    );
+          });
+        })
+      );
   }
 
   public getConversations(userid): Observable<Conversation[]> {
@@ -63,17 +51,6 @@ export class FirebaseService {
       );
   }
 
-  getUserData(userid) {
-    return this.db.doc<UserData>('usersdata/' + userid).valueChanges();
-  }
-
-  updateUserData(UID, DisplayName, PhotoURL) {
-    this.db.doc('usersdata/' + UID).update({
-      displayName: DisplayName,
-      photoURL: PhotoURL
-    });
-  }
-
   public createMessage(newmessage: string, newuid: string) {
     return this.db.collection('channels/public/messages').add({
       datetime: new Date(),
@@ -87,15 +64,6 @@ export class FirebaseService {
       datetime: new Date(),
       message: newmessage,
       uid: newuid
-    });
-  }
-
-  public CreateChat(newDescription: string, isGroupChat: boolean, newName: string, newParticipants: string[]) {
-    return this.db.collection('conversations').add({
-      description: newDescription,
-      isgroupchat: isGroupChat,
-      name: newName,
-      participants: newParticipants,
     });
   }
 }

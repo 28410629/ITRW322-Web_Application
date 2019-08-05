@@ -11,42 +11,43 @@
       <div id="sidepanel">
         <div id="contacts">
           <ul style="list-style: none; padding-left: 0px">
-            <li class="contact active">
+            <li class="contact active" (click)="SetPublicConversation()">
               <div class="wrap">
                 <img src="/assets/loadingProfile.png"/>
                 <div class="meta">
                   <p class="name">Public Channel</p>
-                  <p class="preview">Group based chat.</p>
+                  <p class="preview">Channel available to all users.</p>
                 </div>
               </div>
             </li>
-            <li class="contact">
-              <div class="wrap">
-                <img src="/assets/loadingProfile.png"/>
-                <div class="meta">
-                  <p class="name">Harvey Specter</p>
-                  <p class="preview">Direct based chat.</p>
+            <div *ngFor="let conversation of conversations">
+              <li class="contact" (click)="SetSelectedConversation(conversation.id)">
+                <div class="wrap">
+                  <img src="/assets/loadingProfile.png"/>
+                  <div class="meta">
+                    <p class="name">{{ getChatName(conversation.isgroupchat, conversation.name) }}</p>
+                    <p class="preview">{{ getChatType(conversation.isgroupchat) }}</p>
+                  </div>
                 </div>
-              </div>
-            </li>
+              </li>
+            </div>
           </ul>
         </div>
         <div id="bottom-bar">
-          <button id="addcontact"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Add contact</span></button>
-          <button id="settings"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button>
+          <button id="addcontact"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Start New Chat</span></button>
         </div>
       </div>
       <div class="content">
         <div class="contact-profile">
           <img src="/assets/loadingProfile.png"/>
-          <p>Public Channel</p>
+          <p>{{ ConversationName }}</p>
         </div>
-        <div class="messages" style="margin: 0px">
-          <ul *ngFor="let message of messages">
-            <li [ngClass]="(message.UID == activeUser.uid)?'replies':'sent'">
+        <div #scrollMe [scrollTop]="scrollMe.scrollHeight" class="messages" style="margin: 0px">
+          <ul *ngFor="let message of Messages">
+            <li [ngClass]="(message.uid == activeUser.uid)?'replies':'sent'">
 <!--              Database needs to store UID within userdata-->
-              <img src="{{ getSenderImage(message.UID)}}"/>
-              <p>{{ getGoodDate(message.Date) | date:'shortTime' }}: {{ message.Message }}</p>
+              <img src="{{ getSenderImage(message.uid)}}"/>
+              <p>{{ getGoodDate(message.datetime) | date:'shortTime' }}: {{ message.message }}</p>
             </li>
           </ul>
         </div>

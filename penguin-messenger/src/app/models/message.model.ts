@@ -2,18 +2,25 @@
 import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 
-export interface Posts {
-  Posts?: (Post)[] | null;
+export interface Conversations {
+  conversations?: (Conversation)[] | null;
 }
 
-export interface Post {
-  Author: string;
-  AuthorRouterUrl: string;
-  ContentMdUrl: string;
-  Date: Timestamp;
-  Description: string;
-  Featured: boolean;
-  HomeImageUrl: string;
-  Title: string;
+export interface Conversation {
+  description: string;
+  isgroupchat: boolean;
   id: string;
+  name: string;
+  participants: string[];
+}
+
+export interface Messages {
+  messages?: (Message)[] | null;
+}
+
+
+export interface Message {
+  datetime: Timestamp;
+  message: string;
+  uid: string;
 }

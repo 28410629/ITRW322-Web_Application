@@ -7,8 +7,7 @@ export interface PublicChannels {
 }
 
 export interface PublicChannel {
-  Message: string;
-  UID: string;
-  Date: Timestamp;
-
+  datetime: Timestamp;
+  message: string;
+  uid: string;
 }
