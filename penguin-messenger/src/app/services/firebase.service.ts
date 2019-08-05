@@ -83,6 +83,14 @@ export class FirebaseService {
       uid: newuid
     });
   }
+
+  public NewMessage(path: string, newmessage: string, newuid: string) {
+    return this.db.collection(path).add({
+      datetime: new Date(),
+      message: newmessage,
+      uid: newuid
+    });
+  }
 }
 
 

@@ -32,6 +32,8 @@ export class ChatsComponent implements OnInit {
   Messages: Array<Message>;
   ConversationName;
   ConversationPicture;
+  ConversationPath;
+  IsPublicChat = true;
 
   constructor(private firebaseService: FirebaseService) {
     // Get active user data from local storage after login
@@ -48,6 +50,8 @@ export class ChatsComponent implements OnInit {
   }
 
   SetSelectedConversation(conversationid) {
+    this.IsPublicChat = false;
+    this.ConversationPath = 'conversations/' + conversationid + '/messages';
     this.firebaseService.getMessages(conversationid)
       .subscribe(responseData => {
         this.Messages = responseData;
@@ -56,14 +60,17 @@ export class ChatsComponent implements OnInit {
   }
 
   SetPublicConversation() {
+    this.IsPublicChat = true;
+    this.ConversationPath = 'channels/public/messages';
     this.firebaseService.getPublicChannel().subscribe(responseData => {
       this.Messages = responseData;
       this.ConversationName = 'Public Channel';
+      this.IsPublicChat = true;
     });
   }
 
   sendMessage() {
-    this.firebaseService.createMessage(this.msgValue, this.activeUser.uid);
+    this.firebaseService.NewMessage(this.ConversationPath, this.msgValue, this.activeUser.uid);
     this.msgValue = '';
   }
 
