@@ -49,6 +49,7 @@ export class ChatsComponent implements OnInit {
   }
 
   SetSelectedConversation(conversationid, conversationobject: Conversation) {
+    this.ConversationPhoto = '';
     this.CurrentConversation = conversationobject;
     this.IsPublicChat = false;
     this.ConversationPath = 'conversations/' + conversationid + '/messages';
@@ -62,6 +63,7 @@ export class ChatsComponent implements OnInit {
 
   GetConversationName(): string {
     if (this.CurrentConversation.isgroupchat) {
+      this.ConversationPhoto = this.CurrentConversation.groupPhotoURL;
       return this.CurrentConversation.name;
     } else {
       if (this.CurrentConversation.participants[0] === this.activeUser.uid) {
