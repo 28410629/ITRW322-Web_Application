@@ -89,6 +89,15 @@ export class FirebaseService {
       uid: newuid
     });
   }
+
+  public CreateChat(newDescription: string, isGroupChat: boolean, newName: string, newParticipants: string[]) {
+    return this.db.collection('conversations').add({
+      description: newDescription,
+      isgroupchat: isGroupChat,
+      name: newName,
+      participants: newParticipants,
+    });
+  }
 }
 
 
