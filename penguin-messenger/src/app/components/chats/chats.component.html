@@ -21,7 +21,7 @@
               </div>
             </li>
             <div *ngFor="let conversation of conversations">
-              <li class="contact">
+              <li class="contact" (click)="SetSelectedConversation(conversation.id)">
                 <div class="wrap">
                   <img src="/assets/loadingProfile.png"/>
                   <div class="meta">

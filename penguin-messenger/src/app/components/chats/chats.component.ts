@@ -28,11 +28,12 @@ export class ChatsComponent implements OnInit {
   // Current active user
   activeUser: User;
 
-  // Conversation based firebase directory messages (global message model)
+  // Selected conversation based firebase directory messages (global message model)
   Messages: Array<Message>;
+  ConversationName;
+  ConversationPicture;
 
-
-  constructor(private fbService: FirebaseService) {
+  constructor(private firebaseService: FirebaseService) {
     // Get active user data from local storage after login
     this.activeUser = JSON.parse(localStorage.getItem('user'));
 
@@ -46,17 +47,21 @@ export class ChatsComponent implements OnInit {
     this.getMessages();
   }
 
-  ngOnInit() {
+  SetSelectedConversation(conversationid) {
+    this.firebaseService.getMessages(conversationid)
+      .subscribe(responseData => {
+        this.Messages = responseData;
+    });
   }
 
   getMessages() {
-  this.fbService.getPublicChannel().subscribe(responseData => {
-    this.messages = responseData;
-  });
+    this.firebaseService.getPublicChannel().subscribe(responseData => {
+      this.messages = responseData;
+    });
   }
 
   sendMessage() {
-    this.fbService.createMessage(this.msgValue, this.activeUser.uid);
+    this.firebaseService.createMessage(this.msgValue, this.activeUser.uid);
     this.msgValue = '';
   }
 
@@ -97,14 +102,17 @@ export class ChatsComponent implements OnInit {
   }
 
   getUsers() {
-    this.fbService.getUsers().subscribe(responseData => {
+    this.firebaseService.getUsers().subscribe(responseData => {
       this.users = responseData;
     });
   }
 
   getConversations() {
-    this.fbService.getConversations(this.activeUser.uid).subscribe(responseData => {
+    this.firebaseService.getConversations(this.activeUser.uid).subscribe(responseData => {
       this.conversations = responseData;
     });
+  }
+
+  ngOnInit() {
   }
 }
