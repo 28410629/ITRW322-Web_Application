@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { HttpClient } from '@angular/common/http';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire';
 
@@ -15,6 +15,8 @@ import { MarkdownModule, MarkedOptions, MarkedRenderer } from 'ngx-markdown';
 
 import { AuthService } from './services/authorisation/auth.service';
 import { FirebaseService } from './services/firebase.service';
+import { ChatService } from './services/chat.service';
+import { CryptoService } from './services/crypto.service';
 
 import { AppComponent } from './components/application/app/app.component';
 import { HeaderComponent } from './components/application/header/header.component';
@@ -24,6 +26,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ToolsComponent } from './components/tools/tools.component';
 import { ChatsComponent } from './components/chats/chats.component';
 import { HeaderUserComponent } from './components/application/header-user/header-user.component';
+
 
 export function markedOptions(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -73,7 +76,7 @@ export function markedOptions(): MarkedOptions {
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [FirebaseService, AuthService],
+  providers: [FirebaseService, AuthService, ChatService, CryptoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
