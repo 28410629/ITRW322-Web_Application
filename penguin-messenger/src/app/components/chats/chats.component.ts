@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {FirebaseService} from '../../services/firebase.service';
-import {PublicChannel} from '../../models/publicChannel.model';
+import { FirebaseService } from '../../services/firebase.service';
+import { PublicChannel } from '../../models/publicChannel.model';
 import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
-import {User, UserData} from '../../models/user.model';
-import {Conversation, Message} from '../../models/message.model';
+import { User, UserData} from '../../models/user.model';
+import { Conversation, Message } from '../../models/message.model';
 
 
 @Component({
@@ -34,7 +32,7 @@ export class ChatsComponent implements OnInit {
   Messages: Array<Message>;
 
 
-  constructor(private fb: FormBuilder, private afs: AngularFirestore, private fbService: FirebaseService) {
+  constructor(private fbService: FirebaseService) {
     // Get active user data from local storage after login
     this.activeUser = JSON.parse(localStorage.getItem('user'));
 
