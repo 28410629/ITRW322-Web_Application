@@ -21,11 +21,11 @@
               </div>
             </li>
             <div *ngFor="let conversation of conversations">
-              <li class="contact" (click)="SetSelectedConversation(conversation.id)">
+              <li class="contact" (click)="SetSelectedConversation(conversation.id, conversation)">
                 <div class="wrap">
-                  <img src="/assets/loadingProfile.png"/>
+                  <img src="{{ getChatPhoto(conversation.isgroupchat, conversation.groupPhotoURL, conversation.participants) }}"/>
                   <div class="meta">
-                    <p class="name">{{ getChatName(conversation.isgroupchat, conversation.name) }}</p>
+                    <p class="name">{{ getChatName(conversation.isgroupchat, conversation.name, conversation.participants) }}</p>
                     <p class="preview">{{ getChatType(conversation.isgroupchat) }}</p>
                   </div>
                 </div>
@@ -39,7 +39,7 @@
       </div>
       <div class="content">
         <div class="contact-profile">
-          <img src="/assets/loadingProfile.png"/>
+          <img src="{{ConversationPhoto}}" >
           <p>{{ ConversationName }}</p>
         </div>
         <div #scrollMe [scrollTop]="scrollMe.scrollHeight" class="messages" style="margin: 0px">
