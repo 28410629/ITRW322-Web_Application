@@ -43,11 +43,11 @@
           <p>Public Channel</p>
         </div>
         <div #scrollMe [scrollTop]="scrollMe.scrollHeight" class="messages" style="margin: 0px">
-          <ul *ngFor="let message of messages">
-            <li [ngClass]="(message.UID == activeUser.uid)?'replies':'sent'">
+          <ul *ngFor="let message of Messages">
+            <li [ngClass]="(message.uid == activeUser.uid)?'replies':'sent'">
 <!--              Database needs to store UID within userdata-->
-              <img src="{{ getSenderImage(message.UID)}}"/>
-              <p>{{ getGoodDate(message.Date) | date:'shortTime' }}: {{ message.Message }}</p>
+              <img src="{{ getSenderImage(message.uid)}}"/>
+              <p>{{ getGoodDate(message.datetime) | date:'shortTime' }}: {{ message.message }}</p>
             </li>
           </ul>
         </div>

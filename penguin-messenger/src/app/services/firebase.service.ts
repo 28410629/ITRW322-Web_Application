@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import {Conversation, Message, Messages} from '../models/message.model';
 import { UserData } from '../models/user.model';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { PublicChannel, PublicChannels } from '../models/publicChannel.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +15,13 @@ export class FirebaseService {
   constructor(private db: AngularFirestore,
               private afStorage: AngularFireStorage) {}
 
-  public getPublicChannel(): Observable<PublicChannel[]> {
-    return this.db.collection<PublicChannels>('PublicChannel', ref => ref.orderBy('Date', 'asc'))
+  public getPublicChannel(): Observable<Message[]> {
+    return this.db.collection<Messages>('channels/public/messages', ref => ref.orderBy('datetime', 'asc'))
       .snapshotChanges()
       .pipe(
         map(actions => {
           return actions.map(a => {
-            const data = a.payload.doc.data() as PublicChannel;
+            const data = a.payload.doc.data() as Message;
             return { ...data };
           });
         })
@@ -79,10 +78,10 @@ export class FirebaseService {
   }
 
   public createMessage(newmessage: string, newuid: string) {
-    return this.db.collection('PublicChannel').add({
-      Date: new Date(),
-      Message: newmessage,
-      UID: newuid
+    return this.db.collection('channels/public/messages').add({
+      datetime: new Date(),
+      message: newmessage,
+      uid: newuid
     });
   }
 }
