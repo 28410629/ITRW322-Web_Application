@@ -44,7 +44,7 @@ export class ChatsComponent implements OnInit {
     this.getConversations();
 
     // Get public channel messages
-    this.getMessages();
+    this.SetPublicConversation();
   }
 
   SetSelectedConversation(conversationid) {
@@ -54,10 +54,9 @@ export class ChatsComponent implements OnInit {
     });
   }
 
-  getMessages() {
+  SetPublicConversation() {
     this.firebaseService.getPublicChannel().subscribe(responseData => {
       this.Messages = responseData;
-      console.log(this.Messages);
     });
   }
 

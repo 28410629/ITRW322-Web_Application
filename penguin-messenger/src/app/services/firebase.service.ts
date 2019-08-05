@@ -29,7 +29,6 @@ export class FirebaseService {
   }
 
   public getMessages(conversationid): Observable<Message[]> {
-    console.log('Within servive: ' + conversationid);
     return this.db.collection<Messages>('conversations/' + conversationid + '/messages', ref => ref.orderBy('datetime', 'asc'))
       .snapshotChanges()
       .pipe(
