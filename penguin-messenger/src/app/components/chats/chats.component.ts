@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 import { User, UserData} from '../../models/user.model';
 import { Conversation, Message } from '../../models/message.model';
+import {getImportsOfUmdModule} from '@angular/compiler-cli/ngcc/src/host/umd_host';
 
 
 @Component({
@@ -27,8 +28,8 @@ export class ChatsComponent implements OnInit {
 
   // Selected conversation based firebase directory messages (global message model)
   Messages: Array<Message>;
+  ConversationPhoto: string;
   ConversationName;
-  ConversationPicture;
   ConversationPath;
   IsPublicChat = true;
   CurrentConversation: Conversation;
@@ -55,6 +56,7 @@ export class ChatsComponent implements OnInit {
       .subscribe(responseData => {
         this.Messages = responseData;
         this.ConversationName = this.GetConversationName();
+
     });
   }
 
@@ -63,8 +65,10 @@ export class ChatsComponent implements OnInit {
       return this.CurrentConversation.name;
     } else {
       if (this.CurrentConversation.participants[0] === this.activeUser.uid) {
+        this.ConversationPhoto = this.getSenderImage(this.CurrentConversation.participants[1]);
         return this.getSenderName(this.CurrentConversation.participants[1]);
       } else {
+        this.ConversationPhoto  = this.getSenderImage(this.CurrentConversation.participants[0]);
         return this.getSenderName(this.CurrentConversation.participants[0]);
       }
     }
@@ -121,6 +125,18 @@ export class ChatsComponent implements OnInit {
         return this.getSenderName(participants[1]);
       } else {
         return this.getSenderName(participants[0]);
+      }
+    }
+  }
+
+  getChatPhoto(isgroupchat: boolean, groupImage, participants: string[]) {
+    if (isgroupchat) {
+      return groupImage;
+    } else {
+      if (participants[0] === this.activeUser.uid) {
+        return this.getSenderImage(participants[1]);
+      } else {
+        return this.getSenderImage(participants[0]);
       }
     }
   }
