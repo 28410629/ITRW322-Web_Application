@@ -75,10 +75,6 @@ export class FirebaseService {
     });
   }
 
-  uploadUserPhoto(UID, event) {
-    this.afStorage.upload('/users/' + UID + '/photo', event.target.files[0]);
-  }
-
   public createMessage(newmessage: string, newuid: string) {
     return this.db.collection('PublicChannel').add({
       Date: new Date(),

@@ -6,7 +6,7 @@ import {PublicChannel} from '../../models/publicChannel.model';
 import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 import {User, UserData} from '../../models/user.model';
-import {Conversation} from '../../models/message.model';
+import {Conversation, Message} from '../../models/message.model';
 
 
 @Component({
@@ -15,26 +15,39 @@ import {Conversation} from '../../models/message.model';
   styleUrls: ['./chats.component.scss']
 })
 export class ChatsComponent implements OnInit {
-  angForm: FormGroup;
+  // Current public channel message that need to be transferred to global message model
   messages: Array<PublicChannel>;
-  msgValue = '';
+
+  // All user data from firebase to add their display names and photos to the chats
   users: Array<UserData>;
+
+  // Message being sent via input box
+  msgValue = '';
+
+  // Sidebar active conversation of active user
   conversations: Array<Conversation>;
+
+  // Current active user
   activeUser: User;
 
+  // Conversation based firebase directory messages (global message model)
+  Messages: Array<Message>;
+
+
   constructor(private fb: FormBuilder, private afs: AngularFirestore, private fbService: FirebaseService) {
+    // Get active user data from local storage after login
     this.activeUser = JSON.parse(localStorage.getItem('user'));
-    this.createForm();
-    this.getMessages();
+
+    // Get user data for use within messages
     this.getUsers();
+
+    // Set active user's open conversation in sidebar
     this.getConversations();
+
+    // Get public channel messages
+    this.getMessages();
   }
 
-  createForm() {
-    this.angForm = this.fb.group({
-      message: ['', Validators.required ]
-    });
-  }
   ngOnInit() {
   }
 
@@ -54,7 +67,7 @@ export class ChatsComponent implements OnInit {
   }
 
   getSenderImage(uid) {
-    for (let user of this.users) {
+    for (const user of this.users) {
       if (user.uid === uid) {
         return user.photoURL;
       }
