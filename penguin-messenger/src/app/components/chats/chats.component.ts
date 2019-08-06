@@ -3,9 +3,8 @@ import { FirebaseService } from '../../services/firebase.service';
 import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 import { User, UserData} from '../../models/user.model';
-import {Conversation, Message, NewConversation} from '../../models/message.model';
-import {getImportsOfUmdModule} from '@angular/compiler-cli/ngcc/src/host/umd_host';
-import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
+import { Conversation, Message, NewConversation } from '../../models/message.model';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 
 @Component({
