@@ -26,6 +26,9 @@ export class ChatsComponent implements OnInit {
   // Current active user
   activeUser: User;
 
+  // Show select new chat global variables
+  SelectNewConversation: boolean;
+
   // Selected conversation based firebase directory messages (global message model)
   Messages: Array<Message>;
   ConversationPhoto: string;
@@ -35,6 +38,7 @@ export class ChatsComponent implements OnInit {
   CurrentConversation: Conversation;
 
   constructor(private firebaseService: FirebaseService) {
+    this.SelectNewConversation = false;
     // Get active user data from local storage after login
     this.activeUser = JSON.parse(localStorage.getItem('user'));
 
@@ -46,6 +50,24 @@ export class ChatsComponent implements OnInit {
 
     // Get public channel messages
     this.SetPublicConversation();
+  }
+
+  ShowSelectNewConversation() {
+    this.SelectNewConversation = true;
+  }
+
+  HideSelectNewConversation() {
+    this.SelectNewConversation = false;
+  }
+
+  CreateNewDirectConversation() {
+    this.SelectNewConversation = false;
+    // Document reference = create new object and get reference...
+    // this.SetSelectedConversation();
+  }
+
+  CreateNewGroupConversation() {
+
   }
 
   SetSelectedConversation(conversationid, conversationobject: Conversation) {
@@ -77,6 +99,7 @@ export class ChatsComponent implements OnInit {
   }
 
   SetPublicConversation() {
+    this.ConversationPhoto = '/assets/loadingProfile.png';
     this.IsPublicChat = true;
     this.ConversationPath = 'channels/public/messages';
     this.firebaseService.getPublicChannel().subscribe(responseData => {
