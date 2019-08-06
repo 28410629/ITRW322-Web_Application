@@ -38,15 +38,15 @@
           <div *ngIf="SelectNewConversation">
             <!-- this is the select new conversations-->
             <ul style="list-style: none; padding-left: 0px">
-<!--              <li class="contact active" (click)="SetPublicConversation()">-->
-<!--                <div class="wrap">-->
-<!--                  <img src="/assets/loadingProfile.png"/>-->
-<!--                  <div class="meta">-->
-<!--                    <p class="name">Public Channel</p>-->
-<!--                    <p class="preview">Channel available to all users.</p>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </li>-->
+              <li class="contact" >
+                <div class="wrap">
+                  <img src="/assets/loadingProfile.png"/>
+                  <div class="meta">
+                    <p class="name">Create Group Chat</p>
+                    <p class="preview">Group Conversation</p>
+                  </div>
+                </div>
+              </li>
               <div *ngFor="let user of users">
                 <li class="contact" >
                   <div class="wrap">
