@@ -5,6 +5,7 @@ import Timestamp = firebase.firestore.Timestamp;
 import { User, UserData} from '../../models/user.model';
 import { Conversation, Message, NewConversation } from '../../models/message.model';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import {repeat} from 'rxjs/operators';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class ChatsComponent implements OnInit {
 
   // Show select new chat global variables
   SelectNewConversation: boolean;
+  UsersNewConversation: Array<UserData>;
 
   // Selected conversation based firebase directory messages (global message model)
   Messages: Array<Message>;
