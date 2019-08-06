@@ -13,7 +13,7 @@
           <div *ngIf="!SelectNewConversation">
 <!--            this is the active conversations-->
             <ul style="list-style: none; padding-left: 0px">
-              <li class="contact active" (click)="SetPublicConversation()">
+              <li class="contact" [ngClass]="{'active': IsPublicChat}" (click)="SetPublicConversation()">
                 <div class="wrap">
                   <img src="/assets/loadingProfile.png"/>
                   <div class="meta">
@@ -23,7 +23,7 @@
                 </div>
               </li>
               <div *ngFor="let conversation of conversations">
-                <li class="contact" (click)="SetSelectedConversation(conversation.id, conversation)">
+                <li class="contact" [ngClass]="{'active': CurrentConversation.id === conversation.id && !IsPublicChat}" (click)="SetSelectedConversation(conversation.id, conversation)">
                   <div class="wrap">
                     <img src="{{ getChatPhoto(conversation.isgroupchat, conversation.groupPhotoURL, conversation.participants) }}"/>
                     <div class="meta">

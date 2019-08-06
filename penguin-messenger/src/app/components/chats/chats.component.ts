@@ -37,7 +37,14 @@ export class ChatsComponent implements OnInit {
   ConversationName;
   ConversationPath;
   IsPublicChat = true;
-  CurrentConversation: Conversation;
+  CurrentConversation: Conversation = {
+    description: '',
+    isgroupchat: false,
+    id: '0',
+    name: '',
+    participants: null,
+    groupPhotoURL: ''
+  };
 
   constructor(private firebaseService: FirebaseService,
               private afs: AngularFirestore) {
