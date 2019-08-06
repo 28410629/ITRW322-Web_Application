@@ -24,6 +24,7 @@
     "bootstrap": "^4.3.1",
     "firebase": "^6.3.1",
     "jquery": "^3.4.1",
+    "ngx-image-cropper": "^1.4.1",
     "ngx-markdown": "^8.1.0",
     "popper.js": "^1.15.0",
     "rxjs": "~6.4.0",
