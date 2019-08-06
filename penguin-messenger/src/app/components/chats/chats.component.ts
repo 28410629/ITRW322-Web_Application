@@ -3,8 +3,9 @@ import { FirebaseService } from '../../services/firebase.service';
 import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 import { User, UserData} from '../../models/user.model';
-import { Conversation, Message } from '../../models/message.model';
-import {getImportsOfUmdModule} from '@angular/compiler-cli/ngcc/src/host/umd_host';
+import { Conversation, Message, NewConversation } from '../../models/message.model';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import {repeat} from 'rxjs/operators';
 
 
 @Component({
@@ -26,6 +27,10 @@ export class ChatsComponent implements OnInit {
   // Current active user
   activeUser: User;
 
+  // Show select new chat global variables
+  SelectNewConversation: boolean;
+  UsersNewConversation: Array<UserData>;
+
   // Selected conversation based firebase directory messages (global message model)
   Messages: Array<Message>;
   ConversationPhoto: string;
@@ -34,7 +39,9 @@ export class ChatsComponent implements OnInit {
   IsPublicChat = true;
   CurrentConversation: Conversation;
 
-  constructor(private firebaseService: FirebaseService) {
+  constructor(private firebaseService: FirebaseService,
+              private afs: AngularFirestore) {
+    this.SelectNewConversation = false;
     // Get active user data from local storage after login
     this.activeUser = JSON.parse(localStorage.getItem('user'));
 
@@ -46,6 +53,55 @@ export class ChatsComponent implements OnInit {
 
     // Get public channel messages
     this.SetPublicConversation();
+  }
+
+  ShowSelectNewConversation() {
+    this.SelectNewConversation = true;
+  }
+
+  HideSelectNewConversation() {
+    this.SelectNewConversation = false;
+  }
+
+  CreateNewDirectConversation(selecteduseruid: string) {
+    if (this.CheckIfDirectConversationExists(selecteduseruid)) {
+      const id = this.afs.createId();
+      this.SelectNewConversation = false;
+      const conversationRef: AngularFirestoreDocument<any> = this.afs.doc(`conversations/${id}`);
+      const Participants: string[] = [this.activeUser.uid, selecteduseruid];
+      const conversation: NewConversation = {
+        description: '',
+        isgroupchat: false,
+        name: '',
+        participants: Participants,
+        groupPhotoURL: '',
+      };
+      conversationRef.set(conversation, {
+        merge: true
+      });
+      this.HideSelectNewConversation();
+    } else {
+      this.HideSelectNewConversation();
+    }
+  }
+
+  CheckIfDirectConversationExists(selecteduseruid): boolean {
+    for (const conversation of this.conversations) {
+      if (!conversation.isgroupchat) {
+        for (const participant of conversation.participants) {
+          if (participant === selecteduseruid) {
+            // conversation exists!
+            return false;
+          }
+        }
+      }
+    }
+    // create conversation!
+    return true;
+  }
+
+  CreateNewGroupConversation() {
+
   }
 
   SetSelectedConversation(conversationid, conversationobject: Conversation) {
@@ -77,6 +133,7 @@ export class ChatsComponent implements OnInit {
   }
 
   SetPublicConversation() {
+    this.ConversationPhoto = '/assets/loadingProfile.png';
     this.IsPublicChat = true;
     this.ConversationPath = 'channels/public/messages';
     this.firebaseService.getPublicChannel().subscribe(responseData => {

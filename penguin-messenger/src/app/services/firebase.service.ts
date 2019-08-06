@@ -40,7 +40,7 @@ export class FirebaseService {
   }
 
   public getUsers(): Observable<UserData[]> {
-    return this.db.collection('usersdata').snapshotChanges().pipe(
+    return this.db.collection('usersdata', ref => ref.orderBy('displayName', 'asc')).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as UserData;

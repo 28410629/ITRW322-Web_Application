@@ -10,31 +10,64 @@
     <div id="frame" style="margin: 0px;">
       <div id="sidepanel">
         <div id="contacts">
-          <ul style="list-style: none; padding-left: 0px">
-            <li class="contact active" (click)="SetPublicConversation()">
-              <div class="wrap">
-                <img src="/assets/loadingProfile.png"/>
-                <div class="meta">
-                  <p class="name">Public Channel</p>
-                  <p class="preview">Channel available to all users.</p>
-                </div>
-              </div>
-            </li>
-            <div *ngFor="let conversation of conversations">
-              <li class="contact" (click)="SetSelectedConversation(conversation.id, conversation)">
+          <div *ngIf="!SelectNewConversation">
+<!--            this is the active conversations-->
+            <ul style="list-style: none; padding-left: 0px">
+              <li class="contact active" (click)="SetPublicConversation()">
                 <div class="wrap">
-                  <img src="{{ getChatPhoto(conversation.isgroupchat, conversation.groupPhotoURL, conversation.participants) }}"/>
+                  <img src="/assets/loadingProfile.png"/>
                   <div class="meta">
-                    <p class="name">{{ getChatName(conversation.isgroupchat, conversation.name, conversation.participants) }}</p>
-                    <p class="preview">{{ getChatType(conversation.isgroupchat) }}</p>
+                    <p class="name">Public Channel</p>
+                    <p class="preview">Channel available to all users.</p>
                   </div>
                 </div>
               </li>
-            </div>
-          </ul>
+              <div *ngFor="let conversation of conversations">
+                <li class="contact" (click)="SetSelectedConversation(conversation.id, conversation)">
+                  <div class="wrap">
+                    <img src="{{ getChatPhoto(conversation.isgroupchat, conversation.groupPhotoURL, conversation.participants) }}"/>
+                    <div class="meta">
+                      <p class="name">{{ getChatName(conversation.isgroupchat, conversation.name, conversation.participants) }}</p>
+                      <p class="preview">{{ getChatType(conversation.isgroupchat) }}</p>
+                    </div>
+                  </div>
+                </li>
+              </div>
+            </ul>
+          </div>
+          <div *ngIf="SelectNewConversation">
+            <!-- this is the select new conversations-->
+            <ul style="list-style: none; padding-left: 0px">
+              <li class="contact" >
+                <div class="wrap">
+                  <img src="/assets/loadingProfile.png"/>
+                  <div class="meta">
+                    <p class="name">Create Group Chat</p>
+                    <p class="preview">Group Conversation</p>
+                  </div>
+                </div>
+              </li>
+              <div *ngFor="let user of users">
+                <li class="contact" (click)="CreateNewDirectConversation(user.uid)" *ngIf="user.uid !== activeUser.uid">
+                  <div class="wrap">
+                    <img src="{{ getSenderImage(user.uid) }}"/>
+                    <div class="meta">
+                      <p class="name">{{ getSenderName(user.uid) }}</p>
+                      <p class="preview">Direct Conversation</p>
+                    </div>
+                  </div>
+                </li>
+              </div>
+            </ul>
+          </div>
         </div>
         <div id="bottom-bar">
-          <button id="addcontact"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Start New Chat</span></button>
+          <div *ngIf="!SelectNewConversation">
+            <button (click)="ShowSelectNewConversation()" id="addcontact"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Start New Chat</span></button>
+          </div>
+          <div *ngIf="SelectNewConversation">
+            <button (click)="HideSelectNewConversation()"><i class="fas fa-arrow-left fa-fw" aria-hidden="true"></i> <span>Back To Conversations</span></button>
+          </div>
         </div>
       </div>
       <div class="content">

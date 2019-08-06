@@ -15,6 +15,14 @@ export interface Conversation {
   groupPhotoURL: string;
 }
 
+export interface NewConversation {
+  description: string;
+  isgroupchat: boolean;
+  name: string;
+  participants: string[];
+  groupPhotoURL: string;
+}
+
 export interface Messages {
   messages?: (Message)[] | null;
 }
