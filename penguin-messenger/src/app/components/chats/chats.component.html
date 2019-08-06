@@ -48,7 +48,7 @@
                 </div>
               </li>
               <div *ngFor="let user of users">
-                <li class="contact" >
+                <li class="contact" (click)="CreateNewDirectConversation(user.uid)" >
                   <div class="wrap">
                     <img src="{{ getSenderImage(user.uid) }}"/>
                     <div class="meta">

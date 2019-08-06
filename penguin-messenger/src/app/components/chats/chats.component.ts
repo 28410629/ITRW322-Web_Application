@@ -3,8 +3,9 @@ import { FirebaseService } from '../../services/firebase.service';
 import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 import { User, UserData} from '../../models/user.model';
-import { Conversation, Message } from '../../models/message.model';
+import {Conversation, Message, NewConversation} from '../../models/message.model';
 import {getImportsOfUmdModule} from '@angular/compiler-cli/ngcc/src/host/umd_host';
+import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
 
 
 @Component({
@@ -37,7 +38,8 @@ export class ChatsComponent implements OnInit {
   IsPublicChat = true;
   CurrentConversation: Conversation;
 
-  constructor(private firebaseService: FirebaseService) {
+  constructor(private firebaseService: FirebaseService,
+              private afs: AngularFirestore) {
     this.SelectNewConversation = false;
     // Get active user data from local storage after login
     this.activeUser = JSON.parse(localStorage.getItem('user'));
@@ -60,10 +62,40 @@ export class ChatsComponent implements OnInit {
     this.SelectNewConversation = false;
   }
 
-  CreateNewDirectConversation() {
-    this.SelectNewConversation = false;
-    // Document reference = create new object and get reference...
-    // this.SetSelectedConversation();
+  CreateNewDirectConversation(selecteduseruid: string) {
+    if (this.CheckIfDirectConversationExists(selecteduseruid)) {
+      const id = this.afs.createId();
+      this.SelectNewConversation = false;
+      const conversationRef: AngularFirestoreDocument<any> = this.afs.doc(`conversations/${id}`);
+      const Participants: string[] = [this.activeUser.uid, selecteduseruid];
+      const conversation: NewConversation = {
+        description: '',
+        isgroupchat: false,
+        name: '',
+        participants: Participants,
+        groupPhotoURL: '',
+      };
+      return conversationRef.set(conversation, {
+        merge: true
+      });
+    } else {
+      this.HideSelectNewConversation();
+    }
+  }
+
+  CheckIfDirectConversationExists(selecteduseruid): boolean {
+    for (const conversation of this.conversations) {
+      if (!conversation.isgroupchat) {
+        for (const participant of conversation.participants) {
+          if (participant === selecteduseruid) {
+            // conversation exists!
+            return false;
+          }
+        }
+      }
+    }
+    // create conversation!
+    return true;
   }
 
   CreateNewGroupConversation() {
