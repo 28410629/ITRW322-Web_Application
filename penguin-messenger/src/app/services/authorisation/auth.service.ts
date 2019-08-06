@@ -94,7 +94,8 @@ export class AuthService {
       if (!doc.exists) {
         this.afs.collection('usersdata').doc(this.user.uid).set({
           displayName: this.user.displayName,
-          photoURL: this.user.photoURL
+          photoURL: this.user.photoURL,
+          uid: this.user.uid
         });
         const x: UserData =  {
           displayName: this.user.displayName,
