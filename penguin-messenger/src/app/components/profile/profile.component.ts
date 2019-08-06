@@ -44,6 +44,7 @@ export class ProfileComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.getData();
     this.getAccountData();
+    this.croppedImage = this.photoURL;
   }
 
 
@@ -66,6 +67,7 @@ export class ProfileComponent implements OnInit {
 
 
   submitChanges() {
+    this.photoURL = this.croppedImage;
     this.fireBaseService.updateUserData(
       this.user.uid,
       this.angForm.controls['DisplayName'].value,

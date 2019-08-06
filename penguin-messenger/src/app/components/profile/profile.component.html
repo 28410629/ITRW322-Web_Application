@@ -17,7 +17,7 @@
               [imageChangedEvent]="imageChangedEvent"
               [maintainAspectRatio]="true"
               [aspectRatio]="1 / 1"
-              [resizeToWidth]="128"
+              [resizeToWidth]="256"
               format="png"
               (imageCropped)="imageCropped($event)"
               (imageLoaded)="imageLoaded()"
@@ -27,7 +27,7 @@
 
         <img [src]="croppedImage" />
 
-
+      </div></div>
 
 <!--        <img src="{{ photoURL }}" class="avatar rounded-circle" width="200" height="200" style="margin-top: 10px">-->
 <!--        <h6 style="margin-top: 8px">Select new profile picture:</h6>-->
@@ -42,6 +42,7 @@
 <!--    </div>-->
 
     <div class="prof-main-2">
+      <img src="{{ photoURL }}" class="avatar rounded-circle" width="200" height="200" style="margin-top: 10px">
       <form [formGroup]="angForm" class="form-horizontal" role="form">
         <div class="form-group">
           <label style="margin-top: 10px" class=" control-label">Display Name:</label>
