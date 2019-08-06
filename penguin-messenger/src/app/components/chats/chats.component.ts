@@ -75,9 +75,10 @@ export class ChatsComponent implements OnInit {
         participants: Participants,
         groupPhotoURL: '',
       };
-      return conversationRef.set(conversation, {
+      conversationRef.set(conversation, {
         merge: true
       });
+      this.HideSelectNewConversation();
     } else {
       this.HideSelectNewConversation();
     }
