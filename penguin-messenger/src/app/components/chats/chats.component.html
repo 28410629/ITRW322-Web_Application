@@ -47,13 +47,13 @@
 <!--                  </div>-->
 <!--                </div>-->
 <!--              </li>-->
-              <div *ngFor="let conversation of conversations">
-                <li class="contact" (click)="SetSelectedConversation(conversation.id, conversation)">
+              <div *ngFor="let user of users">
+                <li class="contact" >
                   <div class="wrap">
-                    <img src="{{ getChatPhoto(conversation.isgroupchat, conversation.groupPhotoURL, conversation.participants) }}"/>
+                    <img src="{{ getSenderImage(user.uid) }}"/>
                     <div class="meta">
-                      <p class="name">{{ getChatName(conversation.isgroupchat, conversation.name, conversation.participants) }}</p>
-                      <p class="preview">{{ getChatType(conversation.isgroupchat) }}</p>
+                      <p class="name">{{ getSenderName(user.uid) }}</p>
+                      <p class="preview">Direct Conversation</p>
                     </div>
                   </div>
                 </li>
