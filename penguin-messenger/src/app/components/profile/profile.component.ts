@@ -14,7 +14,7 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 export class ProfileComponent implements OnInit {
 
   imageChangedEvent: any;
-  croppedImage: any;
+  croppedImage = '';
 
 
   user: User;
@@ -44,7 +44,6 @@ export class ProfileComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.getData();
     this.getAccountData();
-    this.croppedImage = this.photoURL;
   }
 
 
@@ -62,7 +61,7 @@ export class ProfileComponent implements OnInit {
     // cropper ready
   }
   loadImageFailed() {
-    // show message
+    // show error message at later stage
   }
 
 

@@ -6,43 +6,31 @@
 
   </div>
   <div class="prof-main">
-    <div class="prof-main-1">
-      <div class="text-center">
 
+      <div class="prof-main-1">
+        <div class="text-center">
 
-        <h6 style="margin-top: 8px">Select new profile picture:</h6>
+          <h5 style="margin-top: 8px">Select new profile picture:</h5>
 
-        <input type="file" (change)="fileChangeEvent($event)" />
-            <image-cropper
-              [imageChangedEvent]="imageChangedEvent"
-              [maintainAspectRatio]="true"
-              [aspectRatio]="1 / 1"
-              [resizeToWidth]="256"
-              format="png"
-              (imageCropped)="imageCropped($event)"
-              (imageLoaded)="imageLoaded()"
-              (cropperReady)="cropperReady()"
-              (loadImageFailed)="loadImageFailed()"
-            ></image-cropper>
+          <input type="file" (change)="fileChangeEvent($event)" />
+              <image-cropper
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [aspectRatio]="1 / 1"
+                [resizeToWidth]="256"
+                format="png"
+                (imageCropped)="imageCropped($event)"
+                (imageLoaded)="imageLoaded()"
+                (cropperReady)="cropperReady()"
+                (loadImageFailed)="loadImageFailed()"
+              ></image-cropper>
 
-        <img [src]="croppedImage" />
+      </div>
+    </div>
 
-      </div></div>
-
-<!--        <img src="{{ photoURL }}" class="avatar rounded-circle" width="200" height="200" style="margin-top: 10px">-->
-<!--        <h6 style="margin-top: 8px">Select new profile picture:</h6>-->
-<!--        <div class="input-group">-->
-<!--          <div class="custom-file">-->
-<!--            <input type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" (change)="uploadPhoto($event)">-->
-<!--            <label class="custom-file-label" for="inputGroupFile04"></label>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <progress style="margin: 8px" max="100" [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>-->
-<!--      </div>-->
-<!--    </div>-->
 
     <div class="prof-main-2">
-      <img src="{{ photoURL }}" class="avatar rounded-circle" width="200" height="200" style="margin-top: 10px">
+      <img src="{{ photoURL }}" class="avatar rounded-circle align-content-center" width="200" height="200" style="margin-top: 10px">
       <form [formGroup]="angForm" class="form-horizontal" role="form">
         <div class="form-group">
           <label style="margin-top: 10px" class=" control-label">Display Name:</label>
