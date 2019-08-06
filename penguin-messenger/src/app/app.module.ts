@@ -27,6 +27,7 @@ import { ToolsComponent } from './components/tools/tools.component';
 import { ChatsComponent } from './components/chats/chats.component';
 import { HeaderUserComponent } from './components/application/header-user/header-user.component';
 
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 export function markedOptions(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -36,7 +37,7 @@ export function markedOptions(): MarkedOptions {
   };
 
   return {
-    renderer: renderer,
+    renderer,
     gfm: true,
     tables: true,
     breaks: false,
@@ -61,6 +62,7 @@ export function markedOptions(): MarkedOptions {
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ImageCropperModule,
     MarkdownModule.forRoot({
       loader: HttpClient,
       markedOptions: {

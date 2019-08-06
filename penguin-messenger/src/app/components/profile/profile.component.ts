@@ -4,6 +4,7 @@ import { User } from '../../models/user.model';
 import { FirebaseService } from '../../services/firebase.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-profile',
@@ -11,6 +12,10 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+
+  imageChangedEvent: any;
+  croppedImage: any;
+
 
   user: User;
   photoURL = 'assets/loadingProfile.png';
@@ -41,6 +46,25 @@ export class ProfileComponent implements OnInit {
     this.getAccountData();
   }
 
+
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  }
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+  }
+  imageLoaded() {
+    // show cropper
+  }
+  cropperReady() {
+    // cropper ready
+  }
+  loadImageFailed() {
+    // show message
+  }
+
+
   submitChanges() {
     this.fireBaseService.updateUserData(
       this.user.uid,
@@ -52,6 +76,7 @@ export class ProfileComponent implements OnInit {
   uploadPhoto(event) {
     this.ref = this.afStorage.ref('users/' + this.user.uid + '/photo');
     this.task = this.ref.put(event.target.files[0]);
+
     this.uploadProgress = this.task.percentageChanges();
     this.task.snapshotChanges().pipe(
       finalize(() => {
