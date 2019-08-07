@@ -5,7 +5,6 @@ import Timestamp = firebase.firestore.Timestamp;
 import { User, UserData} from '../../models/user.model';
 import { Conversation, Message, NewConversation } from '../../models/message.model';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import {repeat} from 'rxjs/operators';
 
 
 @Component({
@@ -48,7 +47,10 @@ export class ChatsComponent implements OnInit {
 
   constructor(private firebaseService: FirebaseService,
               private afs: AngularFirestore) {
+
+    // Set the sidebar to active conversations
     this.SelectNewConversation = false;
+
     // Get active user data from local storage after login
     this.activeUser = JSON.parse(localStorage.getItem('user'));
 
@@ -56,12 +58,28 @@ export class ChatsComponent implements OnInit {
     this.getUsers();
 
     // Set active user's open conversation in sidebar
-    this.getConversations();
+    this.getActiveConversations();
 
     // Get public channel messages
     this.SetPublicConversation();
+
   }
 
+  // ------------------ Get data methods ------------------
+
+  getUsers() {
+    this.firebaseService.getUsers().subscribe(responseData => {
+      this.users = responseData;
+    });
+  }
+
+  getActiveConversations() {
+    this.firebaseService.getConversations(this.activeUser.uid).subscribe(responseData => {
+      this.conversations = responseData;
+    });
+  }
+
+  // ------------------ Start new chat methods ------------------
   ShowSelectNewConversation() {
     this.SelectNewConversation = true;
   }
@@ -97,13 +115,13 @@ export class ChatsComponent implements OnInit {
       if (!conversation.isgroupchat) {
         for (const participant of conversation.participants) {
           if (participant === selecteduseruid) {
-            // conversation exists!
+            // Conversation exists!
             return false;
           }
         }
       }
     }
-    // create conversation!
+    // Create conversation!
     return true;
   }
 
@@ -111,6 +129,7 @@ export class ChatsComponent implements OnInit {
 
   }
 
+  // ------------------ Change to other active chat methods ------------------
   SetSelectedConversation(conversationid, conversationobject: Conversation) {
     this.ConversationPhoto = '';
     this.CurrentConversation = conversationobject;
@@ -150,11 +169,13 @@ export class ChatsComponent implements OnInit {
     });
   }
 
+  // ------------------ In chat methods for functionality ------------------
   sendMessage() {
     this.firebaseService.NewMessage(this.ConversationPath, this.msgValue, this.activeUser.uid);
     this.msgValue = '';
   }
 
+  // ------------------ UI methods ------------------
   public getGoodDate(tstmp: Timestamp) {
     return tstmp.toDate();
   }
@@ -213,18 +234,6 @@ export class ChatsComponent implements OnInit {
     } else {
       return 'still need to detect other person';
     }
-  }
-
-  getUsers() {
-    this.firebaseService.getUsers().subscribe(responseData => {
-      this.users = responseData;
-    });
-  }
-
-  getConversations() {
-    this.firebaseService.getConversations(this.activeUser.uid).subscribe(responseData => {
-      this.conversations = responseData;
-    });
   }
 
   ngOnInit() {
