@@ -81,7 +81,7 @@
           <ul *ngFor="let message of Messages">
             <li [ngClass]="(message.uid == activeUser.uid)?'replies':'sent'">
               <img src="{{ getSenderImage(message.uid)}}"/>
-              <p>{{ getGoodDate(message.datetime) | date:'shortTime' }}: {{ message.message }}</p>
+              <p>{{ getGoodDate(message.datetime) | date:'dd MMM hh:mm' }} <markdown [data]="message.message"></markdown></p>
             </li>
           </ul>
         </div>
