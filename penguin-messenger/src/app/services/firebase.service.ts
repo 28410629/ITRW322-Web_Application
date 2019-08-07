@@ -70,7 +70,8 @@ export class FirebaseService {
   updateUserData(UID, DisplayName, PhotoURL) {
     this.db.doc('usersdata/' + UID).update({
       displayName: DisplayName,
-      photoURL: PhotoURL
+      photoURL: PhotoURL,
+      uid: UID
     });
   }
 

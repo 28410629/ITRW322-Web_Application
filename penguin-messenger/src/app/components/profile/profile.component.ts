@@ -14,7 +14,7 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 export class ProfileComponent implements OnInit {
 
   imageChangedEvent: any;
-  croppedImage = '';
+  croppedImage;
 
 
   user: User;
@@ -52,7 +52,10 @@ export class ProfileComponent implements OnInit {
     this.imageChangedEvent = event;
   }
   imageCropped(event: ImageCroppedEvent) {
-    this.croppedImage = event.base64;
+    this.croppedImage = event.file;
+    this.uploadPhoto();
+
+
   }
   imageLoaded() {
     // show cropper
@@ -66,7 +69,6 @@ export class ProfileComponent implements OnInit {
 
 
   submitChanges() {
-    this.photoURL = this.croppedImage;
     this.fireBaseService.updateUserData(
       this.user.uid,
       this.angForm.controls['DisplayName'].value,
@@ -74,9 +76,10 @@ export class ProfileComponent implements OnInit {
     console.log(JSON.parse(localStorage.getItem('usersData')));
   }
 
-  uploadPhoto(event) {
+  uploadPhoto() {
+
     this.ref = this.afStorage.ref('users/' + this.user.uid + '/photo');
-    this.task = this.ref.put(event.target.files[0]);
+    this.task = this.ref.put(this.croppedImage);
 
     this.uploadProgress = this.task.percentageChanges();
     this.task.snapshotChanges().pipe(
@@ -103,4 +106,5 @@ export class ProfileComponent implements OnInit {
           this.photoURL = responseData.photoURL;
         });
   }
+
 }

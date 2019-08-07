@@ -25,6 +25,8 @@
                 (loadImageFailed)="loadImageFailed()"
               ></image-cropper>
 
+          <progress style="margin: 8px" max="100" [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
+
       </div>
     </div>
 
