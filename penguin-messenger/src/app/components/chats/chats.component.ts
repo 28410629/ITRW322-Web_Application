@@ -20,6 +20,8 @@ export class ChatsComponent implements OnInit {
   // Message being sent via input box
   msgValue = '';
 
+  // New line comp
+  newLine = '***';
   // Sidebar active conversation of active user
   conversations: Array<Conversation>;
 
@@ -187,6 +189,7 @@ export class ChatsComponent implements OnInit {
       }
     }
   }
+
 
   getSenderName(uid) {
     for (const user of this.users) {
