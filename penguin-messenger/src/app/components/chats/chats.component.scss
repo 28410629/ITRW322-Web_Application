@@ -553,7 +553,13 @@ body {
   width: auto;
 }
 
-
+markdown {
+  ::ng-deep {
+    img {
+      width: 100%;
+    }
+  }
+}
 
 @media screen and (max-width: 1000px) {
   #frame .content .messages {
@@ -561,6 +567,7 @@ body {
     width: 100%;
   }
 }
+
 #frame .content .messages::-webkit-scrollbar {
   width: 8px;
   background: transparent;
