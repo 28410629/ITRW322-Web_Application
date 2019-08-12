@@ -22,7 +22,7 @@
                   </div>
                 </div>
               </li>
-              <hr align="center" class="hide-on-mobile">
+
               <div *ngFor="let conversation of conversations">
                 <li class="contact" [ngClass]="{'active': CurrentConversation.id === conversation.id && !IsPublicChat}" (click)="SetSelectedConversation(conversation.id, conversation)">
                   <div class="wrap">
@@ -34,7 +34,7 @@
                   </div>
 
                 </li>
-                <hr align="center" class="hide-on-mobile">
+
               </div>
             </ul>
           </div>
@@ -50,7 +50,7 @@
                   </div>
                 </div>
               </li>
-              <hr align="center" class="hide-on-mobile">
+
               <div *ngFor="let user of users">
                 <li class="contact" (click)="CreateNewDirectConversation(user.uid)" *ngIf="user.uid !== activeUser.uid">
                   <div class="wrap">
@@ -61,7 +61,7 @@
                     </div>
                   </div>
                 </li>
-                <hr align="center" class="hide-on-mobile">
+
               </div>
             </ul>
           </div>

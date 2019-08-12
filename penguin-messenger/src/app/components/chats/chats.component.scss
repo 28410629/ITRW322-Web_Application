@@ -354,14 +354,19 @@ body {
   background-color: #243140;
 }
 #frame #sidepanel #contacts ul li.contact {
+  background-color: #0367a7;
   position: relative;
   padding: 10px 0 15px 0;
   font-size: 0.9em;
   cursor: pointer;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 @media screen and (max-width: 1000px) {
   #frame #sidepanel #contacts ul li.contact {
     padding: 6px 0 46px 8px;
+    border: none;
   }
 }
 #frame #sidepanel #contacts ul li.contact:hover {
