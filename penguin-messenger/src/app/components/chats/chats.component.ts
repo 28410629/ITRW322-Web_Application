@@ -5,7 +5,7 @@ import Timestamp = firebase.firestore.Timestamp;
 import { User, UserData} from '../../models/user.model';
 import { Conversation, Message, NewConversation } from '../../models/message.model';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-chats',
@@ -173,7 +173,8 @@ export class ChatsComponent implements OnInit {
 
   // ------------------ In chat methods for functionality ------------------
   sendMessage() {
-    this.firebaseService.NewMessage(this.ConversationPath, this.msgValue, this.activeUser.uid);
+    const cyphertext = this.encryptText(this.msgValue);
+    this.firebaseService.NewMessage(this.ConversationPath, cyphertext, this.activeUser.uid);
     this.msgValue = '';
   }
 
@@ -240,5 +241,14 @@ export class ChatsComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+
+  encryptText(plaintext: string) {
+    return CryptoJS.AES.encrypt(plaintext, this.activeUser.uid).toString();
+  }
+
+  decryptText(cyphertext: string) {
+    return CryptoJS.AES.decrypt(cyphertext, this.activeUser.uid).toString(CryptoJS.enc.Utf8);
   }
 }
