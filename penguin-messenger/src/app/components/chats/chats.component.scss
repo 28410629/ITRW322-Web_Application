@@ -365,7 +365,7 @@ body {
   }
 }
 #frame #sidepanel #contacts ul li.contact:hover {
-  background: #32465a;
+  background: #4f6d88;
 }
 #frame #sidepanel #contacts ul li.contact.active {
   background: #32465a;
@@ -724,6 +724,10 @@ markdown {
     margin-top: 17px;
     right: 65px;
   }
+
+  .hide-on-mobile{
+    visibility: hidden;
+  }
 }
 #frame .content .message-input .wrap .attachment:hover {
   opacity: 1;
@@ -757,3 +761,5 @@ markdown {
   font-size: 16px;
 
 }
+
+
