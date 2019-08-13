@@ -43,9 +43,6 @@ export class ChatService {
 
   }
 
-
-
-
   public getConversations(userid): Observable<Conversation[]> {
     return this.db.collection('conversations', ref => ref.where('participants', 'array-contains', userid))
       .snapshotChanges().pipe(
