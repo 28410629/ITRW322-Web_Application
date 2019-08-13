@@ -134,10 +134,10 @@ export class ChatsComponent implements OnInit {
 
   // ------------------ Change to other active chat methods ------------------
   SetSelectedConversation(conversationid, conversationobject: Conversation) {
+    this.Messages = null;
     this.ConversationPhoto = '';
     this.CurrentConversation = conversationobject;
     this.IsPublicChat = false;
-
     this.chatService.getConversationMessages(conversationid)
       .subscribe(responseData => {
         this.Messages = responseData;
@@ -162,13 +162,13 @@ export class ChatsComponent implements OnInit {
   }
 
   SetPublicConversation() {
+    this.Messages = null;
+    this.ConversationName = 'Public Channel';
+    this.IsPublicChat = true;
     this.ConversationPhoto = '/assets/loadingProfile.png';
     this.IsPublicChat = true;
-    this.ConversationPath = 'channels/public/messages';
     this.chatService.getChannelMessages().subscribe(responseData => {
       this.Messages = responseData;
-      this.ConversationName = 'Public Channel';
-      this.IsPublicChat = true;
     });
   }
 
