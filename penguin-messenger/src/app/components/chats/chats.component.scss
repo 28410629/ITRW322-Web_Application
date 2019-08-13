@@ -524,7 +524,7 @@ body {
     min-width: 300px !important;
   }
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1001px) {
   #frame .content {
     width: calc(100% - 340px);
   }
@@ -779,3 +779,27 @@ markdown {
   z-index: 0;
 }
 
+.form-checkbox
+{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  //display: inline-block;
+  //position: relative;
+  background-color: #f1f1f1;
+  color: #666;
+  //top: 10px;
+  height: 15px;
+  width: 15px;
+  border: 0;
+  border-radius: 50%;
+  outline: none;
+}
+.form-checkbox:hover
+{
+  background-color: #f7f7f7;
+}
+.form-checkbox:checked
+{
+  background-color: #66bb6a;
+}
