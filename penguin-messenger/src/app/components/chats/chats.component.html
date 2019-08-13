@@ -90,7 +90,7 @@
                 <b class="name-of-user">{{getSenderName(message.uid)}}</b><br>
                 {{ getGoodDate(message.datetime) | date:'dd MMM hh:mm' }}
                 <markdown [data]="newLine"></markdown>
-                <markdown [data]="decryptText(message.message)"></markdown>
+                <markdown [data]="message.message"></markdown>
               </p>
             </li>
 
