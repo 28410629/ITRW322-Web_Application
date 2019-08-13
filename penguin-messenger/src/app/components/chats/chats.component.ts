@@ -174,7 +174,11 @@ export class ChatsComponent implements OnInit {
 
   // ------------------ In chat methods for functionality ------------------
   sendMessage() {
-    this.chatService.sendConversationMessage(this.CurrentConversation.id, this.msgValue, this.activeUser.uid);
+    if (this.IsPublicChat) {
+      this.chatService.sendChannelMessage(this.msgValue, this.activeUser.uid);
+    } else {
+      this.chatService.sendConversationMessage(this.CurrentConversation.id, this.msgValue, this.activeUser.uid);
+    }
     this.msgValue = '';
   }
 

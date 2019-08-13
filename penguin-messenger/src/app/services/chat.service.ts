@@ -59,10 +59,11 @@ export class ChatService {
       );
   }
 
-  public createMessage(newmessage: string, newuid: string) {
+  public sendChannelMessage(newmessage: string, newuid: string) {
+    const cypherText = this.cryptoService.encryptChannelMessage(newmessage);
     return this.db.collection('channels/public/messages').add({
       datetime: new Date(),
-      message: newmessage,
+      message: cypherText,
       uid: newuid
     });
   }
