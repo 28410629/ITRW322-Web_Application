@@ -67,7 +67,7 @@
                 <div class="wrap">
                   <img src="/assets/loadingProfile.png"/>
                   <div class="meta">
-                    <input class="name" autofocus/>
+                    <input class="name" autofocus style="width: 80%"/>
                     <p class="preview">Enter Group Chat Name</p>
                   </div>
                 </div>
@@ -98,7 +98,7 @@
           </div>
           <!-- THIS IS THE BUTTON TO CREATE THE GROUP CHAT -->
           <div *ngIf="ShowCreateGroupConversation">
-            <button (click)="CreateNewGroupConversation()"><i class="fas fa-arrow-left fa-fw" aria-hidden="true"></i> <span>Create Group Chat</span></button>
+            <button (click)="CreateNewGroupConversation()"><i class="fas fa-comment fa-fw" aria-hidden="true"></i> <span>Create Group Chat</span></button>
           </div>
         </div>
       </div>
