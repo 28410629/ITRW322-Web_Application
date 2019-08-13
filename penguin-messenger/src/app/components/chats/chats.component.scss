@@ -596,13 +596,13 @@ body {
   display: inline-block;
   clear: both;
   float: left;
-  margin: 15px 15px 5px 15px;
+  margin: 0px 0px 5px 0px;
   width: 80%;
   //width: calc(100% - 150px);
   font-size: 0.9em;
 }
 #frame .content .messages ul li:nth-last-child(1) {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 #frame .content .messages ul li.sent img {
   margin: 6px 8px 0 0;
@@ -631,6 +631,8 @@ body {
   float: left;
 }
 #frame .content .messages ul li p {
+  margin-top: 5px;
+  margin-bottom: 10px;
   display: inline-block;
   padding: 10px 15px;
   border-radius: 20px;
@@ -644,6 +646,7 @@ body {
     min-width: auto;
   }
 }
+
 #frame .content .message-input {
   position: absolute;
   bottom: 0;
