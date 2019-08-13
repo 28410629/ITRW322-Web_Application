@@ -72,7 +72,7 @@ export function markedOptions(): MarkedOptions {
       },
     }),
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule.enablePersistence(),
+    AngularFirestoreModule.enablePersistence({synchronizeTabs: true}),
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,

@@ -69,11 +69,11 @@
         <div id="bottom-bar">
           <!-- THIS IS THE BUTtON CREATE NEW CONVERSATIONS FOR THE ACTIVE USER -->
           <div *ngIf="!SelectNewConversation">
-            <button (click)="ShowSelectNewConversation()" id="addcontact"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Start New Chat</span></button>
+            <button (click)="ShowSelectNewConversation()" style="height: 48px" id="addcontact"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Start New Chat</span></button>
           </div>
           <!-- THIS IS THE BUTTON TO RETURN TO ACTIVE CONVERSATIONS FOR THE ACTIVE USER -->
           <div *ngIf="SelectNewConversation">
-            <button (click)="HideSelectNewConversation()"><i class="fas fa-arrow-left fa-fw" aria-hidden="true"></i> <span>Back To Conversations</span></button>
+            <button (click)="HideSelectNewConversation()" style="height: 48px"><i class="fas fa-arrow-left fa-fw" aria-hidden="true"></i> <span>Back To Conversations</span></button>
           </div>
         </div>
       </div>
@@ -98,8 +98,22 @@
         </div>
         <div class="message-input" style="background: white">
           <div class="wrap">
-            <input type="text" [(ngModel)]="msgValue" placeholder="Write your message..." />
+            <input (keydown.enter)="sendMessage()" type="text" [(ngModel)]="msgValue" placeholder="Write your message..." />
             <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+
+
+
+            <div class="modal fade" style="z-index: 0" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
             <button (click)="sendMessage()" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
           </div>
         </div>
