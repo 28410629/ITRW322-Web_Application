@@ -13,31 +13,6 @@ export class FirebaseService {
 
   constructor(private db: AngularFirestore) {}
 
-  public getPublicChannel(): Observable<Message[]> {
-    return this.db.collection<Messages>('channels/public/messages', ref => ref.orderBy('datetime', 'asc'))
-      .snapshotChanges()
-      .pipe(
-        map(actions => {
-          return actions.map(a => {
-            const data = a.payload.doc.data() as Message;
-            return { ...data };
-          });
-        })
-      );
-  }
-
-  public getMessages(conversationid): Observable<Message[]> {
-    return this.db.collection<Messages>('conversations/' + conversationid + '/messages', ref => ref.orderBy('datetime', 'asc'))
-      .snapshotChanges()
-      .pipe(
-        map(actions => {
-          return actions.map(a => {
-            const data = a.payload.doc.data() as Message;
-            return { ...data };
-        });
-      })
-    );
-  }
 
   public getUsers(): Observable<UserData[]> {
     return this.db.collection('usersdata', ref => ref.orderBy('displayName', 'asc')).snapshotChanges().pipe(
@@ -83,13 +58,6 @@ export class FirebaseService {
     });
   }
 
-  public NewMessage(path: string, newmessage: string, newuid: string) {
-    return this.db.collection(path).add({
-      datetime: new Date(),
-      message: newmessage,
-      uid: newuid
-    });
-  }
 
   public CreateChat(newDescription: string, isGroupChat: boolean, newName: string, newParticipants: string[], newGroupPhotoUrl: string) {
     return this.db.collection('conversations').add({

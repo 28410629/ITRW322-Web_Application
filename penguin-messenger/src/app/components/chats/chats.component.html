@@ -22,6 +22,7 @@
                   </div>
                 </div>
               </li>
+
               <div *ngFor="let conversation of conversations">
                 <li class="contact" [ngClass]="{'active': CurrentConversation.id === conversation.id && !IsPublicChat}" (click)="SetSelectedConversation(conversation.id, conversation)">
                   <div class="wrap">
@@ -31,7 +32,9 @@
                       <p class="preview">{{ getChatType(conversation.isgroupchat) }}</p>
                     </div>
                   </div>
+
                 </li>
+
               </div>
             </ul>
           </div>
@@ -47,6 +50,7 @@
                   </div>
                 </div>
               </li>
+
               <div *ngFor="let user of users">
                 <li class="contact" (click)="CreateNewDirectConversation(user.uid)" *ngIf="user.uid !== activeUser.uid">
                   <div class="wrap">
@@ -57,6 +61,7 @@
                     </div>
                   </div>
                 </li>
+
               </div>
             </ul>
           </div>
@@ -87,9 +92,8 @@
                 <markdown [data]="newLine"></markdown>
                 <markdown [data]="message.message"></markdown>
               </p>
-
-
             </li>
+
           </ul>
         </div>
         <div class="message-input" style="background: white">

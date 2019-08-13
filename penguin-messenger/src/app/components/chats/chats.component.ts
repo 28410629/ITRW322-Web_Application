@@ -5,6 +5,7 @@ import Timestamp = firebase.firestore.Timestamp;
 import { User, UserData} from '../../models/user.model';
 import { Conversation, Message, NewConversation } from '../../models/message.model';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import {ChatService} from "../../services/chat.service";
 
 
 @Component({
@@ -48,7 +49,7 @@ export class ChatsComponent implements OnInit {
   };
 
   constructor(private firebaseService: FirebaseService,
-              private afs: AngularFirestore) {
+              private afs: AngularFirestore, private chatService: ChatService) {
 
     // Set the sidebar to active conversations
     this.SelectNewConversation = false;
@@ -136,8 +137,8 @@ export class ChatsComponent implements OnInit {
     this.ConversationPhoto = '';
     this.CurrentConversation = conversationobject;
     this.IsPublicChat = false;
-    this.ConversationPath = 'conversations/' + conversationid + '/messages';
-    this.firebaseService.getMessages(conversationid)
+
+    this.chatService.getConversationMessages(conversationid)
       .subscribe(responseData => {
         this.Messages = responseData;
         this.ConversationName = this.GetConversationName();
@@ -164,7 +165,7 @@ export class ChatsComponent implements OnInit {
     this.ConversationPhoto = '/assets/loadingProfile.png';
     this.IsPublicChat = true;
     this.ConversationPath = 'channels/public/messages';
-    this.firebaseService.getPublicChannel().subscribe(responseData => {
+    this.chatService.getChannelMessages().subscribe(responseData => {
       this.Messages = responseData;
       this.ConversationName = 'Public Channel';
       this.IsPublicChat = true;
@@ -173,7 +174,7 @@ export class ChatsComponent implements OnInit {
 
   // ------------------ In chat methods for functionality ------------------
   sendMessage() {
-    this.firebaseService.NewMessage(this.ConversationPath, this.msgValue, this.activeUser.uid);
+    this.chatService.sendConversationMessage(this.CurrentConversation.id, this.msgValue, this.activeUser.uid);
     this.msgValue = '';
   }
 
@@ -241,4 +242,7 @@ export class ChatsComponent implements OnInit {
 
   ngOnInit() {
   }
+
+
+
 }
