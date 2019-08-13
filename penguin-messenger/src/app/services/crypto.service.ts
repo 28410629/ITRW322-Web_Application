@@ -30,7 +30,7 @@ export class CryptoService {
   }
 
   private encryptText(plaintext: string, key: string) {
-    return CryptoJS.AES.encrypt(plaintext, key).toString();
+    return CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(plaintext), key).toString();
   }
 
   private decryptText(cyphertext: string, key: string) {
