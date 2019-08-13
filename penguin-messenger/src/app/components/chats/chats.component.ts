@@ -31,6 +31,7 @@ export class ChatsComponent implements OnInit {
 
   // Show select new chat global variables
   SelectNewConversation: boolean;
+  ShowCreateGroupConversation = false;
   UsersNewConversation: Array<UserData>;
 
   // Show attachment popup menu
@@ -97,6 +98,14 @@ export class ChatsComponent implements OnInit {
     this.SelectNewConversation = false;
   }
 
+  ShowCreateNewGroupConversation() {
+    this.ShowCreateGroupConversation = true;
+  }
+
+  HideCreateNewGroupConversation() {
+    this.ShowCreateGroupConversation = false;
+  }
+
   CreateNewDirectConversation(selecteduseruid: string) {
     if (this.CheckIfDirectConversationExists(selecteduseruid)) {
       const id = this.afs.createId();
@@ -135,7 +144,7 @@ export class ChatsComponent implements OnInit {
   }
 
   CreateNewGroupConversation() {
-
+    this.HideCreateNewGroupConversation();
   }
 
   // ------------------ Set attachments to active ----------------------------
@@ -263,7 +272,4 @@ export class ChatsComponent implements OnInit {
 
   ngOnInit() {
   }
-
-
-
 }
