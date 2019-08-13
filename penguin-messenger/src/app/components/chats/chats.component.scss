@@ -37,7 +37,7 @@ body {
   width: 40%;
   height: 100%;
   // main colour: 035493
-  background: #035493;
+  background: #0056B2;
   color: #f5f5f5;
   overflow: hidden;
   position: relative;
@@ -351,12 +351,12 @@ body {
   background: #035493;
 }
 #frame #sidepanel #contacts::-webkit-scrollbar-thumb {
-  background-color: #243140;
+  background-color: #36485b;
 }
 #frame #sidepanel #contacts ul li.contact {
-  background-color: #0367a7;
+  background-color: #0062CC;
   position: relative;
-  padding: 10px 0 15px 0;
+  padding: 10px 0 10px 0;
   font-size: 0.9em;
   cursor: pointer;
   border-radius: 10px;
@@ -373,8 +373,8 @@ body {
   background: #4f6d88;
 }
 #frame #sidepanel #contacts ul li.contact.active {
-  background: #32465a;
-  border-right: 5px solid #435f7a;
+  background: #003D7F;
+  //border-right: 5px solid #0056B2;
 }
 #frame #sidepanel #contacts ul li.contact.active span.contact-status {
   border: 2px solid #32465a !important;
@@ -597,7 +597,7 @@ body {
   clear: both;
   float: left;
   margin: 0px 0px 5px 0px;
-  width: 80%;
+  width: 95%;
   //width: calc(100% - 150px);
   font-size: 0.9em;
 }
@@ -609,7 +609,8 @@ body {
   word-break: break-word;
 }
 #frame .content .messages ul li.sent p {
-  background: #435f7a;
+  //background: #435f7a;
+  background: #007bff;
   color: #f5f5f5;
   word-break: break-word;
 }
@@ -775,6 +776,20 @@ markdown {
       padding: 0 1em;
       color: rgba(0,0,0,0.535);
       border-left: 0.25em solid rgba(0,0,0,0.11);
+    }
+
+    p {
+      margin-bottom: 0px;
+      margin-top: 0px;
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+
+    hr {
+      margin-bottom: 3px;
+      margin-top: 8px;
+      margin-left: 0px;
+      margin-right: 0px;
     }
 
     ul li {

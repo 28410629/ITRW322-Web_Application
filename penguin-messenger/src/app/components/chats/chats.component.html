@@ -113,7 +113,7 @@
               <img src="{{ getSenderImage(message.uid)}}"/>
               <p>
                 <b class="name-of-user">{{getSenderName(message.uid)}}</b><br>
-                {{ getGoodDate(message.datetime) | date:'dd MMM hh:mm' }}
+                <span style="font-size: smaller">{{ getGoodDate(message.datetime) | date:'dd MMM hh:mm' }}</span>
                 <markdown [data]="newLine"></markdown>
                 <markdown [data]="message.message"></markdown>
               </p>
