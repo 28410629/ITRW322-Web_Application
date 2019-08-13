@@ -33,6 +33,9 @@ export class ChatsComponent implements OnInit {
   SelectNewConversation: boolean;
   UsersNewConversation: Array<UserData>;
 
+  // Show attachment popup menu
+  showAttachmentMenu: boolean;
+
   // Selected conversation based firebase directory messages (global message model)
   Messages: Array<Message>;
   ConversationPhoto: string;
@@ -53,6 +56,9 @@ export class ChatsComponent implements OnInit {
 
     // Set the sidebar to active conversations
     this.SelectNewConversation = false;
+
+    // Set popup menu to hide
+    this.showAttachmentMenu = false;
 
     // Get active user data from local storage after login
     this.activeUser = JSON.parse(localStorage.getItem('user'));
@@ -130,6 +136,17 @@ export class ChatsComponent implements OnInit {
 
   CreateNewGroupConversation() {
 
+  }
+
+  // ------------------ Set attachments to active ----------------------------
+
+  SetAttachmentsMenu(){
+      this.showAttachmentMenu = true;
+    }
+
+
+  setAttachmentsFale(){
+    this.showAttachmentMenu = false;
   }
 
   // ------------------ Change to other active chat methods ------------------
