@@ -14,6 +14,19 @@ export class ChatService {
 
   constructor(private db: AngularFirestore, private cryptoService: CryptoService) {}
 
+  public GetLastConversationMessage(conversationid): Observable<Message[]> {
+    return this.db.collection<Messages>('conversations/' + conversationid + '/messages', ref => ref.orderBy('datetime', 'desc').limit(1))
+      .snapshotChanges()
+      .pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as Message;
+            data.message = this.cryptoService.decryptConversationMessage(data.message, conversationid);
+            return { ...data };
+          });
+        })
+      );
+    
   public getChannelMessages(): Observable<Message[]> {
     return this.db.collection<Messages>('channels/public/messages', ref => ref.orderBy('datetime', 'asc'))
       .snapshotChanges()
