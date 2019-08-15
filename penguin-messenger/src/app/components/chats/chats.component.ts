@@ -5,8 +5,8 @@ import Timestamp = firebase.firestore.Timestamp;
 import { User, UserData} from '../../models/user.model';
 import { Conversation, Message, NewConversation } from '../../models/message.model';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import {ChatService} from '../../services/chat.service';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { ChatService} from '../../services/chat.service';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -33,8 +33,9 @@ export class ChatsComponent implements OnInit {
   // Show select new chat global variables
   SelectNewConversation: boolean;
   ShowCreateGroupConversation = false;
-  UsersNewConversation: Array<UserData>;
+  GroupCreationButton = 'Back To Start New Chat';
   GroupForm: FormGroup;
+  IsCreateGroupIcon = false;
 
   // Show attachment popup menu
   showAttachmentMenu: boolean;
@@ -164,27 +165,30 @@ export class ChatsComponent implements OnInit {
   }
 
   CreateNewGroupConversation() {
-    // const id = this.afs.createId();
-    // this.SelectNewConversation = false;
-    // const conversationRef: AngularFirestoreDocument<any> = this.afs.doc(`conversations/${id}`);
-    // const Participants: string[] = [this.activeUser.uid];
-    // const conversation: NewConversation = {
-    //   description: '',
-    //   isgroupchat: true,
-    //   name: this.angForm.controls['GroupName'].value,
-    //   participants: Participants,
-    //   groupPhotoURL: '',
-    // };
-    // conversationRef.set(conversation, {
-    //   merge: true
-    // });
-    // this.GroupName = '';=
+    const formArray: FormArray = this.GroupForm.get('SelectedUsers') as FormArray;
+    if (formArray.length !== 0) {
+      formArray.push(new FormControl(this.activeUser.uid));
+      const id = this.afs.createId();
+      this.SelectNewConversation = false;
+      const conversationRef: AngularFirestoreDocument<any> = this.afs.doc(`conversations/${id}`);
+      const conversation: NewConversation = {
+        description: '',
+        isgroupchat: true,
+        name: this.GroupForm.get('GroupName').value,
+        participants: this.GroupForm.get('SelectedUsers').value,
+        groupPhotoURL: '',
+      };
+      conversationRef.set(conversation, {
+        merge: true
+      });
+    }
     this.HideCreateNewGroupConversation();
   }
 
+  // This method is used to add users dynamically to an array for use with group chat creation
+
   onCheckChange(event, useruid) {
     const formArray: FormArray = this.GroupForm.get('SelectedUsers') as FormArray;
-
     /* Selected */
     if (event.target.checked) {
       // Add a new control in the arrayForm
@@ -201,12 +205,18 @@ export class ChatsComponent implements OnInit {
           formArray.removeAt(i);
           return;
         }
-
         i++;
       });
     }
-    console.log(this.GroupForm.get('SelectedUsers'));
+    if (formArray.length === 0) {
+      this.GroupCreationButton = 'Back To Start New Chat';
+      this.IsCreateGroupIcon = false;
+    } else {
+      this.GroupCreationButton = 'Create Group Chat';
+      this.IsCreateGroupIcon = true;
+    }
   }
+
   // ------------------ Set attachments to active ----------------------------
 
   SetAttachmentsMenu() {
