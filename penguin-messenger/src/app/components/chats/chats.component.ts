@@ -166,23 +166,25 @@ export class ChatsComponent implements OnInit {
 
   CreateNewGroupConversation() {
     const formArray: FormArray = this.GroupForm.get('SelectedUsers') as FormArray;
-    if (formArray.length !== 0 && this.GroupForm.get('GroupName').value.toString().trim() !== '') {
-      formArray.push(new FormControl(this.activeUser.uid));
-      const id = this.afs.createId();
-      this.SelectNewConversation = false;
-      const conversationRef: AngularFirestoreDocument<any> = this.afs.doc(`conversations/${id}`);
-      const conversation: NewConversation = {
-        description: 'This is a new group conversation.',
-        isgroupchat: true,
-        name: this.GroupForm.get('GroupName').value,
-        participants: this.GroupForm.get('SelectedUsers').value,
-        groupPhotoURL: 'https://firebasestorage.googleapis.com/v0/b/itrw322-semester-project.appspot.com/o/defaults%2FdefaultUserPhoto.png?alt=media&token=5222876d-ea95-4cb9-a8a4-71d898c595d4',
-      };
-      conversationRef.set(conversation, {
-        merge: true
-      });
-    }
-    if (this.GroupForm.get('GroupName').value.toString().trim() !== '') {
+    if (formArray.length !== 0) {
+      if (this.GroupForm.get('GroupName').value.toString().trim() !== '') {
+        formArray.push(new FormControl(this.activeUser.uid));
+        const id = this.afs.createId();
+        this.SelectNewConversation = false;
+        const conversationRef: AngularFirestoreDocument<any> = this.afs.doc(`conversations/${id}`);
+        const conversation: NewConversation = {
+          description: 'This is a new group conversation.',
+          isgroupchat: true,
+          name: this.GroupForm.get('GroupName').value,
+          participants: this.GroupForm.get('SelectedUsers').value,
+          groupPhotoURL: 'https://firebasestorage.googleapis.com/v0/b/itrw322-semester-project.appspot.com/o/defaults%2FdefaultUserPhoto.png?alt=media&token=5222876d-ea95-4cb9-a8a4-71d898c595d4',
+        };
+        conversationRef.set(conversation, {
+          merge: true
+        });
+        this.HideCreateNewGroupConversation();
+      }
+    } else {
       this.HideCreateNewGroupConversation();
     }
   }
