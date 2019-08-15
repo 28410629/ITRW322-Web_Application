@@ -123,28 +123,28 @@
         <div class="message-input" style="background: white">
           <div class="wrap">
             <input (keydown.enter)="sendMessage()" type="text" [(ngModel)]="msgValue" placeholder="Write your message..." />
-            <button type="button" class="fa fa-paperclip attached" (click)="openModal(template)"></button>
-              <ng-template #template>
-                <div class="modal-header">
-                  <h4 class="modal-title pull-left">Attachments</h4>
-                </div>
-                <div class="row">
-                  <div class="col-3">
-                    <a href="#">
-                      <img src="../../../assets/Images.png" alt="">
-                    </a>
-                  </div>
-                  <div class="col-3">
-                    <a href="#">
-                      <img src="../../../assets/Video.png" alt="">
-                    </a>
-                  </div>
-                </div>
-                <div class="modal-body">
-
-                </div>
-              </ng-template>
             <button (click)="sendMessage()" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+            <button (click)="openModal(template)" style="background: #0056B2;:hover {background: #435f7a}"><i class="fa fa-paperclip" aria-hidden="true"></i></button>
+            <ng-template #template>
+              <div class="modal-header">
+                <h4 class="modal-title pull-left">Attachments</h4>
+              </div>
+              <div class="row">
+                <div class="col-3">
+                  <a href="#">
+                    <img src="assets/Images.png">
+                  </a>
+                </div>
+                <div class="col-3">
+                  <a href="#">
+                    <img src="assets/Video.png">
+                  </a>
+                </div>
+              </div>
+              <div class="modal-body">
+
+              </div>
+            </ng-template>
           </div>
         </div>
       </div>
