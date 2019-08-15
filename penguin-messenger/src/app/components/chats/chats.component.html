@@ -125,24 +125,30 @@
             <input (keydown.enter)="sendMessage()" type="text" [(ngModel)]="msgValue" placeholder="Write your message..." />
             <button (click)="sendMessage()" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
             <button (click)="openModal(template)" style="background: #0056B2;:hover {background: #435f7a}"><i class="fa fa-paperclip" aria-hidden="true"></i></button>
-            <ng-template #template>
+            <ng-template #template id="myModal">
               <div class="modal-header">
                 <h4 class="modal-title pull-left">Attachments</h4>
               </div>
-              <div class="row">
-                <div class="col-3">
-                  <a href="#">
-                    <img src="assets/Images.png">
-                  </a>
-                </div>
-                <div class="col-3">
-                  <a href="#">
-                    <img src="assets/Video.png">
-                  </a>
-                </div>
-              </div>
               <div class="modal-body">
-
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm attachedMedia">
+                      <a href="#">
+                        <img src="assets/Images.png" class="center">Pictures
+                      </a>
+                    </div>
+                    <div class="col-sm attachedMedia">
+                      <a href="#">
+                        <img src="assets/Video.png">Videos
+                      </a>
+                    </div>
+                    <div class="col-sm attachedMedia">
+                      <a href="#">
+                        <img src="assets/Video.png">Voice Notes
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </ng-template>
           </div>

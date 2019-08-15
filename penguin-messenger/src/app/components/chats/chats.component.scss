@@ -674,7 +674,6 @@ body {
 #frame .content .message-input .wrap input:focus {
   outline: none;
 }
-
 .attached{
   position: absolute;
   right: 60px;
@@ -686,7 +685,25 @@ body {
   padding: 10px;
 
 }
-
+.attachedMedia{
+  padding-left: 25px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  text-align: center;
+}
+@media screen and (max-width: 600px) {
+  .attachedMedia{
+    padding-left: 10%;
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+}
+#myModal {
+  top:5%;
+  right:2%;
+  outline: none;
+  overflow:hidden;
+}
 #frame .content .message-input .wrap .attachment {
   position: absolute;
   right: 60px;
