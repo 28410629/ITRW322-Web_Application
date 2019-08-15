@@ -73,6 +73,19 @@ export class ChatsComponent implements OnInit {
     // Get public channel messages
     this.SetPublicConversation();
 
+    // Test last message of conversation
+    this.getLastMessage();
+  }
+
+  // ------------------ Test methods -------------------
+
+  getLastMessage() {
+    this.chatService.GetLastConversationMessage('kFGrJrDzv2l1KpYK877D')
+      .subscribe(responseData => {
+        if (responseData.length === 1) {
+          console.log(responseData[0].message);
+        }
+      });
   }
 
   // ------------------ Get data methods ------------------
