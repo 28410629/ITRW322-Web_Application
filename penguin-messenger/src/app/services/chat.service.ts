@@ -22,11 +22,12 @@ export class ChatService {
           return actions.map(a => {
             const data = a.payload.doc.data() as Message;
             data.message = this.cryptoService.decryptConversationMessage(data.message, conversationid);
-            return { ...data };
+            return {...data};
           });
         })
       );
-    
+  }
+
   public getChannelMessages(): Observable<Message[]> {
     return this.db.collection<Messages>('channels/public/messages', ref => ref.orderBy('datetime', 'asc'))
       .snapshotChanges()
