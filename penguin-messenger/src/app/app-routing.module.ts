@@ -5,13 +5,11 @@ import { SecureInnerPagesGuard } from './services/authorisation/secure-inner-pag
 import { AuthGuard } from './services/authorisation/auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ChatsComponent } from './components/chats/chats.component';
-import { ToolsComponent } from './components/tools/tools.component';
 
 const routes: Routes = [
   { path: '', component: SignInComponent, canActivate: [SecureInnerPagesGuard] },
   { path: 'chats', component: ChatsComponent, canActivate: [AuthGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'tools', component: ToolsComponent, canActivate: [AuthGuard] }
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
