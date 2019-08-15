@@ -31,6 +31,7 @@ export class ChatsComponent implements OnInit {
 
   // Show select new chat global variables
   SelectNewConversation: boolean;
+  ShowCreateGroupConversation = false;
   UsersNewConversation: Array<UserData>;
 
   // Show attachment popup menu
@@ -72,6 +73,19 @@ export class ChatsComponent implements OnInit {
     // Get public channel messages
     this.SetPublicConversation();
 
+    // Test last message of conversation
+    this.getLastMessage();
+  }
+
+  // ------------------ Test methods -------------------
+
+  getLastMessage() {
+    this.chatService.GetLastConversationMessage('kFGrJrDzv2l1KpYK877D')
+      .subscribe(responseData => {
+        if (responseData.length === 1) {
+          console.log(responseData[0].message);
+        }
+      });
   }
 
   // ------------------ Get data methods ------------------
@@ -95,6 +109,14 @@ export class ChatsComponent implements OnInit {
 
   HideSelectNewConversation() {
     this.SelectNewConversation = false;
+  }
+
+  ShowCreateNewGroupConversation() {
+    this.ShowCreateGroupConversation = true;
+  }
+
+  HideCreateNewGroupConversation() {
+    this.ShowCreateGroupConversation = false;
   }
 
   CreateNewDirectConversation(selecteduseruid: string) {
@@ -135,7 +157,7 @@ export class ChatsComponent implements OnInit {
   }
 
   CreateNewGroupConversation() {
-
+    this.HideCreateNewGroupConversation();
   }
 
   // ------------------ Set attachments to active ----------------------------
@@ -191,12 +213,14 @@ export class ChatsComponent implements OnInit {
 
   // ------------------ In chat methods for functionality ------------------
   sendMessage() {
-    if (this.IsPublicChat) {
-      this.chatService.sendChannelMessage(this.msgValue, this.activeUser.uid);
-    } else {
-      this.chatService.sendConversationMessage(this.CurrentConversation.id, this.msgValue, this.activeUser.uid);
+    if (this.msgValue.trim() !== '') {
+      if (this.IsPublicChat) {
+        this.chatService.sendChannelMessage(this.msgValue, this.activeUser.uid);
+      } else {
+        this.chatService.sendConversationMessage(this.CurrentConversation.id, this.msgValue, this.activeUser.uid);
+      }
+      this.msgValue = '';
     }
-    this.msgValue = '';
   }
 
   // ------------------ UI methods ------------------
@@ -263,7 +287,4 @@ export class ChatsComponent implements OnInit {
 
   ngOnInit() {
   }
-
-
-
 }
