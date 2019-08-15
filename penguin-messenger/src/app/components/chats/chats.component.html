@@ -13,15 +13,6 @@
           <!-- THIS IS THE ACTIVE CONVERSATIONS OF THE ACTIVE USER -->
           <div *ngIf="!SelectNewConversation">
             <ul style="list-style: none; padding-left: 0px">
-              <li class="contact" [ngClass]="{'active': IsPublicChat}" (click)="SetPublicConversation()">
-                <div class="wrap">
-                  <img src="/assets/loadingProfile.png"/>
-                  <div class="meta">
-                    <p class="name">Public Channel</p>
-                    <p class="preview">Channel available to all users.</p>
-                  </div>
-                </div>
-              </li>
               <div *ngFor="let conversation of conversations">
                 <li class="contact" [ngClass]="{'active': CurrentConversation.id === conversation.id && !IsPublicChat}" (click)="SetSelectedConversation(conversation.id, conversation)">
                   <div class="wrap">
@@ -61,31 +52,33 @@
             </ul>
           </div>
           <!-- THIS IS THE CREATE NEW GROUP CONVERSATIONS FOR THE ACTIVE USER -->
-          <div *ngIf="ShowCreateGroupConversation">
-            <ul style="list-style: none; padding-left: 0px">
-              <li class="contact active">
-                <div class="wrap">
-                  <img src="/assets/loadingProfile.png"/>
-                  <div class="meta">
-                    <input class="name" autofocus style="width: 80%"/>
-                    <p class="preview">Enter Group Chat Name</p>
-                  </div>
-                </div>
-              </li>
-              <div *ngFor="let user of users">
-                <li class="contact" *ngIf="user.uid !== activeUser.uid">
+          <form [formGroup]="GroupForm">
+            <div *ngIf="ShowCreateGroupConversation">
+              <ul style="list-style: none; padding-left: 0px">
+                <li class="contact active">
                   <div class="wrap">
-                    <input type="checkbox" class="form-checkbox" none>
-                    <img src="{{ getSenderImage(user.uid) }}"/>
+                    <img src="/assets/loadingProfile.png"/>
                     <div class="meta">
-                      <p class="name">{{ getSenderName(user.uid) }}</p>
-                      <p class="preview"> Add User To Chat</p>
+                      <input class="name" autofocus style="width: 80%" formControlName="GroupName"/>
+                      <p class="preview">Enter Group Chat Name</p>
                     </div>
                   </div>
                 </li>
-              </div>
-            </ul>
-          </div>
+                <div *ngFor="let user of users; let i = index">
+                  <li class="contact" *ngIf="user.uid !== activeUser.uid">
+                    <div class="wrap">
+                      <input type="checkbox" class="form-checkbox" (change)="onCheckChange($event, user.uid)">
+                      <img src="{{ getSenderImage(user.uid) }}"/>
+                      <div class="meta">
+                        <p class="name">{{ getSenderName(user.uid) }}</p>
+                        <p class="preview"> Add User To Chat</p>
+                      </div>
+                    </div>
+                  </li>
+                </div>
+              </ul>
+            </div>
+          </form>
         </div>
         <div id="bottom-bar">
           <!-- THIS IS THE BUTtON CREATE NEW CONVERSATIONS FOR THE ACTIVE USER -->

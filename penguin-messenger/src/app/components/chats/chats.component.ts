@@ -5,7 +5,8 @@ import Timestamp = firebase.firestore.Timestamp;
 import { User, UserData} from '../../models/user.model';
 import { Conversation, Message, NewConversation } from '../../models/message.model';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import {ChatService} from "../../services/chat.service";
+import {ChatService} from '../../services/chat.service';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class ChatsComponent implements OnInit {
   SelectNewConversation: boolean;
   ShowCreateGroupConversation = false;
   UsersNewConversation: Array<UserData>;
+  GroupForm: FormGroup;
 
   // Show attachment popup menu
   showAttachmentMenu: boolean;
@@ -53,7 +55,15 @@ export class ChatsComponent implements OnInit {
   };
 
   constructor(private firebaseService: FirebaseService,
-              private afs: AngularFirestore, private chatService: ChatService) {
+              private afs: AngularFirestore,
+              private chatService: ChatService,
+              private formBuilder: FormBuilder) {
+
+    // Group form
+    this.GroupForm = this.formBuilder.group({
+      GroupName: ['', Validators.required],
+      SelectedUsers: new FormArray([])
+    });
 
     // Set the sidebar to active conversations
     this.SelectNewConversation = false;
@@ -69,9 +79,6 @@ export class ChatsComponent implements OnInit {
 
     // Set active user's open conversation in sidebar
     this.getActiveConversations();
-
-    // Get public channel messages
-    this.SetPublicConversation();
 
     // Test last message of conversation
     this.getLastMessage();
@@ -157,17 +164,56 @@ export class ChatsComponent implements OnInit {
   }
 
   CreateNewGroupConversation() {
+    // const id = this.afs.createId();
+    // this.SelectNewConversation = false;
+    // const conversationRef: AngularFirestoreDocument<any> = this.afs.doc(`conversations/${id}`);
+    // const Participants: string[] = [this.activeUser.uid];
+    // const conversation: NewConversation = {
+    //   description: '',
+    //   isgroupchat: true,
+    //   name: this.angForm.controls['GroupName'].value,
+    //   participants: Participants,
+    //   groupPhotoURL: '',
+    // };
+    // conversationRef.set(conversation, {
+    //   merge: true
+    // });
+    // this.GroupName = '';=
     this.HideCreateNewGroupConversation();
   }
 
+  onCheckChange(event, useruid) {
+    const formArray: FormArray = this.GroupForm.get('SelectedUsers') as FormArray;
+
+    /* Selected */
+    if (event.target.checked) {
+      // Add a new control in the arrayForm
+      formArray.push(new FormControl(useruid));
+    } else {
+      /* unselected */
+
+      // find the unselected element
+      let i = 0;
+
+      formArray.controls.forEach((ctrl: FormControl) => {
+        if (ctrl.value === useruid) {
+          // Remove the unselected element from the arrayForm
+          formArray.removeAt(i);
+          return;
+        }
+
+        i++;
+      });
+    }
+    console.log(this.GroupForm.get('SelectedUsers'));
+  }
   // ------------------ Set attachments to active ----------------------------
 
-  SetAttachmentsMenu(){
+  SetAttachmentsMenu() {
       this.showAttachmentMenu = true;
-    }
+  }
 
-
-  setAttachmentsFale(){
+  setAttachmentsFale() {
     this.showAttachmentMenu = false;
   }
 
@@ -198,17 +244,6 @@ export class ChatsComponent implements OnInit {
         return this.getSenderName(this.CurrentConversation.participants[0]);
       }
     }
-  }
-
-  SetPublicConversation() {
-    this.Messages = null;
-    this.ConversationName = 'Public Channel';
-    this.IsPublicChat = true;
-    this.ConversationPhoto = '/assets/loadingProfile.png';
-    this.IsPublicChat = true;
-    this.chatService.getChannelMessages().subscribe(responseData => {
-      this.Messages = responseData;
-    });
   }
 
   // ------------------ In chat methods for functionality ------------------
