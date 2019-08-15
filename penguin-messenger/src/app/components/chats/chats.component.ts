@@ -73,6 +73,19 @@ export class ChatsComponent implements OnInit {
     // Get public channel messages
     this.SetPublicConversation();
 
+    // Test last message of conversation
+    this.getLastMessage();
+  }
+
+  // ------------------ Test methods -------------------
+
+  getLastMessage() {
+    this.chatService.GetLastConversationMessage('kFGrJrDzv2l1KpYK877D')
+      .subscribe(responseData => {
+        if (responseData.length === 1) {
+          console.log(responseData[0].message);
+        }
+      });
   }
 
   // ------------------ Get data methods ------------------
@@ -200,12 +213,14 @@ export class ChatsComponent implements OnInit {
 
   // ------------------ In chat methods for functionality ------------------
   sendMessage() {
-    if (this.IsPublicChat) {
-      this.chatService.sendChannelMessage(this.msgValue, this.activeUser.uid);
-    } else {
-      this.chatService.sendConversationMessage(this.CurrentConversation.id, this.msgValue, this.activeUser.uid);
+    if (this.msgValue.trim() !== '') {
+      if (this.IsPublicChat) {
+        this.chatService.sendChannelMessage(this.msgValue, this.activeUser.uid);
+      } else {
+        this.chatService.sendConversationMessage(this.CurrentConversation.id, this.msgValue, this.activeUser.uid);
+      }
+      this.msgValue = '';
     }
-    this.msgValue = '';
   }
 
   // ------------------ UI methods ------------------
