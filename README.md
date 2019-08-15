@@ -143,3 +143,5 @@ Very good authentication example for firebase, [site](https://github.com/SinghDi
 
 Nice chat UI, [site](https://bootsnipp.com/snippets/0e3Ma).
 
+Audio in HTML, [site](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio).
+
