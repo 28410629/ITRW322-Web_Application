@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
 import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
@@ -6,6 +6,7 @@ import { User, UserData} from '../../models/user.model';
 import { Conversation, Message, NewConversation } from '../../models/message.model';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import {ChatService} from "../../services/chat.service";
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 
 
 @Component({
@@ -37,6 +38,8 @@ export class ChatsComponent implements OnInit {
   // Show attachment popup menu
   showAttachmentMenu: boolean;
 
+  modalRef: BsModalRef;
+
   // Selected conversation based firebase directory messages (global message model)
   Messages: Array<Message>;
   ConversationPhoto: string;
@@ -53,7 +56,8 @@ export class ChatsComponent implements OnInit {
   };
 
   constructor(private firebaseService: FirebaseService,
-              private afs: AngularFirestore, private chatService: ChatService) {
+              private afs: AngularFirestore, private chatService: ChatService,
+              private modalService: BsModalService) {
 
     // Set the sidebar to active conversations
     this.SelectNewConversation = false;
@@ -283,6 +287,10 @@ export class ChatsComponent implements OnInit {
     } else {
       return 'still need to detect other person';
     }
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, { backdrop: true , keyboard: true});
   }
 
   ngOnInit() {
