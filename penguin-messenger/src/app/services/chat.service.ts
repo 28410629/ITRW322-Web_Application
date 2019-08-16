@@ -45,27 +45,14 @@ export class ChatService {
   }
 
   public getConversations(userid): Observable<Conversation[]> {
-    return this.db.collection('conversations', ref => ref.where('participants', 'array-contains', userid))
+    return this.db.collection('conversations', ref => ref
+        .orderBy('lastsentmessagedatetime', 'asc')
+        .where('participants', 'array-contains', userid))
       .snapshotChanges().pipe(
         map(actions => {
           return actions.map(a => {
             const data = a.payload.doc.data() as Conversation;
             const id = a.payload.doc.id;
-            if (data.lastsentmessagetype === MessageTypeEnum.text_message) {
-              data.lastsentmessage = this.cryptoService.decryptConversationMessage(data.lastsentmessage, id);
-            } else if (data.lastsentmessagetype === MessageTypeEnum.voicenote_message) {
-              data.lastsentmessage = 'Voice Note';
-            } else if (data.lastsentmessagetype === MessageTypeEnum.image_message) {
-              data.lastsentmessage = 'Image';
-            } else if (data.lastsentmessagetype === MessageTypeEnum.video_message) {
-              data.lastsentmessage = 'Video';
-            } else if (data.lastsentmessagetype === MessageTypeEnum.audio_message) {
-              data.lastsentmessage = 'Audio';
-            } else {
-              data.lastsentmessage = 'Error Retrieving Message';
-            }
-            data.lastsentmessage = this.cryptoService.decryptConversationMessage(data.lastsentmessage, id);
-            console.log(data.lastsentmessage);
             return { id, ...data };
           });
         })
