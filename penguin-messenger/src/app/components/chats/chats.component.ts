@@ -85,20 +85,6 @@ export class ChatsComponent implements OnInit {
 
     // Set active user's open conversation in sidebar
     this.getActiveConversations();
-
-    // Test last message of conversation
-    this.getLastMessage();
-  }
-
-  // ------------------ Test methods -------------------
-
-  getLastMessage() {
-    this.chatService.GetLastConversationMessage('kFGrJrDzv2l1KpYK877D')
-      .subscribe(responseData => {
-        if (responseData.length === 1) {
-          console.log(responseData[0].message);
-        }
-      });
   }
 
   // ------------------ Get data methods ------------------
@@ -112,6 +98,7 @@ export class ChatsComponent implements OnInit {
   getActiveConversations() {
     this.firebaseService.getConversations(this.activeUser.uid).subscribe(responseData => {
       this.conversations = responseData;
+      console.log(responseData);
     });
   }
 
@@ -144,6 +131,10 @@ export class ChatsComponent implements OnInit {
         name: '',
         participants: Participants,
         groupPhotoURL: '',
+        lastsentmessage: 'New Conversation',
+        lastsentmessageuser: '0',
+        lastsentmessagedatetime: null,
+        lastsentmessagetype: MessageTypeEnum.text_message
       };
       conversationRef.set(conversation, {
         merge: true
@@ -183,6 +174,10 @@ export class ChatsComponent implements OnInit {
           name: this.GroupForm.get('GroupName').value,
           participants: this.GroupForm.get('SelectedUsers').value,
           groupPhotoURL: 'https://firebasestorage.googleapis.com/v0/b/itrw322-semester-project.appspot.com/o/defaults%2FdefaultUserPhoto.png?alt=media&token=5222876d-ea95-4cb9-a8a4-71d898c595d4',
+          lastsentmessage: 'New Group Conversation',
+          lastsentmessageuser: '0',
+          lastsentmessagedatetime: null,
+          lastsentmessagetype: MessageTypeEnum.text_message
         };
         conversationRef.set(conversation, {
           merge: true
@@ -268,11 +263,7 @@ export class ChatsComponent implements OnInit {
   // ------------------ In chat methods for functionality ------------------
   sendMessage() {
     if (this.msgValue.trim() !== '') {
-      if (this.IsPublicChat) {
-        this.chatService.sendChannelMessage(this.msgValue, this.activeUser.uid);
-      } else {
-        this.chatService.sendConversationMessage(this.CurrentConversation.id, this.msgValue, this.activeUser.uid);
-      }
+      this.chatService.sendConversationMessage(this.CurrentConversation.id, this.msgValue, this.activeUser.uid);
       this.msgValue = '';
     }
   }

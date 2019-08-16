@@ -15,20 +15,6 @@ export class ChatService {
 
   constructor(private db: AngularFirestore, private cryptoService: CryptoService) {}
 
-  public GetLastConversationMessage(conversationid): Observable<Message[]> {
-    return this.db.collection<Messages>('conversations/' + conversationid + '/messages', ref => ref.orderBy('datetime', 'desc').limit(1))
-      .snapshotChanges()
-      .pipe(
-        map(actions => {
-          return actions.map(a => {
-            const data = a.payload.doc.data() as Message;
-            data.message = this.cryptoService.decryptConversationMessage(data.message, conversationid);
-            return {...data};
-          });
-        })
-      );
-  }
-
   public getChannelMessages(): Observable<Message[]> {
     return this.db.collection<Messages>('channels/public/messages', ref => ref.orderBy('datetime', 'asc'))
       .snapshotChanges()
@@ -78,19 +64,12 @@ export class ChatService {
             } else {
               data.lastsentmessage = 'Error Retrieving Message';
             }
+            data.lastsentmessage = this.cryptoService.decryptConversationMessage(data.lastsentmessage, id);
+            console.log(data.lastsentmessage);
             return { id, ...data };
           });
         })
       );
-  }
-
-  public sendChannelMessage(newmessage: string, newuid: string) {
-    const cypherText = this.cryptoService.encryptChannelMessage(newmessage);
-    return this.db.collection('channels/public/messages').add({
-      datetime: new Date(),
-      message: cypherText,
-      uid: newuid
-    });
   }
 
   public sendConversationMessage(conversationid: string, newmessage: string, newuid: string) {

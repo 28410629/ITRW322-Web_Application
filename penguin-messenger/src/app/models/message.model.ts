@@ -25,6 +25,10 @@ export interface NewConversation {
   name: string;
   participants: string[];
   groupPhotoURL: string;
+  lastsentmessage: string;
+  lastsentmessageuser: string;
+  lastsentmessagedatetime: Timestamp;
+  lastsentmessagetype: MessageTypeEnum;
 }
 
 export interface Messages {
