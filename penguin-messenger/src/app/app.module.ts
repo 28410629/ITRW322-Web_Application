@@ -24,7 +24,6 @@ import { HeaderComponent } from './components/application/header/header.componen
 import { FooterComponent } from './components/application/footer/footer.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { ToolsComponent } from './components/tools/tools.component';
 import { ChatsComponent } from './components/chats/chats.component';
 import { HeaderUserComponent } from './components/application/header-user/header-user.component';
 
@@ -57,7 +56,6 @@ export function markedOptions(): MarkedOptions {
     SignInComponent,
     ProfileComponent,
     HeaderUserComponent,
-    ToolsComponent,
     ChatsComponent
   ],
   imports: [

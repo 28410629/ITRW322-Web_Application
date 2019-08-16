@@ -1,6 +1,6 @@
-
 import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
+import {MessageTypeEnum} from '../enums/messagetype.enum';
 
 export interface Conversations {
   conversations?: (Conversation)[] | null;
@@ -13,6 +13,10 @@ export interface Conversation {
   name: string;
   participants: string[];
   groupPhotoURL: string;
+  lastsentmessage: string;
+  lastsentmessageuser: string;
+  lastsentmessagedatetime: Timestamp;
+  lastsentmessagetype: MessageTypeEnum;
 }
 
 export interface NewConversation {
@@ -21,6 +25,10 @@ export interface NewConversation {
   name: string;
   participants: string[];
   groupPhotoURL: string;
+  lastsentmessage: string;
+  lastsentmessageuser: string;
+  lastsentmessagedatetime: Timestamp;
+  lastsentmessagetype: MessageTypeEnum;
 }
 
 export interface Messages {
@@ -32,4 +40,5 @@ export interface Message {
   datetime: Timestamp;
   message: string;
   uid: string;
+  type: MessageTypeEnum;
 }
