@@ -65,8 +65,9 @@ export class ChatsComponent implements OnInit {
   };
 
   constructor(private firebaseService: FirebaseService,
-              private afs: AngularFirestore, private chatService: ChatService,
+              private afs: AngularFirestore,
               private chatService: ChatService,
+              private modalService: BsModalService,
               private formBuilder: FormBuilder,
               private  cryptoService: CryptoService) {
 
