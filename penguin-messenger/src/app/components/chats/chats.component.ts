@@ -7,6 +7,7 @@ import { Conversation, Message, NewConversation } from '../../models/message.mod
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { ChatService} from '../../services/chat.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {MessageTypeEnum} from '../../enums/messagetype.enum';
 
 
 @Component({
@@ -52,7 +53,11 @@ export class ChatsComponent implements OnInit {
     id: '0',
     name: '',
     participants: null,
-    groupPhotoURL: ''
+    groupPhotoURL: '',
+    lastsentmessage: '',
+    lastsentmessageuser: '',
+    lastsentmessagedatetime: null,
+    lastsentmessagetype: null
   };
 
   constructor(private firebaseService: FirebaseService,
