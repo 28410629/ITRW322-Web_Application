@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 
 import { MarkdownModule, MarkedOptions, MarkedRenderer } from 'ngx-markdown';
+import { ModalModule, BsModalRef } from 'ngx-bootstrap';
 
 import { AuthService } from './services/authorisation/auth.service';
 import { FirebaseService } from './services/firebase.service';
@@ -75,9 +76,10 @@ export function markedOptions(): MarkedOptions {
     AngularFireAuthModule,
     AngularFireStorageModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ModalModule.forRoot(),
   ],
-  providers: [FirebaseService, AuthService, ChatService, CryptoService],
+  providers: [FirebaseService, AuthService, ChatService, CryptoService, BsModalRef],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

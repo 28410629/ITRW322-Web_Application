@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
 import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
@@ -9,6 +9,7 @@ import { ChatService} from '../../services/chat.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {MessageTypeEnum} from '../../enums/messagetype.enum';
 import {CryptoService} from '../../services/crypto.service';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 
 
 @Component({
@@ -42,6 +43,8 @@ export class ChatsComponent implements OnInit {
   // Show attachment popup menu
   showAttachmentMenu: boolean;
 
+  modalRef: BsModalRef;
+
   // Selected conversation based firebase directory messages (global message model)
   Messages: Array<Message>;
   ConversationPhoto: string;
@@ -64,6 +67,7 @@ export class ChatsComponent implements OnInit {
   constructor(private firebaseService: FirebaseService,
               private afs: AngularFirestore,
               private chatService: ChatService,
+              private modalService: BsModalService,
               private formBuilder: FormBuilder,
               private  cryptoService: CryptoService) {
 
@@ -360,6 +364,10 @@ export class ChatsComponent implements OnInit {
     } else {
       return 'still need to detect other person';
     }
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, { backdrop: true , keyboard: true});
   }
 
   ngOnInit() {
