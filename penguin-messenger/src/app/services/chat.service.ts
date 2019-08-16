@@ -3,7 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Conversation, Message, Messages } from '../models/message.model';
-import {CryptoService} from './crypto.service';
+import { CryptoService } from './crypto.service';
+import { MessageTypeEnum } from '../enums/messagetype.enum';
 
 
 @Injectable({
@@ -13,20 +14,6 @@ import {CryptoService} from './crypto.service';
 export class ChatService {
 
   constructor(private db: AngularFirestore, private cryptoService: CryptoService) {}
-
-  public GetLastConversationMessage(conversationid): Observable<Message[]> {
-    return this.db.collection<Messages>('conversations/' + conversationid + '/messages', ref => ref.orderBy('datetime', 'desc').limit(1))
-      .snapshotChanges()
-      .pipe(
-        map(actions => {
-          return actions.map(a => {
-            const data = a.payload.doc.data() as Message;
-            data.message = this.cryptoService.decryptConversationMessage(data.message, conversationid);
-            return {...data};
-          });
-        })
-      );
-  }
 
   public getChannelMessages(): Observable<Message[]> {
     return this.db.collection<Messages>('channels/public/messages', ref => ref.orderBy('datetime', 'asc'))
@@ -58,7 +45,9 @@ export class ChatService {
   }
 
   public getConversations(userid): Observable<Conversation[]> {
-    return this.db.collection('conversations', ref => ref.where('participants', 'array-contains', userid))
+    return this.db.collection('conversations', ref => ref
+        .orderBy('lastsentmessagedatetime', 'asc')
+        .where('participants', 'array-contains', userid))
       .snapshotChanges().pipe(
         map(actions => {
           return actions.map(a => {
@@ -70,22 +59,23 @@ export class ChatService {
       );
   }
 
-  public sendChannelMessage(newmessage: string, newuid: string) {
-    const cypherText = this.cryptoService.encryptChannelMessage(newmessage);
-    return this.db.collection('channels/public/messages').add({
-      datetime: new Date(),
-      message: cypherText,
-      uid: newuid
-    });
-  }
-
   public sendConversationMessage(conversationid: string, newmessage: string, newuid: string) {
+    console.log(conversationid);
     const path = 'conversations/' + conversationid + '/messages';
+    const updatepath = 'conversations/' + conversationid;
     const cypherText = this.cryptoService.encryptConversationMessage(newmessage, conversationid);
-    return this.db.collection(path).add({
-      datetime: new Date(),
+    const adddatetime = new Date();
+    this.db.collection(path).add({
+      datetime: adddatetime,
       message: cypherText,
-      uid: newuid
+      uid: newuid,
+      type: MessageTypeEnum.text_message
+    });
+    this.db.doc(updatepath).update({
+      lastsentmessage: cypherText,
+      lastsentmessageuser: newuid,
+      lastsentmessagedatetime: adddatetime,
+      lastsentmessagetype: MessageTypeEnum.text_message
     });
   }
 }

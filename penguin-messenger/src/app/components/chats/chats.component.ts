@@ -7,6 +7,8 @@ import { Conversation, Message, NewConversation } from '../../models/message.mod
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { ChatService} from '../../services/chat.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {MessageTypeEnum} from '../../enums/messagetype.enum';
+import {CryptoService} from '../../services/crypto.service';
 
 
 @Component({
@@ -52,13 +54,18 @@ export class ChatsComponent implements OnInit {
     id: '0',
     name: '',
     participants: null,
-    groupPhotoURL: ''
+    groupPhotoURL: '',
+    lastsentmessage: '',
+    lastsentmessageuser: '',
+    lastsentmessagedatetime: null,
+    lastsentmessagetype: null
   };
 
   constructor(private firebaseService: FirebaseService,
               private afs: AngularFirestore,
               private chatService: ChatService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private  cryptoService: CryptoService) {
 
     // Group form
     this.GroupForm = this.formBuilder.group({
@@ -81,19 +88,7 @@ export class ChatsComponent implements OnInit {
     // Set active user's open conversation in sidebar
     this.getActiveConversations();
 
-    // Test last message of conversation
-    this.getLastMessage();
-  }
 
-  // ------------------ Test methods -------------------
-
-  getLastMessage() {
-    this.chatService.GetLastConversationMessage('kFGrJrDzv2l1KpYK877D')
-      .subscribe(responseData => {
-        if (responseData.length === 1) {
-          console.log(responseData[0].message);
-        }
-      });
   }
 
   // ------------------ Get data methods ------------------
@@ -106,7 +101,36 @@ export class ChatsComponent implements OnInit {
 
   getActiveConversations() {
     this.firebaseService.getConversations(this.activeUser.uid).subscribe(responseData => {
-      this.conversations = responseData;
+      let tempconversations: Array<Conversation>;
+      tempconversations = responseData;
+      for (const conversation of tempconversations) {
+        conversation.lastsentmessage = this.cryptoService.decryptConversationMessage(conversation.lastsentmessage, conversation.id);
+      }
+      this.conversations = tempconversations;
+
+      if (this.conversations.length > 0) {
+        this.SetSelectedConversation(this.conversations[0].id, this.conversations[0]);
+      }
+
+      // A test for notification sound
+      const audio = new Audio();
+      audio.src = 'assets/notification.mp4';
+      audio.load();
+      audio.play();
+
+      // if (data.lastsentmessagetype === MessageTypeEnum.text_message) {
+      //   data.lastsentmessage = this.cryptoService.decryptConversationMessage(data.lastsentmessage, id);
+      // } else if (data.lastsentmessagetype === MessageTypeEnum.voicenote_message) {
+      //   data.lastsentmessage = 'Voice Note';
+      // } else if (data.lastsentmessagetype === MessageTypeEnum.image_message) {
+      //   data.lastsentmessage = 'Image';
+      // } else if (data.lastsentmessagetype === MessageTypeEnum.video_message) {
+      //   data.lastsentmessage = 'Video';
+      // } else if (data.lastsentmessagetype === MessageTypeEnum.audio_message) {
+      //   data.lastsentmessage = 'Audio';
+      // } else {
+      //   data.lastsentmessage = 'Error Retrieving Message';
+      // }
     });
   }
 
@@ -139,6 +163,10 @@ export class ChatsComponent implements OnInit {
         name: '',
         participants: Participants,
         groupPhotoURL: '',
+        lastsentmessage: 'New Conversation',
+        lastsentmessageuser: '0',
+        lastsentmessagedatetime: null,
+        lastsentmessagetype: MessageTypeEnum.text_message
       };
       conversationRef.set(conversation, {
         merge: true
@@ -178,6 +206,10 @@ export class ChatsComponent implements OnInit {
           name: this.GroupForm.get('GroupName').value,
           participants: this.GroupForm.get('SelectedUsers').value,
           groupPhotoURL: 'https://firebasestorage.googleapis.com/v0/b/itrw322-semester-project.appspot.com/o/defaults%2FdefaultUserPhoto.png?alt=media&token=5222876d-ea95-4cb9-a8a4-71d898c595d4',
+          lastsentmessage: 'New Group Conversation',
+          lastsentmessageuser: '0',
+          lastsentmessagedatetime: null,
+          lastsentmessagetype: MessageTypeEnum.text_message
         };
         conversationRef.set(conversation, {
           merge: true
@@ -263,11 +295,7 @@ export class ChatsComponent implements OnInit {
   // ------------------ In chat methods for functionality ------------------
   sendMessage() {
     if (this.msgValue.trim() !== '') {
-      if (this.IsPublicChat) {
-        this.chatService.sendChannelMessage(this.msgValue, this.activeUser.uid);
-      } else {
-        this.chatService.sendConversationMessage(this.CurrentConversation.id, this.msgValue, this.activeUser.uid);
-      }
+      this.chatService.sendConversationMessage(this.CurrentConversation.id, this.msgValue, this.activeUser.uid);
       this.msgValue = '';
     }
   }
