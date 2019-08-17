@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Conversation, Message, Messages } from '../models/message.model';
+import {Conversation, Message, Messages, NewConversation} from '../models/message.model';
 import { CryptoService } from './crypto.service';
 import { MessageTypeEnum } from '../enums/messagetype.enum';
+import * as firebase from 'firebase';
+import Timestamp = firebase.firestore.Timestamp;
 
 
 @Injectable({
@@ -46,7 +48,8 @@ export class ChatService {
 
   public getConversations(userid): Observable<Conversation[]> {
     return this.db.collection('conversations', ref => ref
-      .where('participants', 'array-contains', userid))
+      .where('participants', 'array-contains', userid)
+      .orderBy('lastsentmessagedatetime', 'desc'))
       .snapshotChanges().pipe(
         map(actions => {
           return actions.map(a => {
@@ -89,6 +92,45 @@ export class ChatService {
       lastsentmessageuser: newuid,
       lastsentmessagedatetime: adddatetime,
       lastsentmessagetype: MessageTypeEnum.text_message
+    });
+  }
+
+  public CreateNewDirectConversation(activeuserid, selecteduserid) {
+    const id = this.db.createId();
+    const conversationRef: AngularFirestoreDocument<any> = this.db.doc(`conversations/${id}`);
+    const Participants: string[] = [activeuserid, selecteduserid];
+    const conversation: NewConversation = {
+      description: '',
+      isgroupchat: false,
+      name: '',
+      participants: Participants,
+      groupPhotoURL: '',
+      lastsentmessage: '',
+      lastsentmessageuser: '',
+      lastsentmessagedatetime: Timestamp.now(),
+      lastsentmessagetype: MessageTypeEnum.new_message
+    };
+    conversationRef.set(conversation, {
+      merge: true
+    });
+  }
+  // this.GroupForm.get('GroupName').value, this.GroupForm.get('SelectedUsers').value
+  public CreateNewGroupConversation(Name, Participants) {
+    const id = this.db.createId();
+    const conversationRef: AngularFirestoreDocument<any> = this.db.doc(`conversations/${id}`);
+    const conversation: NewConversation = {
+      description: '',
+      isgroupchat: true,
+      name: Name,
+      participants: Participants,
+      groupPhotoURL: 'https://firebasestorage.googleapis.com/v0/b/itrw322-semester-project.appspot.com/o/defaults%2FdefaultUserPhoto.png?alt=media&token=5222876d-ea95-4cb9-a8a4-71d898c595d4',
+      lastsentmessage: '',
+      lastsentmessageuser: '5',
+      lastsentmessagedatetime: Timestamp.now(),
+      lastsentmessagetype: MessageTypeEnum.new_message
+    };
+    conversationRef.set(conversation, {
+      merge: true
     });
   }
 }

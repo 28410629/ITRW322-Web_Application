@@ -70,8 +70,7 @@ export class ChatsComponent implements OnInit {
               private afs: AngularFirestore,
               private chatService: ChatService,
               private modalService: BsModalService,
-              private formBuilder: FormBuilder,
-              private  cryptoService: CryptoService) {
+              private formBuilder: FormBuilder) {
 
     // Group form
     this.GroupForm = this.formBuilder.group({
@@ -129,24 +128,8 @@ export class ChatsComponent implements OnInit {
 
   CreateNewDirectConversation(selecteduseruid: string) {
     if (this.CheckIfDirectConversationExists(selecteduseruid)) {
-      const id = this.afs.createId();
       this.SelectNewConversation = false;
-      const conversationRef: AngularFirestoreDocument<any> = this.afs.doc(`conversations/${id}`);
-      const Participants: string[] = [this.activeUser.uid, selecteduseruid];
-      const conversation: NewConversation = {
-        description: '',
-        isgroupchat: false,
-        name: '',
-        participants: Participants,
-        groupPhotoURL: '',
-        lastsentmessage: 'New Conversation',
-        lastsentmessageuser: '5',
-        lastsentmessagedatetime: null,
-        lastsentmessagetype: MessageTypeEnum.new_message
-      };
-      conversationRef.set(conversation, {
-        merge: true
-      });
+      this.chatService.CreateNewDirectConversation(this.activeUser.uid, selecteduseruid);
       this.HideSelectNewConversation();
     } else {
       this.HideSelectNewConversation();
@@ -170,26 +153,14 @@ export class ChatsComponent implements OnInit {
 
   CreateNewGroupConversation() {
     const formArray: FormArray = this.GroupForm.get('SelectedUsers') as FormArray;
+    // Checks if group has at least 1 participant
     if (formArray.length !== 0) {
+      // Checks that the group name is not ''
       if (this.GroupForm.get('GroupName').value.toString().trim() !== '') {
+        // Adds active user to array of participants
         formArray.push(new FormControl(this.activeUser.uid));
-        const id = this.afs.createId();
         this.SelectNewConversation = false;
-        const conversationRef: AngularFirestoreDocument<any> = this.afs.doc(`conversations/${id}`);
-        const conversation: NewConversation = {
-          description: 'This is a new group conversation.',
-          isgroupchat: true,
-          name: this.GroupForm.get('GroupName').value,
-          participants: this.GroupForm.get('SelectedUsers').value,
-          groupPhotoURL: 'https://firebasestorage.googleapis.com/v0/b/itrw322-semester-project.appspot.com/o/defaults%2FdefaultUserPhoto.png?alt=media&token=5222876d-ea95-4cb9-a8a4-71d898c595d4',
-          lastsentmessage: 'New Group Conversation',
-          lastsentmessageuser: '5',
-          lastsentmessagedatetime: null,
-          lastsentmessagetype: MessageTypeEnum.new_message
-        };
-        conversationRef.set(conversation, {
-          merge: true
-        });
+        this.chatService.CreateNewGroupConversation(this.GroupForm.get('GroupName').value, this.GroupForm.get('SelectedUsers').value);
         this.HideCreateNewGroupConversation();
       }
     } else {
