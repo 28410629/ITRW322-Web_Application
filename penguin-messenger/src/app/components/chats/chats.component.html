@@ -14,7 +14,7 @@
           <div *ngIf="!SelectNewConversation">
             <ul style="list-style: none; padding-left: 0px">
               <div *ngFor="let conversation of conversations">
-                <li class="contact" [ngClass]="{'active': CurrentConversation.id === conversation.id && !IsPublicChat}" (click)="SetSelectedConversation(conversation.id, conversation)">
+                <li class="contact" [ngClass]="{'active': CurrentConversation.id === conversation.id}" (click)="SetSelectedConversation(conversation.id, conversation)">
                   <div class="wrap">
                     <img src="{{ getChatPhoto(conversation.isgroupchat, conversation.groupPhotoURL, conversation.participants) }}"/>
                     <div class="meta">
@@ -96,56 +96,62 @@
         </div>
       </div>
       <div class="content">
-        <div class="contact-profile">
-          <img src="{{ConversationPhoto}}" >
-          <p>{{ ConversationName }}</p>
-        </div>
-        <div #scrollMe [scrollTop]="scrollMe.scrollHeight" class="messages" style="margin: 0px">
-          <ul *ngFor="let message of Messages">
-            <li [ngClass]="(message.uid == activeUser.uid)?'replies':'sent'">
-              <img src="{{ getSenderImage(message.uid)}}"/>
-              <p>
-                <b class="name-of-user">{{getSenderName(message.uid)}}</b><br>
-                <span style="font-size: smaller">{{ getGoodDate(message.datetime) | date:'dd MMM hh:mm' }}</span>
-                <markdown [data]="newLine"></markdown>
-                <markdown [data]="message.message"></markdown>
-              </p>
-            </li>
-          </ul>
-        </div>
-        <div class="message-input" style="background: white">
-          <div class="wrap">
-            <input (keydown.enter)="sendMessage()" type="text" [(ngModel)]="msgValue" placeholder="Write your message..." />
-            <button (click)="sendMessage()" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-            <button (click)="openModal(template)" style="background: #0056B2;:hover {background: #435f7a}"><i class="fa fa-paperclip" aria-hidden="true"></i></button>
-            <ng-template #template id="myModal">
-              <div class="modal-header">
-                <h4 class="modal-title pull-left">Attachments</h4>
-              </div>
-              <div class="modal-body">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-sm attachedMedia">
-                      <a href="#">
-                        <img src="assets/Images.png" class="center">Pictures
-                      </a>
-                    </div>
-                    <div class="col-sm attachedMedia">
-                      <a href="#">
-                        <img src="assets/Video.png">Videos
-                      </a>
-                    </div>
-                    <div class="col-sm attachedMedia">
-                      <a href="#">
-                        <img src="assets/Video.png">Voice Notes
-                      </a>
+        <div *ngIf="ChatIsSelected">
+          <div class="contact-profile">
+            <img src="{{ConversationPhoto}}" >
+            <p>{{ ConversationName }}</p>
+          </div>
+          <div #scrollMe [scrollTop]="scrollMe.scrollHeight" class="messages" style="margin: 0px">
+            <ul *ngFor="let message of Messages">
+              <li [ngClass]="(message.uid == activeUser.uid)?'replies':'sent'">
+                <img src="{{ getSenderImage(message.uid)}}"/>
+                <p>
+                  <b class="name-of-user">{{getSenderName(message.uid)}}</b><br>
+                  <span style="font-size: smaller">{{ getGoodDate(message.datetime) | date:'dd MMM hh:mm' }}</span>
+                  <markdown [data]="newLine"></markdown>
+                  <markdown [data]="message.message"></markdown>
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class="message-input" style="background: white">
+            <div class="wrap">
+              <input (keydown.enter)="sendMessage()" type="text" [(ngModel)]="msgValue" placeholder="Write your message..." />
+              <button (click)="sendMessage()" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+              <button (click)="openModal(template)" style="background: #0056B2;:hover {background: #435f7a}"><i class="fa fa-paperclip" aria-hidden="true"></i></button>
+              <ng-template #template id="myModal">
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left">Attachments</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-sm attachedMedia">
+                        <a href="#">
+                          <img src="assets/Images.png" class="center">Pictures
+                        </a>
+                      </div>
+                      <div class="col-sm attachedMedia">
+                        <a href="#">
+                          <img src="assets/Video.png">Videos
+                        </a>
+                      </div>
+                      <div class="col-sm attachedMedia">
+                        <a href="#">
+                          <img src="assets/Video.png">Voice Notes
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </ng-template>
+              </ng-template>
+            </div>
           </div>
         </div>
+        <div *ngIf="!ChatIsSelected">
+          <p>Choose a chat or create a new chat.</p>
+        </div>
+
       </div>
     </div>
 

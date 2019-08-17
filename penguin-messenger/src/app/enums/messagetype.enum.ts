@@ -3,5 +3,6 @@ export enum MessageTypeEnum {
   image_message,
   audio_message,
   video_message,
-  voicenote_message
+  voicenote_message,
+  new_message
 }
