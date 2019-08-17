@@ -7,7 +7,8 @@ import { ChatsComponent } from './components/chats/chats.component';
 
 const routes: Routes = [
   { path: '', component: SignInComponent, canActivate: [SecureInnerPagesGuard] },
-  { path: 'application', component: ChatsComponent, canActivate: [AuthGuard] }
+  { path: 'application', component: ChatsComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '/application'}
 ];
 
 @NgModule({
