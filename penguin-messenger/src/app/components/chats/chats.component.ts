@@ -31,6 +31,9 @@ export class ChatsComponent implements OnInit {
   // Sidebar active conversation of active user
   conversations: Array<Conversation>;
 
+  // chat_selected
+  ChatIsSelected = false;
+
   // Current active user
   activeUser: User;
 
@@ -43,7 +46,6 @@ export class ChatsComponent implements OnInit {
 
   // Show attachment popup menu
   showAttachmentMenu: boolean;
-
   modalRef: BsModalRef;
 
   // Selected conversation based firebase directory messages (global message model)
@@ -239,6 +241,7 @@ export class ChatsComponent implements OnInit {
 
   // ------------------ Change to other active chat methods ------------------
   SetSelectedConversation(conversationid, conversationobject: Conversation) {
+    this.ChatIsSelected = true;
     this.Messages = null;
     this.ConversationPhoto = '';
     this.CurrentConversation = conversationobject;
