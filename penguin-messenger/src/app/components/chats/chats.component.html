@@ -14,12 +14,12 @@
           <div *ngIf="!SelectNewConversation">
             <ul style="list-style: none; padding-left: 0px">
               <div *ngFor="let conversation of conversations">
-                <li class="contact" [ngClass]="{'active': CurrentConversation.id === conversation.id && !IsPublicChat}" (click)="SetSelectedConversation(conversation.id, conversation)">
+                <li class="contact" [ngClass]="{'active': CurrentConversation.id === conversation.id}" (click)="SetSelectedConversation(conversation.id, conversation)">
                   <div class="wrap">
                     <img src="{{ getChatPhoto(conversation.isgroupchat, conversation.groupPhotoURL, conversation.participants) }}"/>
                     <div class="meta">
                       <p class="name">{{ getChatName(conversation.isgroupchat, conversation.name, conversation.participants) }}</p>
-                      <p class="preview">{{ playNotificationSound(conversation.lastsentmessageuser,conversation.lastsentmessage) }}</p>
+                      <p class="preview">{{ conversation.lastsentmessage }}</p>
                     </div>
                   </div>
                 </li>

@@ -41,9 +41,6 @@ export class ChatsComponent implements OnInit {
   GroupForm: FormGroup;
   IsCreateGroupIcon = false;
 
-  // Notifcations
-  audio = new Audio();
-
   // Show attachment popup menu
   showAttachmentMenu: boolean;
 
@@ -80,8 +77,6 @@ export class ChatsComponent implements OnInit {
       SelectedUsers: new FormArray([])
     });
 
-    // Load notification sound
-    this.loadNotificationSound();
 
     // Set the sidebar to active conversations
     this.SelectNewConversation = false;
@@ -145,7 +140,7 @@ export class ChatsComponent implements OnInit {
         lastsentmessage: 'New Conversation',
         lastsentmessageuser: '5',
         lastsentmessagedatetime: null,
-        lastsentmessagetype: MessageTypeEnum.text_message
+        lastsentmessagetype: MessageTypeEnum.new_message
       };
       conversationRef.set(conversation, {
         merge: true
@@ -188,7 +183,7 @@ export class ChatsComponent implements OnInit {
           lastsentmessage: 'New Group Conversation',
           lastsentmessageuser: '5',
           lastsentmessagedatetime: null,
-          lastsentmessagetype: MessageTypeEnum.text_message
+          lastsentmessagetype: MessageTypeEnum.new_message
         };
         conversationRef.set(conversation, {
           merge: true
@@ -272,14 +267,13 @@ export class ChatsComponent implements OnInit {
 
   // ------------------ In chat methods for functionality ------------------
 
-  loadNotificationSound() {
-    this.audio.src = 'assets/message-sound.mp3';
-    this.audio.load();
-  }
 
   playNotificationSound(sendersUID, lastmessage): string {
     if (sendersUID !== this.activeUser.uid) {
-      this.audio.play();
+     const audio = new Audio();
+     audio.src = 'assets/message-sound.mp3';
+     audio.load();
+     audio.play();
     }
     return lastmessage;
   }
