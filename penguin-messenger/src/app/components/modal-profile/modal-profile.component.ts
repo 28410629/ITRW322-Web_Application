@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { User } from '../../models/user.model';
-import { FirebaseService } from '../../services/firebase.service';
-import { AngularFireStorage } from '@angular/fire/storage';
-import { finalize } from 'rxjs/operators';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
+import {User} from '../../models/user.model';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FirebaseService} from '../../services/firebase.service';
+import {AngularFireStorage} from '@angular/fire/storage';
+import {ImageCroppedEvent} from 'ngx-image-cropper';
+import {finalize} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: 'app-modal-profile',
+  templateUrl: './modal-profile.component.html',
+  styleUrls: ['./modal-profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ModalProfileComponent implements OnInit {
 
   imageChangedEvent: any;
   croppedImage;

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import { FirebaseService } from '../../../services/firebase.service';
 import {AuthService} from '../../../services/authorisation/auth.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-header-user',
@@ -11,9 +12,13 @@ export class HeaderUserComponent implements OnInit {
 
   displayName = '';
   photoURL = 'assets/loadingProfile.png';
+  // Show attachment popup menu
+  showAttachmentMenu: boolean;
+  modalRef: BsModalRef;
 
   constructor(public fireBaseService: FirebaseService,
-              public authService: AuthService) { }
+              public authService: AuthService,
+              private modalService: BsModalService) { }
 
   ngOnInit() {
     this.getData();
@@ -35,5 +40,9 @@ export class HeaderUserComponent implements OnInit {
           this.displayName = responseData.displayName;
           this.photoURL = responseData.photoURL;
     });
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, { backdrop: true , keyboard: true});
   }
 }

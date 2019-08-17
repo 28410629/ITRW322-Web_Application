@@ -23,11 +23,11 @@ import { AppComponent } from './components/application/app/app.component';
 import { HeaderComponent } from './components/application/header/header.component';
 import { FooterComponent } from './components/application/footer/footer.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { ChatsComponent } from './components/chats/chats.component';
 import { HeaderUserComponent } from './components/application/header-user/header-user.component';
 
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { ModalProfileComponent } from './components/modal-profile/modal-profile.component';
 
 export function markedOptions(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -54,9 +54,9 @@ export function markedOptions(): MarkedOptions {
     HeaderComponent,
     FooterComponent,
     SignInComponent,
-    ProfileComponent,
     HeaderUserComponent,
-    ChatsComponent
+    ChatsComponent,
+    ModalProfileComponent
   ],
   imports: [
     HttpClientModule,

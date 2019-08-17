@@ -3,14 +3,11 @@ import { FirebaseService } from '../../services/firebase.service';
 import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 import { User, UserData} from '../../models/user.model';
-import { Conversation, Message, NewConversation } from '../../models/message.model';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Conversation, Message } from '../../models/message.model';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { ChatService} from '../../services/chat.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {MessageTypeEnum} from '../../enums/messagetype.enum';
-import {CryptoService} from '../../services/crypto.service';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {last} from 'rxjs/operators';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 
 @Component({
@@ -52,7 +49,6 @@ export class ChatsComponent implements OnInit {
   Messages: Array<Message>;
   ConversationPhoto: string;
   ConversationName;
-  ConversationPath;
   CurrentConversation: Conversation = {
     description: '',
     isgroupchat: false,
@@ -240,18 +236,6 @@ export class ChatsComponent implements OnInit {
   }
 
   // ------------------ In chat methods for functionality ------------------
-
-
-  playNotificationSound(sendersUID, lastmessage): string {
-    if (sendersUID !== this.activeUser.uid) {
-     const audio = new Audio();
-     audio.src = 'assets/message-sound.mp3';
-     audio.load();
-     audio.play();
-    }
-    return lastmessage;
-  }
-
   sendMessage() {
     if (this.msgValue.trim() !== '') {
       this.chatService.sendConversationMessage(this.CurrentConversation.id, this.msgValue, this.activeUser.uid);
@@ -271,7 +255,6 @@ export class ChatsComponent implements OnInit {
       }
     }
   }
-
 
   getSenderName(uid) {
     for (const user of this.users) {
