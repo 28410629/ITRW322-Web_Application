@@ -143,7 +143,7 @@ export class ChatsComponent implements OnInit {
         participants: Participants,
         groupPhotoURL: '',
         lastsentmessage: 'New Conversation',
-        lastsentmessageuser: '0',
+        lastsentmessageuser: '5',
         lastsentmessagedatetime: null,
         lastsentmessagetype: MessageTypeEnum.text_message
       };
@@ -186,7 +186,7 @@ export class ChatsComponent implements OnInit {
           participants: this.GroupForm.get('SelectedUsers').value,
           groupPhotoURL: 'https://firebasestorage.googleapis.com/v0/b/itrw322-semester-project.appspot.com/o/defaults%2FdefaultUserPhoto.png?alt=media&token=5222876d-ea95-4cb9-a8a4-71d898c595d4',
           lastsentmessage: 'New Group Conversation',
-          lastsentmessageuser: '0',
+          lastsentmessageuser: '5',
           lastsentmessagedatetime: null,
           lastsentmessagetype: MessageTypeEnum.text_message
         };

@@ -54,7 +54,6 @@ export class ChatService {
             const id = a.payload.doc.id;
             if (data.lastsentmessagetype === MessageTypeEnum.text_message) {
               data.lastsentmessage = this.cryptoService.decryptConversationMessage(data.lastsentmessage, id);
-              //data.lastsentmessage = 'Message';
             } else if (data.lastsentmessagetype === MessageTypeEnum.voicenote_message) {
               data.lastsentmessage = 'Voice Note';
             } else if (data.lastsentmessagetype === MessageTypeEnum.image_message) {
@@ -63,6 +62,8 @@ export class ChatService {
               data.lastsentmessage = 'Video';
             } else if (data.lastsentmessagetype === MessageTypeEnum.audio_message) {
               data.lastsentmessage = 'Audio';
+            } else if (data.lastsentmessagetype === MessageTypeEnum.new_message) {
+              data.lastsentmessage = 'New Conversation';
             } else {
               data.lastsentmessage = 'Error Retrieving Message';
             }
