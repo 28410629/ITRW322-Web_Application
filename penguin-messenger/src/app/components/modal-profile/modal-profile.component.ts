@@ -73,7 +73,6 @@ export class ModalProfileComponent implements OnInit {
       this.user.uid,
       this.angForm.controls['DisplayName'].value,
       this.photoURL);
-    console.log(JSON.parse(localStorage.getItem('usersData')));
   }
 
   uploadPhoto() {
