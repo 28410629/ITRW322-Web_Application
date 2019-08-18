@@ -11,7 +11,7 @@ import { User, UserData } from '../../../models/user.model';
 })
 export class HeaderUserComponent implements OnInit {
 
-  displayName = '';
+  displayName = 'Loading...';
   photoURL = 'assets/loadingProfile.png';
   // Show attachment popup menu
   showAttachmentMenu: boolean;
@@ -38,11 +38,6 @@ export class HeaderUserComponent implements OnInit {
 
   getInitialData() {
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.userdata = JSON.parse(localStorage.getItem('usersData'));
-    if (this.userdata !== null) {
-      this.displayName = this.userdata.displayName;
-      this.photoURL = this.userdata.photoURL;
-    }
   }
 
   openModal(template: TemplateRef<any>) {

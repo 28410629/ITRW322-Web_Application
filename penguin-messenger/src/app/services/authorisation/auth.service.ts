@@ -29,9 +29,7 @@ export class AuthService {
         JSON.parse(localStorage.getItem('user'));
       } else {
         localStorage.setItem('user', null);
-        localStorage.setItem('userData', null);
         JSON.parse(localStorage.getItem('user'));
-        JSON.parse(localStorage.getItem('userData'));
       }
     });
   }
@@ -106,8 +104,7 @@ export class AuthService {
         };
         localStorage.setItem('usersData', JSON.stringify(x));
       } else {
-        const y =  doc.data() as UserData;
-        localStorage.setItem('usersData', JSON.stringify(y));
+        localStorage.setItem('usersData', null);
       }
     });
 
