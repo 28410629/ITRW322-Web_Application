@@ -1,7 +1,8 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import { FirebaseService } from '../../../services/firebase.service';
-import {AuthService} from '../../../services/authorisation/auth.service';
+import { AuthService} from '../../../services/authorisation/auth.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { User, UserData } from '../../../models/user.model';
 
 @Component({
   selector: 'app-header-user',
@@ -15,13 +16,16 @@ export class HeaderUserComponent implements OnInit {
   // Show attachment popup menu
   showAttachmentMenu: boolean;
   modalRef: BsModalRef;
+  user: User;
+  userdata: UserData;
 
   constructor(public fireBaseService: FirebaseService,
               public authService: AuthService,
               private modalService: BsModalService) { }
 
   ngOnInit() {
-    this.getData();
+    this.getInitialData();
+    this.getUserData();
   }
 
   tryLogout() {
@@ -32,17 +36,25 @@ export class HeaderUserComponent implements OnInit {
     audio.play();
   }
 
-  getData() {
-    const user = JSON.parse(localStorage.getItem('user'));
-    this.fireBaseService.getUserData(user.uid)
-      .subscribe(
-        responseData => {
-          this.displayName = responseData.displayName;
-          this.photoURL = responseData.photoURL;
-    });
+  getInitialData() {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.userdata = JSON.parse(localStorage.getItem('usersData'));
+    if (this.userdata !== null) {
+      this.displayName = this.userdata.displayName;
+      this.photoURL = this.userdata.photoURL;
+    }
   }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, { backdrop: true , keyboard: true});
+  }
+
+  getUserData() {
+    this.fireBaseService.getUserData(this.user.uid)
+      .subscribe(
+        responseData => {
+          this.displayName = responseData.displayName;
+          this.photoURL = responseData.photoURL;
+        });
   }
 }

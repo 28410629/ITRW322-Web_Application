@@ -104,8 +104,8 @@ export class AuthService {
         };
         localStorage.setItem('usersData', JSON.stringify(x));
       } else {
-        doc.data()
-        localStorage.setItem('usersData', null);
+        const y =  doc.data() as UserData;
+        localStorage.setItem('usersData', JSON.stringify(y));
       }
     });
 
