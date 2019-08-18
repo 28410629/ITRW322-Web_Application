@@ -1,3 +1,10 @@
+.start-center {
+  display: grid;
+  height: 90%;
+  align-content: center;
+  justify-content: center;
+}
+
 body {
   display: flex;
   align-items: center;
