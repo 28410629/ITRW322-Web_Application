@@ -8,7 +8,7 @@
   <div class="chat-main">
 
     <div id="frame" style="margin: 0px;">
-      <div id="sidepanel">
+      <div id="sidepanel" [ngStyle]="SelectNewConversation || ShowCreateGroupConversation ? {'width': '100vw'} : {}">
         <div id="contacts">
           <!-- THIS IS THE ACTIVE CONVERSATIONS OF THE ACTIVE USER -->
           <div *ngIf="!SelectNewConversation">
@@ -29,20 +29,20 @@
           <!-- THIS IS THE CREATE NEW CONVERSATIONS FOR THE ACTIVE USER -->
           <div *ngIf="SelectNewConversation && !ShowCreateGroupConversation">
             <ul style="list-style: none; padding-left: 0px">
-              <li class="contact active" (click)="ShowCreateNewGroupConversation()">
+              <li class="contact active" (click)="ShowCreateNewGroupConversation()" [ngStyle]="SelectNewConversation || ShowCreateGroupConversation ? {'padding':'10px 0px 10px 0px'} : {}">
                 <div class="wrap">
-                  <img src="/assets/loadingProfile.png"/>
-                  <div class="meta">
+                  <img src="/assets/loadingProfile.png" [ngStyle]="SelectNewConversation || ShowCreateGroupConversation ? {'width':'40px', 'border-radius':'50%','float':'left','margin-right':'10px'} : {}"/>
+                  <div class="meta" [ngStyle]="SelectNewConversation || ShowCreateGroupConversation ? {'display': 'contents'} : {}">
                     <p class="name">Create Group Chat</p>
                     <p class="preview">Group Conversation</p>
                   </div>
                 </div>
               </li>
               <div *ngFor="let user of users">
-                <li class="contact" (click)="CreateNewDirectConversation(user.uid)" *ngIf="user.uid !== activeUser.uid">
+                <li class="contact" (click)="CreateNewDirectConversation(user.uid)" *ngIf="user.uid !== activeUser.uid" [ngStyle]="SelectNewConversation || ShowCreateGroupConversation ? {'padding':'10px 0px 10px 0px'} : {}">
                   <div class="wrap">
                     <img src="{{ getSenderImage(user.uid) }}"/>
-                    <div class="meta">
+                    <div class="meta" [ngStyle]="SelectNewConversation || ShowCreateGroupConversation ? {'display': 'contents'} : {}">
                       <p class="name">{{ getSenderName(user.uid) }}</p>
                       <p class="preview">Create Direct Conversation</p>
                     </div>
@@ -51,27 +51,27 @@
               </div>
             </ul>
           </div>
-          <!-- THIS IS THE CREATE NEW GROUP CONVERSATIONS FOR THE ACTIVE USER -->
+          <!-- THIS IS THE CREATE NEW GROUP CONVERSATIONS FOR THE ACTIVE USER :) -->
           <form [formGroup]="GroupForm">
             <div *ngIf="ShowCreateGroupConversation">
               <ul style="list-style: none; padding-left: 0px">
-                <li class="contact active">
+                <li class="contact active" [ngStyle]="SelectNewConversation || ShowCreateGroupConversation ? {'padding':'10px 0px 10px 0px'} : {}">
                   <div class="wrap">
                     <img src="/assets/loadingProfile.png"/>
-                    <div class="meta">
+                    <div class="meta" [ngStyle]="SelectNewConversation || ShowCreateGroupConversation ? {'display': 'contents'} : {}">
                       <input class="name" autofocus style="width: 80%" formControlName="GroupName"/>
                       <p class="preview">Enter Group Chat Name</p>
                     </div>
                   </div>
                 </li>
                 <div *ngFor="let user of users; let i = index">
-                  <li class="contact" *ngIf="user.uid !== activeUser.uid">
+                  <li class="contact" *ngIf="user.uid !== activeUser.uid" [ngStyle]="SelectNewConversation || ShowCreateGroupConversation ? {'padding':'10px 0px 10px 0px'} : {}">
                     <div class="wrap">
                       <input type="checkbox" class="form-checkbox" (change)="onCheckChange($event, user.uid)">
                       <img src="{{ getSenderImage(user.uid) }}"/>
-                      <div class="meta">
+                      <div class="meta" [ngStyle]="SelectNewConversation || ShowCreateGroupConversation ? {'display': 'contents'} : {}">
                         <p class="name">{{ getSenderName(user.uid) }}</p>
-                        <p class="preview"> Add User To Chat</p>
+                        <p class="preview">Add User To Chat</p>
                       </div>
                     </div>
                   </li>
@@ -95,7 +95,7 @@
           </div>
         </div>
       </div>
-      <div class="content">
+      <div class="content" *ngIf="!SelectNewConversation && !ShowCreateGroupConversation">
         <div *ngIf="ChatIsSelected">
           <div class="contact-profile">
             <img src="{{ConversationPhoto}}" >
