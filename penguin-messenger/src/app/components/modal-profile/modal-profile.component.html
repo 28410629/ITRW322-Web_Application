@@ -1,6 +1,7 @@
 <div style="background-color: #003D7F; color: white">
-  <h5 style="margin-top: 8px">Select new profile picture:</h5>
-  <input type="file" (change)="fileChangeEvent($event)" />
+  <img src="{{ photoURL }}" class="avatar rounded-circle align-content-center" width="200" height="200" style="margin-top: 10px">
+  <h5 style="margin-top: 8px; margin-left: 20px">Select new profile picture:</h5>
+  <input style="margin-left: 20px" type="file" (change)="fileChangeEvent($event)" />
   <image-cropper
     [imageChangedEvent]="imageChangedEvent"
     [maintainAspectRatio]="true"
@@ -13,30 +14,29 @@
     (loadImageFailed)="loadImageFailed()"
   ></image-cropper>
   <progress style="margin: 8px" max="100" [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
-  <img src="{{ photoURL }}" class="avatar rounded-circle align-content-center" width="200" height="200" style="margin-top: 10px">
   <form [formGroup]="angForm" class="form-horizontal" role="form">
     <div class="form-group">
-      <label style="margin-top: 10px" class=" control-label">Display Name:</label>
+      <label style="margin-left: 20px" class=" control-label">Display Name:</label>
       <div class="col-lg-12">
         <input class="form-control" type="text" formControlName="DisplayName">
       </div>
     </div>
     <div class="form-group">
-      <label class=" control-label">Account Email:</label>
+      <label style="margin-left: 20px" class=" control-label">Account Email:</label>
       <div class="col-lg-12">
         <input readonly class="form-control" type="text" formControlName="Email">
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label">Account User ID:</label>
+      <label style="margin-left: 20px" class="control-label">Account User ID:</label>
       <div class="col-md-12">
-        <input readonly class="form-control" type="text" formControlName="UID" style="margin-bottom: 10px">
+        <input readonly class="form-control" type="text" formControlName="UID">
       </div>
     </div>
     <div class="form-group">
       <div class="col-md-12">
-        <input type="button" class="btn btn-primary " value="Submit Changes" (click)="submitChanges()">
-        <input type="button" class="btn btn-primary " value="Cancel" style="align-self: end ">
+        <input type="button" class="btn btn-primary " value="Submit Changes" (click)="submitChanges()" >
+        <input type="button" class="btn btn-primary " value="Cancel" >
       </div>
     </div>
   </form>
