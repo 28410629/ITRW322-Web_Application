@@ -52,4 +52,9 @@ export class HeaderUserComponent implements OnInit {
           this.photoURL = responseData.photoURL;
         });
   }
+
+  closeModal() {
+    this.modalRef.hide();
+  }
+
 }

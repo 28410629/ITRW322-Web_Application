@@ -5,6 +5,7 @@ import {FirebaseService} from '../../services/firebase.service';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
 import {finalize} from 'rxjs/operators';
+import {HeaderUserComponent} from '../application/header-user/header-user.component';
 
 @Component({
   selector: 'app-modal-profile',
@@ -15,7 +16,6 @@ export class ModalProfileComponent implements OnInit {
 
   imageChangedEvent: any;
   croppedImage;
-
 
   user: User;
   photoURL = 'assets/loadingProfile.png';
@@ -30,7 +30,8 @@ export class ModalProfileComponent implements OnInit {
   constructor(
     public fireBaseService: FirebaseService,
     private afStorage: AngularFireStorage,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private header: HeaderUserComponent,
   ) {
     this.angForm = this.fb.group({
       DisplayName: ['', Validators.required],
@@ -46,16 +47,12 @@ export class ModalProfileComponent implements OnInit {
     this.getAccountData();
   }
 
-
-
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
   }
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.file;
     this.uploadPhoto();
-
-
   }
   imageLoaded() {
     // show cropper
@@ -66,7 +63,6 @@ export class ModalProfileComponent implements OnInit {
   loadImageFailed() {
     // show error message at later stage
   }
-
 
   submitChanges() {
     this.fireBaseService.updateUserData(
@@ -104,6 +100,10 @@ export class ModalProfileComponent implements OnInit {
           this.angForm.controls['DisplayName'].setValue(responseData.displayName);
           this.photoURL = responseData.photoURL;
         });
+  }
+
+  close() {
+    this.header.closeModal();
   }
 
 }
