@@ -28,6 +28,7 @@ import { HeaderUserComponent } from './components/application/header-user/header
 
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ModalProfileComponent } from './components/modal-profile/modal-profile.component';
+import { LoadscreenComponent } from './components/loadscreen/loadscreen.component';
 
 export function markedOptions(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -56,7 +57,8 @@ export function markedOptions(): MarkedOptions {
     SignInComponent,
     HeaderUserComponent,
     ChatsComponent,
-    ModalProfileComponent
+    ModalProfileComponent,
+    LoadscreenComponent
   ],
   imports: [
     HttpClientModule,
