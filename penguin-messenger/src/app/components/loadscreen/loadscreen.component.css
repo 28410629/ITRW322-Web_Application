@@ -25,24 +25,24 @@ body{
   animation: ro 2s infinite;
 }
 .box .b1{
-  border-color: darkslateblue;
+  border-color: forestgreen;
   width: 120px;
   height: 120px;
 }
 .box .b2{
-  border-color: blue;
+  border-color: #e74c3c;
   width: 100px;
   height: 100px;
   animation-delay: 0.2s;
 }
 .box .b3{
-  border-color: dodgerblue;
+  border-color: #007bff;
   width: 80px;
   height: 80px;
   animation-delay: 0.4s;
 }
 .box .b4{
-  border-color: deepskyblue;
+  border-color: hotpink;
   width: 60px;
   height: 60px;
   animation-delay: 0.6s;
