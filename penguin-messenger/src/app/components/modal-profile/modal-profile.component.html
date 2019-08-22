@@ -1,42 +1,48 @@
 <div style="background-color: #003D7F; color: white">
-  <img src="{{ photoURL }}" class="avatar rounded-circle align-content-center" width="200" height="200" style="margin-top: 10px">
-  <h5 style="margin-top: 8px; margin-left: 20px">Select new profile picture:</h5>
-  <input style="margin-left: 20px" type="file" (change)="fileChangeEvent($event)" />
-  <image-cropper
-    [imageChangedEvent]="imageChangedEvent"
-    [maintainAspectRatio]="true"
-    [aspectRatio]="1 / 1"
-    [resizeToWidth]="256"
-    format="png"
-    (imageCropped)="imageCropped($event)"
-    (imageLoaded)="imageLoaded()"
-    (cropperReady)="cropperReady()"
-    (loadImageFailed)="loadImageFailed()"
-  ></image-cropper>
-  <progress style="margin: 8px" max="100" [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
   <form [formGroup]="angForm" class="form-horizontal" role="form">
-    <div class="form-group">
-      <label style="margin-left: 20px" class=" control-label">Display Name:</label>
-      <div class="col-lg-12">
-        <input class="form-control" type="text" formControlName="DisplayName">
-      </div>
+    <div class="form-group" align="center">
+      <img src="{{ photoURL }}" class="avatar rounded-circle align-content-center" width="200" height="200" style="margin-top: 15px">
     </div>
+    <div class="form-group" align="center">
+      <h5 style="margin-top: 8px; margin-left: 20px">Select new profile picture:</h5>
+      <input style="margin-left: 20px" type="file" (change)="fileChangeEvent($event)" />
+      <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="1 / 1"
+        [resizeToWidth]="256"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady()"
+        (loadImageFailed)="loadImageFailed()"
+      ></image-cropper>
+      <progress style="margin: 8px; " max="100" [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
+    </div>
+      <div class="form-group">
+        <label style="margin-left: 20px" class=" control-label">Display Name:</label>
+        <div class="col-lg-12">
+          <input class="form-control" type="text" formControlName="DisplayName">
+        </div>
+      </div>
     <div class="form-group">
       <label style="margin-left: 20px" class=" control-label">Account Email:</label>
       <div class="col-lg-12">
         <input readonly class="form-control" type="text" formControlName="Email">
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" >
       <label style="margin-left: 20px" class="control-label">Account User ID:</label>
       <div class="col-md-12">
         <input readonly class="form-control" type="text" formControlName="UID">
       </div>
     </div>
     <div class="form-group">
-      <div class="col-md-12">
-        <input type="button" class="btn btn-primary " value="Submit Changes" (click)="submitChanges()" >
-        <input type="button" class="btn btn-primary " value="Cancel" >
+      <div class="alignleft" style="margin-bottom: 15px; margin-left: 15px;" >
+        <input type="button" class="btn btn-primary " value="Submit Changes"  (click)="submitChanges()" >
+      </div>
+      <div class="alignright" style="margin-bottom: 15px; margin-right: 15px;">
+        <input type="button" class="btn btn-primary " value="Cancel changes">
       </div>
     </div>
   </form>
