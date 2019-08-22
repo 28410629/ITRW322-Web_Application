@@ -2,6 +2,9 @@
 
 ## Jetbrains Webstorm IDE
 
+1. [Signup](https://www.jetbrains.com/student/) for student licence. 
+1. [Download](https://www.jetbrains.com/webstorm/) Webstorm for your respective operating system.
+
 ## Nodejs and Npm
 
 **For Linux**
