@@ -35,7 +35,7 @@ Instant messenger built using Angular, Firebase, Electron and hosted via Github 
 
 Mark allocation for application is as follows:
 * Minimum system requirements (points 1 to 4) : 50%
-* Extra features(percentage according to working feature’s score) : 40%
+* Extra features (percentage according to working feature’s score) : 40%
 * User manual : 10%
 
 Total mark allocation for project:
@@ -62,9 +62,9 @@ Other
 - [ ] Send voice notes;
 - [x] The application should be user friendly;
 - [ ] The application should be able to function through a proxy;
-- [ ] A  user  manual,  in  PDF  format, must be included. The user manual should also describe the basic workings of all features in brief technical detail.
+- [ ] A  user  manual,  in  PDF  format, must be included. The user manual should also describe the basic workings of all features in brief technical detail. **See progress of user manual further down.**
 
-### Extra features (percentage according to working feature’s score) [40/100]
+### Extra Features [40/100]
 
 In addition to the above requirements, a score of at least forty (40) mustbe obtained from the following features(score per feature indicated in brackets); any features can be selected, so long as the sum of their scores is at least 40:
 
@@ -86,4 +86,15 @@ In addition to the above requirements, a score of at least forty (40) mustbe obt
 - [ ] Front page.
 - [ ] Index.
 - [ ] Member introduction.
-- [ ] Application introduction and technology used.
+- [ ] Application introduction.
+- [ ] Application features.
+- [ ] Firebase introduction (include observable listeners).
+- [ ] Firestore real-time database layout. 
+- [ ] Firebase storage layout. 
+- [ ] Angular introduction.
+- [ ] Angular components layout.
+- [ ] Angular components brief technical detail (on each).
+- [ ] Electron introduction.
+- [ ] Electron proxy brief technical detail.
+- [ ] Github Pages introduction.
+- [ ] *Mobile port technology introduction, if done.*
