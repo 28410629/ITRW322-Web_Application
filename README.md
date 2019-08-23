@@ -1,148 +1,100 @@
 
-# ITRW322-Semester_Project
+# ITRW322 Semester Project
 
-This is the Angular Web Application for our messaging system:
-published at [https://penguinmessenger.tech](https://penguinmessenger.tech) using Github Pages.
-  
-See [Trello](https://trello.com/en) board for progress and what needs to be done on the project!  
+Instant messenger built using Angular, Firebase, Electron and hosted via Github Pages:
+* Web application, [https://penguinmessenger.tech](https://penguinmessenger.tech)
+* Electron Builds..
 
-## Technologies used
+## Project Details
 
-### Overview
-So we have finalised on the following for the project:
-* Firebase will be used as a back-end.
-* Angular CLI will be used for the front-end.
-* When development is finished, the Angular CLI project will be ported to both desktop and mobile.
+[Details]() set by lecture for project.
 
-#### Porting to desktop and mobile
-Suggestions will be helpful for this part.
-* Mobile, currently Ionic is consider for the Angular to mobile port.
-* Desktop, currently Electron is consider for the Angular to desktop port.
+## Participation
 
-### Angular CLI/ Node.js/ NPM Versions
-```
-PS D:\Desktop\ITRW322-Semester_Project> ng --version
+* [Meetings]().
+* [Trello](https://trello.com/en), kanban board for project.
+* [Discord](https://discordapp.com/), main communication platform.
+* 
 
-     _                      _                 ____ _     ___
-    / \   _ __   __ _ _   _| | __ _ _ __     / ___| |   |_ _|
-   / △ \ | '_ \ / _` | | | | |/ _` | '__|   | |   | |    | |
-  / ___ \| | | | (_| | |_| | | (_| | |      | |___| |___ | |
- /_/   \_\_| |_|\__, |\__,_|_|\__,_|_|       \____|_____|___|
-                |___/
+## Warnings
 
+* [Template]()
+* [Warnings Issued]()
+* [Guidelines]() for dismissal of group member.
 
-Angular CLI: 8.1.2
-Node: 10.16.0
-OS: win32 x64
-Angular:
-...
+## Documentation
 
-Package                      Version
-------------------------------------------------------
-@angular-devkit/architect    0.801.2
-@angular-devkit/core         8.1.2
-@angular-devkit/schematics   8.1.2
-@schematics/angular          8.1.2
-@schematics/update           0.801.2
-rxjs                         6.4.0
+* [Branch naming scheme]().
+* [Required software for development]().
+* [Steps to publish web application to Github Pages]().
+* 
+*
+*
 
-PS D:\Desktop\ITRW322-Semester_Project> node --version
-v10.16.0
-PS D:\Desktop\ITRW322-Semester_Project> npm --version
-6.10.1
-PS D:\Desktop\ITRW322-Semester_Project>
-```
+## Mark Allocation
 
-## Installation Process
+Mark allocation for application is as follows:
+* Minimum system requirements (points 1 to 4) : 50%
+* Extra features (percentage according to working feature’s score) : 40%
+* User manual : 10%
 
-1. Install nodejs (10.16) and npm:
+Total mark allocation for project:
+* Application : 85%
+* Presentation during demonstration : 15%
 
-**For Linux**
-```bash
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-sudo apt install nodejs
-```
-Verify installation:
-```bash
-node --version  
-npm --version
-```
-**For Windows**
-Download and install: [https://nodejs.org/dist/v10.16.0/node-v10.16.0-x64.msi](https://nodejs.org/dist/v10.16.0/node-v10.16.0-x64.msi)
+## Progress
 
-3. Install Angular CLI by running `npm install -g @angular/cli` in bash or powershell/cmd.
+### Minimum requirements [50/100]:
 
-4. Run `npm install` within the repository local clone (`~/ITRW322-Semester_Project/penguin-messenger/` to install all the required dependencies in bash or powershell.
+The application must be able to:
+- [x] Function in Windows 7, 8, or 10;
 
-5. Run `ng serve --open` for a **development server** `(http://localhost:4200)` in bash or powershell/cmd. Please note: the application will automatically reload if you change any of the source files.
+Send  and  receive  data  messages  between  two  distinct  systems via  the  Internet.  The application must support a variety of standard data types, including:
+- [x] Text;
+- [ ] Still images;
+- [ ] Video;
+- [ ] Non-streaming audio, such as FLAC, AAC, or MP3;
 
-## Creating New Components
+Other
+- [x] Display the data types mentioned above;
+- [x] Encrypt and decrypt text messages;
+- [x] Show and store conversations, i.e. sent and received messages can still be viewed offline;
+- [ ] Send voice notes;
+- [x] The application should be user friendly;
+- [ ] The application should be able to function through a proxy;
+- [ ] A  user  manual,  in  PDF  format, must be included. The user manual should also describe the basic workings of all features in brief technical detail. **See progress of user manual further down.**
 
-Run `ng generate component component-name` to generate a new component. Or `ng g c component-name` for short.
+### Extra Features [40/100]
 
-## Creating New Directives
-Run `ng generate directive component-name` to generate a new directive. Or `ng g d directive-name` for short.
+In addition to the above requirements, a score of at least forty (40) mustbe obtained from the following features(score per feature indicated in brackets); any features can be selected, so long as the sum of their scores is at least 40:
 
-## Build (Publish to Github Pages)
-I, `Coenraad`, will normally do this, but here are the steps:
+- [ ] [25]:  The  application  has real-timevideo  chat  capabilities,  i.e.  it  can  be  used  to hold  a  coherent conversation between at least two peoplein real-time.
+- [x] [20]: A companion  application,  running  on  either  Android,  iOS  or  Windows  Mobile,  should be developed that can send messages to the primary application, as well as read messages sent from the primary application. The companion app should also be able to download all non-text files that are received. **This should be ported still, but is available through web application.**
+- [ ] [15]: The  companion  app,  if  developed, can  send  commands  to  the  machine running  the  primary application. The commandsthat can be sent should include:oView directory structure;oOpen file or folder; andoRun simple commands using batch or command prompts.
+- [ ] [10]: The primary  application  reduces  the  file  size  of  video  and audio  files  before  sending  them, without breaking them.
+- [x] [10]: Both the  primary  and  companion  applications, if  developed,  are  aesthetically  pleasing  and appear professionally developed.
+- [ ] [5]: The companion application, if developed, can send toast notifications. 
+- [x] [5]: Primary application supports both concurrent and group conversations. 
+- [ ] [5]: The primary application reduces the file size of images before sending them. 
+- [ ] [5]: The primary application has background notification functions, such as tray balloons.
+- [x] [5]: The primary application has a browser based UI.
+- [x] [5]: Text messages are consistently received within 20 seconds of being sent.
+- [ ] [5]: Primary application can be set up to control system power functions such as: shut down, restart, wake, timed shutdown, timed wake, and timed restart.
 
-Within the development directory of the repository:
-```bash
-ng build --prod --output-path docs --base-href "https://penguinmessenger.tech/"
-```
-1. Move all files within `docs` to **gh-pages branch.** 
-1. Make a copy of index.html and rename it to 404.html
-1. Ensure that a file exists 'CNAME', no extensions, with the content: 'penguinmessenger.tech'.
-1. That is it, it is now ready for a commit and push on the **gh-pages branch** and will be served.
+### User Manual [10/100]
 
-## Branching Naming Convention - Quick Legend
-
-<table>
-  <thead>
-    <tr>
-      <th>Instance</th>
-      <th>Branch</th>
-      <th>Description, Instructions, Notes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Stable</td>
-      <td>stable</td>
-      <td>Accepts merges from Working and Hotfixes</td>
-    </tr>
-    <tr>
-      <td>Working</td>
-      <td>develop</td>
-      <td>Accepts merges from Features and Hotfixes/Issues</td>
-    </tr>
-    <tr>
-      <td>Features</td>
-      <td><b>your_name</b>/<b>feature</b><b>feature_name</b></td>
-      <td>Always branch off HEAD of Working (create from develop)</td>
-    </tr>
-    <tr>
-      <td>Hotfix/Issues</td>
-      <td><b>your_name</b>/<b>fix</b>/<b>fix_name</b></td>
-      <td>Always branch off Stable (create from master)</td>
-    </tr>
-  </tbody>
-</table>
-
-## References
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-
-To get more help on the Firebase go check out the [Firebase Documentation]([https://firebase.google.com/docs/reference](https://firebase.google.com/docs/reference)).
-
-## Links that help with the design
-
-Sign in/up source code, [site](https://startbootstrap.com/snippets/login/).
-
-Very good authentication example for firebase, [site](https://github.com/SinghDigamber/angularfirebase-authentication).
-
-Nice chat UI, [site](https://bootsnipp.com/snippets/0e3Ma).
-
-Audio in HTML, [site](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio).
-
-Nice dynamic checkbox example, [site](https://stackoverflow.com/questions/40927167/angular-reactiveforms-producing-an-array-of-checkbox-values).
+- [ ] Front page.
+- [ ] Index.
+- [ ] Member introduction.
+- [ ] Application introduction.
+- [ ] Application features.
+- [ ] Firebase introduction (include observable listeners).
+- [ ] Firestore real-time database layout. 
+- [ ] Firebase storage layout. 
+- [ ] Angular introduction.
+- [ ] Angular components layout.
+- [ ] Angular components brief technical detail (on each).
+- [ ] Electron introduction.
+- [ ] Electron proxy brief technical detail.
+- [ ] Github Pages introduction.
+- [ ] *Mobile port technology introduction, if done.*
