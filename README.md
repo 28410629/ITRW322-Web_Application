@@ -20,6 +20,7 @@ Instant messenger built using Angular, Firebase, Electron and hosted via Github 
 
 * [Template]()
 * [Warnings Issued]()
+* [Guidelines]() for dismissal of group member.
 
 ## Documentation
 
