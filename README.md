@@ -30,6 +30,17 @@ Instant messenger built using Angular, Firebase, Electron and hosted via Github 
 *
 *
 
+## Mark Allocation
+
+Mark allocation for application is as follows:
+* Minimum system requirements (points 1 to 4) : 50%
+* Extra features(percentage according to working feature’s score) : 40%
+* User manual : 10%
+
+Total mark allocation for project:
+* Application : 85%
+* Presentation during demonstration : 15%
+
 ## Progress
 
 ### Minimum requirements [50/100]:
@@ -68,3 +79,10 @@ In addition to the above requirements, a score of at least forty (40) mustbe obt
 - [x] [5]: The primary application has a browser based UI.
 - [x] [5]: Text messages are consistently received within 20 seconds of being sent.
 - [ ] [5]: Primary application can be set up to control system power functions such as: shut down, restart, wake, timed shutdown, timed wake, and timed restart.
+
+### User Manual [10/100]
+
+- [ ] Front page.
+- [ ] Index.
+- [ ] Member introduction.
+- [ ] Application introduction and technology used.
