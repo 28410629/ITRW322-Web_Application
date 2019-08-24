@@ -20,8 +20,9 @@ export class StorageService {
     this.uploadFile(file, filePath);
   }
 
-  sendFile(file: File, conversationid: string, messageType: MessageTypeEnum) {
-    const filePath = 'conversations/' + conversationid + '/messages/' + objectKeys(MessageTypeEnum)[messageType + 6] + '/' + file.name;
+  sendFile(file: File, conversationid: string, messageId: string, messageType: MessageTypeEnum) {
+    const filePath = 'conversations/' + conversationid + '/messages/' + messageId + '/' +
+                      objectKeys(MessageTypeEnum)[messageType + 6] + '/' + file.name;
     this.uploadFile(file, filePath);
   }
 
@@ -52,8 +53,9 @@ export class StorageService {
     return this.downloadFileURL(filePath);
   }
 
-  getConversationFileURL(fileName: string, conversationid: string, messageType: MessageTypeEnum) {
-    const filePath = 'conversations/' + conversationid + '/messages/' + objectKeys(MessageTypeEnum)[messageType + 6] + '/' + fileName;
+  getConversationFileURL(fileName: string, conversationid: string, messageId: string, messageType: MessageTypeEnum) {
+    const filePath = 'conversations/' + conversationid + '/messages/' + messageId + '/' +
+                      objectKeys(MessageTypeEnum)[messageType + 6] + '/' + fileName;
     return this.downloadFileURL(filePath);
   }
 }
