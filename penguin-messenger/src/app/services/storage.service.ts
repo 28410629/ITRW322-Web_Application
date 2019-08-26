@@ -3,7 +3,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { MessageTypeEnum } from '../enums/messagetype.enum';
-import {objectKeys} from 'codelyzer/util/objectKeys';
+import { objectKeys } from 'codelyzer/util/objectKeys';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +17,14 @@ export class StorageService {
 
   uploadUserProfilePhoto(file: File, uid) {
     const filePath = 'users/' + uid + '/photo';
-    this.uploadFile(file, filePath);
+    return this.uploadFile(file, filePath);
   }
 
-  sendFile(file: File, conversationid: string, messageType: MessageTypeEnum) {
-    const filePath = 'conversations/' + conversationid + '/messages/' + objectKeys(MessageTypeEnum)[messageType + 6] + '/' + file.name;
-    this.uploadFile(file, filePath);
+  sendFile(file: File, conversationid: string, messageId: string, messageType: MessageTypeEnum) {
+    const messageTypeString = objectKeys(MessageTypeEnum)[messageType + 6];
+    const filePath = 'conversations/' + conversationid + '/messages/' + messageId + '/' +
+      messageTypeString + '/' + messageTypeString.split('_', 1);
+    return this.uploadFile(file, filePath);
   }
 
   uploadFile(file: File, filePath: string) {
@@ -38,13 +40,12 @@ export class StorageService {
       finalize(() => downloadURL = fileRef.getDownloadURL() )
     )
       .subscribe();
-    return filePath;
+    return downloadURL;
   }
 
   downloadFileURL(filePath: string) {
     const ref = this.storage.ref(filePath);
-    const downRef = ref.getDownloadURL();
-    return downRef;
+    return ref.getDownloadURL();
   }
 
   getUserProfilePhotoURL(uid) {
@@ -52,8 +53,10 @@ export class StorageService {
     return this.downloadFileURL(filePath);
   }
 
-  getConversationFileURL(fileName: string, conversationid: string, messageType: MessageTypeEnum) {
-    const filePath = 'conversations/' + conversationid + '/messages/' + objectKeys(MessageTypeEnum)[messageType + 6] + '/' + fileName;
+  getConversationFileURL(conversationid: string, messageId: string, messageType: MessageTypeEnum) {
+    const messageTypeString = objectKeys(MessageTypeEnum)[messageType + 6];
+    const filePath = 'conversations/' + conversationid + '/messages/' + messageId + '/' +
+      messageTypeString + '/' + messageTypeString.split('_', 1);
     return this.downloadFileURL(filePath);
   }
 }
