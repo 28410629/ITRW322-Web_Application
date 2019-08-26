@@ -5,32 +5,35 @@ Instant messenger built using Angular, Firebase, Electron and hosted via Github 
 * Web application, [https://penguinmessenger.tech](https://penguinmessenger.tech)
 * Electron Builds.
 
+Documentation available at [link](https://docs.google.com/document/d/1A2Pklte0RKe5nMMJvPiWID0tFXdJFSNbe_3ipA14lyo/edit?usp=sharing).
+
 ## Project Details
 
-[Details]() set by lecture for project.
+[Details](https://github.com/coenraadhuman/ITRW322-Semester_Project/blob/develop/documentation/project-details.pdf) set by lecture for project.
 
 ## Project Progress
 
-Details available at [link]().
+Details available at [link](https://github.com/coenraadhuman/ITRW322-Semester_Project/blob/develop/participation/progress.md).
 
 ## Participation
 
-* [Meetings]().
+* [Meetings](https://github.com/coenraadhuman/ITRW322-Semester_Project/blob/develop/participation/meetings.md).
 * [Trello](https://trello.com/en), kanban board for project.
 * [Discord](https://discordapp.com/), main communication platform.
-* 
 
 ## Warnings
 
-* [Template]()
+* [Template](https://github.com/coenraadhuman/ITRW322-Semester_Project/blob/develop/warnings/template.md)
 * [Warnings Issued]()
-* [Guidelines]() for dismissal of group member.
+* [Guidelines](https://github.com/coenraadhuman/ITRW322-Semester_Project/blob/develop/warnings/guidelines-for-dismissal.pdf) for dismissal of group member.
 
 ## Documentation
 
-* [Branch naming scheme]().
-* [Required software for development]().
-* [Steps to publish web application to Github Pages]().
+* [Branch naming scheme](https://github.com/coenraadhuman/ITRW322-Semester_Project/blob/develop/documentation/branch-naming-scheme.md).
+* [Required software for development](https://github.com/coenraadhuman/ITRW322-Semester_Project/blob/develop/documentation/required-software.md).
+* [Steps to publish web application to Github Pages](https://github.com/coenraadhuman/ITRW322-Semester_Project/blob/develop/documentation/publish-to-github-pages.md).
+* [Good resources and references for project](https://github.com/coenraadhuman/ITRW322-Semester_Project/blob/develop/documentation/good-sources.md).
+* [Some development tips and tricks](https://github.com/coenraadhuman/ITRW322-Semester_Project/blob/develop/documentation/development.md).
 
 ## Mark Allocation
 
