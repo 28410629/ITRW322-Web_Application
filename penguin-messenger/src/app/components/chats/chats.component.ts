@@ -8,7 +8,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { ChatService} from '../../services/chat.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-
+import { MessageTypeEnum } from '../../enums/messagetype.enum';
 
 @Component({
   selector: 'app-chats',
@@ -22,9 +22,17 @@ export class ChatsComponent implements OnInit {
 
   // Message being sent via input box
   msgValue = '';
+  messageType = {
+    audio_message: MessageTypeEnum.audio_message,
+    image_message: MessageTypeEnum.image_message,
+    text_message: MessageTypeEnum.text_message,
+    video_message: MessageTypeEnum.video_message,
+    voicenote_message: MessageTypeEnum.voicenote_message
+  };
 
   // New line comp
   newLine = '***';
+
   // Sidebar active conversation of active user
   conversations: Array<Conversation>;
 

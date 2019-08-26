@@ -109,7 +109,32 @@
                   <b class="name-of-user">{{getSenderName(message.uid)}}</b><br>
                   <span style="font-size: smaller">{{ getGoodDate(message.datetime) | date:'dd MMM hh:mm' }}</span>
                   <markdown [data]="newLine"></markdown>
-                  <markdown [data]="message.message"></markdown>
+
+                  <!--NORMAL MARKDOWN TEXT MESSAGE-->
+                  <markdown *ngIf="message.type === messageType.text_message" [data]="message.message"></markdown>
+
+                  <!--AUDIO MESSAGE-->
+                  <!--Works perfectly when providing a URL in the source!-->
+                  <audio *ngIf="message.type === messageType.audio_message" controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+                    Your browser does not support the <code>audio</code> element.
+                  </audio>
+
+                  <!--VIDEO MESSAGE-->
+                  <video *ngIf="message.type === messageType.video_message" controls>
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    <!-- <source src="mov_bbb.ogg" type="video/ogg">-->
+                    Your browser does not support HTML5 video.
+                  </video>
+
+                  <!--VOICENOTE MESSAGE-->
+                  <audio *ngIf="message.type === messageType.voicenote_message" controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+                    Your browser does not support the <code>audio</code> element.
+                  </audio>
+
+                  <!--IMAGE MESSAGE-->
+                  <markdown *ngIf="message.type === messageType.image_message" ngPreserveWhitespaces>
+                    ![Sent image](https://i.kym-cdn.com/photos/images/newsfeed/001/504/733/7e8.jpg)
+                  </markdown>
                 </p>
               </li>
             </ul>
