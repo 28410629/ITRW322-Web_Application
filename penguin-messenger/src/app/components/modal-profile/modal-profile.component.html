@@ -10,7 +10,7 @@
 
       <div class="fileUpload btn btn-primary">
         <span>Select Image</span>
-        <input type="file" class="upload" (change)="fileChangeEvent($event)" />
+        <input type="file" class="upload" (change)="fileChangeEvent($event)" accept="image/*"/>
       </div>
       <image-cropper
         [imageChangedEvent]="imageChangedEvent"
