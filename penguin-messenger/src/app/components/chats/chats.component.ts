@@ -9,6 +9,8 @@ import { ChatService} from '../../services/chat.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { MessageTypeEnum } from '../../enums/messagetype.enum';
+import {finalize} from 'rxjs/operators';
+import {AngularFireStorage} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-chats',
@@ -29,6 +31,17 @@ export class ChatsComponent implements OnInit {
     video_message: MessageTypeEnum.video_message,
     voicenote_message: MessageTypeEnum.voicenote_message
   };
+
+  // Media upload selection variables
+  IsAudioUpload = false;
+  IsImageUpload = false;
+  IsVideoUpload = false;
+  IsVoiceNoteUpload = false;
+
+  // Media upload variables
+  ref;
+  task;
+  uploadProgress;
 
   // New line comp
   newLine = '***';
@@ -74,6 +87,7 @@ export class ChatsComponent implements OnInit {
               private afs: AngularFirestore,
               private chatService: ChatService,
               private modalService: BsModalService,
+              private afStorage: AngularFireStorage,
               private formBuilder: FormBuilder) {
 
     // Group form
@@ -318,6 +332,80 @@ export class ChatsComponent implements OnInit {
 
   closeModal() {
     this.modalRef.hide();
+  }
+
+  // ------------------ Media functionality ------------------
+  SelectMediaImage() {
+    this.IsImageUpload = true;
+  }
+
+  SelectMediaAudio() {
+    this.IsAudioUpload = true;
+  }
+
+  SelectMediaVideo() {
+    this.IsVideoUpload = true;
+  }
+
+  SelectMediaVoiceNote() {
+    this.IsVoiceNoteUpload = true;
+  }
+
+  DeselectMedia() {
+    this.IsAudioUpload = false;
+    this.IsImageUpload = false;
+    this.IsVideoUpload = false;
+    this.IsVoiceNoteUpload = false;
+  }
+
+  sendImage(event) {
+    this.uploadStorageFile(event, this.messageType.image_message);
+  }
+
+  sendAudio(event) {
+    this.uploadStorageFile(event, this.messageType.audio_message);
+  }
+
+  sendVideo(event) {
+    this.uploadStorageFile(event, this.messageType.video_message);
+  }
+
+  sendVoiceNote(event) {
+    this.uploadStorageFile(event, this.messageType.voicenote_message);
+  }
+
+  uploadStorageFile(event, messagetype) {
+    const messageid = this.afs.createId();
+
+    this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/file');
+
+    this.task = this.ref.put(event.target.files[0]);
+    this.uploadProgress = this.task.percentageChanges();
+    this.task.snapshotChanges().pipe(
+      finalize(() => {
+        this.ref.getDownloadURL()
+          .subscribe(FileDownloadURL => {
+          // Send media message
+          if (messagetype === MessageTypeEnum.voicenote_message) {
+            this.chatService.sendVoiceNoteMessage(this.CurrentConversation.id, FileDownloadURL, this.activeUser.uid, messageid);
+          } else if (messagetype === MessageTypeEnum.image_message) {
+            this.chatService.sendImageMessage(this.CurrentConversation.id, FileDownloadURL, this.activeUser.uid, messageid);
+          } else if (messagetype === MessageTypeEnum.video_message) {
+            this.chatService.sendVideoMessage(this.CurrentConversation.id, FileDownloadURL, this.activeUser.uid, messageid);
+          } else if (messagetype === MessageTypeEnum.audio_message) {
+            this.chatService.sendAudioMessage(this.CurrentConversation.id, FileDownloadURL, this.activeUser.uid, messageid);
+          } else {
+             console.log('Error sending media message.');
+          }
+          // Reset progressbar
+          this.uploadProgress = 0;
+          // Close modal
+          this.closeModal();
+          // Deselect media upload
+          this.DeselectMedia();
+        });
+      })
+    ).subscribe();
   }
 
   ngOnInit() {

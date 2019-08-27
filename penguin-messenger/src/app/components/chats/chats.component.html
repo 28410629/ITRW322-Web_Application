@@ -115,25 +115,25 @@
 
                   <!--AUDIO MESSAGE-->
                   <!--Works perfectly when providing a URL in the source!-->
-                  <audio *ngIf="message.type === messageType.audio_message" controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+                  <audio *ngIf="message.type === messageType.audio_message" controls src="{{ message.message }}">
                     Your browser does not support the <code>audio</code> element.
                   </audio>
 
                   <!--VIDEO MESSAGE-->
-                  <video *ngIf="message.type === messageType.video_message" controls>
-                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                  <video *ngIf="message.type === messageType.video_message" controls width="100%">
+                    <source src="{{ message.message }}" type="video/mp4">
                     <!-- <source src="mov_bbb.ogg" type="video/ogg">-->
                     Your browser does not support HTML5 video.
                   </video>
 
                   <!--VOICENOTE MESSAGE-->
-                  <audio *ngIf="message.type === messageType.voicenote_message" controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+                  <audio *ngIf="message.type === messageType.voicenote_message" controls src="{{ message.message }}">
                     Your browser does not support the <code>audio</code> element.
                   </audio>
 
                   <!--IMAGE MESSAGE-->
                   <markdown *ngIf="message.type === messageType.image_message" ngPreserveWhitespaces>
-                    ![Sent image](https://i.kym-cdn.com/photos/images/newsfeed/001/504/733/7e8.jpg)
+                    ![Sent image]({{ message.message }})
                   </markdown>
                 </p>
               </li>
@@ -147,27 +147,27 @@
 
               <ng-template #template id="myModal">
                 <div class="modal-body">
-                  <div class="container">
+                  <div class="container" *ngIf="!IsAudioUpload && !IsImageUpload && !IsVideoUpload && !IsVoiceNoteUpload">
                     <div class="row">
-                      <button type="button" class="btn btn-light btn-block" style="margin-bottom: 5px">
+                      <button type="button" class="btn btn-light btn-block" style="margin-bottom: 5px" (click)="SelectMediaAudio()">
                         <span class="float-left">Send Audio</span>
                         <i class="fas fa-volume-up float-right" style="margin-top: 4px"></i>
                       </button>
                     </div>
                     <div class="row">
-                      <button type="button" class="btn btn-light btn-block" style="margin-bottom: 5px">
+                      <button type="button" class="btn btn-light btn-block" style="margin-bottom: 5px" (click)="SelectMediaImage()">
                         <span class="float-left">Send Image</span>
                         <i class="fas fa-image float-right" style="margin-top: 4px; margin-right: 1px"></i>
                       </button>
                     </div>
                     <div class="row">
-                      <button type="button" class="btn btn-light btn-block" style="margin-bottom: 5px">
+                      <button type="button" class="btn btn-light btn-block" style="margin-bottom: 5px" (click)="SelectMediaVideo()">
                         <span class="float-left">Send Video</span>
                         <i class="fas fa-film float-right" style="margin-top: 4px; margin-right: 1px"></i>
                       </button>
                     </div>
                     <div class="row">
-                      <button type="button" class="btn btn-light btn-block" style="margin-bottom: 5px;">
+                      <button type="button" class="btn btn-light btn-block" style="margin-bottom: 5px;" (click)="SelectMediaVoiceNote()">
                         <span class="float-left">Send Voice Note</span>
                         <i class="fas fa-microphone-alt float-right" style="margin-top: 4px; margin-right: 4px"></i>
                       </button>
@@ -175,6 +175,34 @@
                     <div class="row justify-content-center">
                       <button (click)="closeModal()" class="btn btn-primary" style="margin-top: 3px;">Cancel</button>
                     </div>
+                  </div>
+
+                  <div class="container" *ngIf="IsAudioUpload">
+                    <div class="fileUpload btn btn-primary">
+                      <input type="file" class="upload" (change)="sendAudio($event)" accept="audio/*"/>
+                    </div>
+                    <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
+                  </div>
+
+                  <div class="container" *ngIf="IsImageUpload">
+                    <div class="fileUpload btn btn-primary">
+                      <input type="file" class="upload" (change)="sendImage($event)" accept="image/*"/>
+                    </div>
+                    <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
+                  </div>
+
+                  <div class="container" *ngIf="IsVideoUpload">
+                    <div class="fileUpload btn btn-primary">
+                      <input type="file" class="upload" (change)="sendVideo($event)" accept="video/*"/>
+                    </div>
+                    <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
+                  </div>
+
+                  <div class="container" *ngIf="IsVoiceNoteUpload">
+                    <div class="fileUpload btn btn-primary">
+                      <input type="file" class="upload" (change)="sendVoiceNote($event)" accept="audio/*"/>
+                    </div>
+                    <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
                   </div>
                 </div>
               </ng-template>

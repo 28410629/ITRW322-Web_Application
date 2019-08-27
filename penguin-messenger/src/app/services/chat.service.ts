@@ -55,21 +55,23 @@ export class ChatService {
           return actions.map(a => {
             const data = a.payload.doc.data() as Conversation;
             const id = a.payload.doc.id;
+
             if (data.lastsentmessagetype === MessageTypeEnum.text_message) {
               data.lastsentmessage = this.cryptoService.decryptConversationMessage(data.lastsentmessage, id);
             } else if (data.lastsentmessagetype === MessageTypeEnum.voicenote_message) {
-              data.lastsentmessage = 'Voice Note';
+              data.lastsentmessage = 'Voice Note Message';
             } else if (data.lastsentmessagetype === MessageTypeEnum.image_message) {
-              data.lastsentmessage = 'Image';
+              data.lastsentmessage = 'Image Message';
             } else if (data.lastsentmessagetype === MessageTypeEnum.video_message) {
-              data.lastsentmessage = 'Video';
+              data.lastsentmessage = 'Video Message';
             } else if (data.lastsentmessagetype === MessageTypeEnum.audio_message) {
-              data.lastsentmessage = 'Audio';
+              data.lastsentmessage = 'Audio Message';
             } else if (data.lastsentmessagetype === MessageTypeEnum.new_message) {
               data.lastsentmessage = 'New Conversation';
             } else {
               data.lastsentmessage = 'Error Retrieving Message';
             }
+
             return { id, ...data };
           });
         })
@@ -92,6 +94,44 @@ export class ChatService {
       lastsentmessageuser: newuid,
       lastsentmessagedatetime: adddatetime,
       lastsentmessagetype: MessageTypeEnum.text_message
+    });
+  }
+
+  public sendImageMessage(conversationid: string, newmessage: string, newuid: string, messageid: string) {
+    this.sendConversationMediaMessage(conversationid, newmessage, newuid, messageid, MessageTypeEnum.image_message);
+  }
+
+  public sendAudioMessage(conversationid: string, newmessage: string, newuid: string, messageid: string) {
+    this.sendConversationMediaMessage(conversationid, newmessage, newuid, messageid, MessageTypeEnum.audio_message);
+  }
+
+  public sendVideoMessage(conversationid: string, newmessage: string, newuid: string, messageid: string) {
+    this.sendConversationMediaMessage(conversationid, newmessage, newuid, messageid, MessageTypeEnum.video_message);
+  }
+
+  public sendVoiceNoteMessage(conversationid: string, newmessage: string, newuid: string, messageid: string) {
+    this.sendConversationMediaMessage(conversationid, newmessage, newuid, messageid, MessageTypeEnum.voicenote_message);
+  }
+
+  private sendConversationMediaMessage(conversationid: string, newmessage: string, newuid: string, messageid: string, messagetype) {
+    const messageRef: AngularFirestoreDocument<any> = this.db.doc(`conversations/${conversationid}/messages/${messageid}`);
+    const updatepath = 'conversations/' + conversationid;
+    const cypherText = this.cryptoService.encryptConversationMessage(newmessage, conversationid);
+    const adddatetime = Timestamp.now();
+    const message: Message = {
+      datetime: adddatetime,
+      message: cypherText,
+      uid: newuid,
+      type: messagetype
+    };
+    messageRef.set(message, {
+      merge: true
+    });
+    this.db.doc(updatepath).update({
+      lastsentmessage: cypherText,
+      lastsentmessageuser: newuid,
+      lastsentmessagedatetime: adddatetime,
+      lastsentmessagetype: messagetype
     });
   }
 
