@@ -144,32 +144,41 @@
               <input (keydown.enter)="sendMessage()" type="text" [(ngModel)]="msgValue" placeholder="Write your message..." />
               <button (click)="sendMessage()" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
               <button (click)="openModal(template)" style="background: #0056B2;:hover {background: #435f7a}"><i class="fa fa-paperclip" aria-hidden="true"></i></button>
+
               <ng-template #template id="myModal">
-                <div class="modal-header">
-                  <h4 class="modal-title pull-left">Attachments</h4>
-                </div>
                 <div class="modal-body">
                   <div class="container">
                     <div class="row">
-                      <div class="col-sm attachedMedia">
-                        <a href="#">
-                          <img src="assets/Images.png" class="center">Pictures
-                        </a>
-                      </div>
-                      <div class="col-sm attachedMedia">
-                        <a href="#">
-                          <img src="assets/Video.png">Videos
-                        </a>
-                      </div>
-                      <div class="col-sm attachedMedia">
-                        <a href="#">
-                          <img src="assets/Video.png">Voice Notes
-                        </a>
-                      </div>
+                      <button type="button" class="btn btn-light btn-block" style="margin-bottom: 5px">
+                        <span class="float-left">Send Audio</span>
+                        <i class="fas fa-volume-up float-right" style="margin-top: 4px"></i>
+                      </button>
+                    </div>
+                    <div class="row">
+                      <button type="button" class="btn btn-light btn-block" style="margin-bottom: 5px">
+                        <span class="float-left">Send Image</span>
+                        <i class="fas fa-image float-right" style="margin-top: 4px; margin-right: 1px"></i>
+                      </button>
+                    </div>
+                    <div class="row">
+                      <button type="button" class="btn btn-light btn-block" style="margin-bottom: 5px">
+                        <span class="float-left">Send Video</span>
+                        <i class="fas fa-film float-right" style="margin-top: 4px; margin-right: 1px"></i>
+                      </button>
+                    </div>
+                    <div class="row">
+                      <button type="button" class="btn btn-light btn-block" style="margin-bottom: 5px;">
+                        <span class="float-left">Send Voice Note</span>
+                        <i class="fas fa-microphone-alt float-right" style="margin-top: 4px; margin-right: 4px"></i>
+                      </button>
+                    </div>
+                    <div class="row justify-content-center">
+                      <button (click)="closeModal()" class="btn btn-primary" style="margin-top: 3px;">Cancel</button>
                     </div>
                   </div>
                 </div>
               </ng-template>
+
             </div>
           </div>
         </div>

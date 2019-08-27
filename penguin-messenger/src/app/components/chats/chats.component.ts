@@ -316,6 +316,10 @@ export class ChatsComponent implements OnInit {
     this.modalRef = this.modalService.show(template, { backdrop: true , keyboard: true});
   }
 
+  closeModal() {
+    this.modalRef.hide();
+  }
+
   ngOnInit() {
   }
 }
