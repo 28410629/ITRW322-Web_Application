@@ -377,12 +377,7 @@ export class ChatsComponent implements OnInit {
   uploadStorageFile(event, messagetype) {
     const messageid = this.afs.createId();
 
-    this.ref = this.afStorage.ref('conversations/' +
-      this.CurrentConversation.id +
-      '/messages/' +
-      messageid +
-      '/mediafile' +
-      event.target.files.item(0).type);
+    this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/file');
 
     this.task = this.ref.put(event.target.files[0]);
     this.uploadProgress = this.task.percentageChanges();
