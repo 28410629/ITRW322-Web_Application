@@ -72,8 +72,6 @@ export class ChatService {
               data.lastsentmessage = 'Error Retrieving Message';
             }
 
-            console.log(data.lastsentmessage);
-
             return { id, ...data };
           });
         })
