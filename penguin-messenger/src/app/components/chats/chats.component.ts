@@ -379,9 +379,9 @@ export class ChatsComponent implements OnInit {
 
     this.ref = this.afStorage.ref('conversations/' +
       this.CurrentConversation.id +
-      '/messages' +
+      '/messages/' +
       messageid +
-      'mediafile' +
+      '/mediafile' +
       event.target.files.item(0).type);
 
     this.task = this.ref.put(event.target.files[0]);
