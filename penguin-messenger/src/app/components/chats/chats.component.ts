@@ -374,11 +374,23 @@ export class ChatsComponent implements OnInit {
   }
 
   sendAudio(event) {
-    this.uploadStorageFile(event, this.messageType.audio_message);
+    const AudioFileName = event.target.files[0].name;
+
+    if (this.validateAudio(AudioFileName)) {
+      this.uploadStorageFile(event, this.messageType.audio_message);
+    } else {
+      this.IsError = true;
+    }
   }
 
   sendVideo(event) {
-    this.uploadStorageFile(event, this.messageType.video_message);
+    const VideoFileName = event.target.files[0].name;
+
+    if (this.validateVideo(VideoFileName)) {
+      this.uploadStorageFile(event, this.messageType.video_message);
+    } else {
+      this.IsError = true;
+    }
   }
 
   sendVoiceNote(event) {
