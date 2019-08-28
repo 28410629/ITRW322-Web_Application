@@ -38,6 +38,9 @@ export class ChatsComponent implements OnInit {
   IsVideoUpload = false;
   IsVoiceNoteUpload = false;
 
+  // Error filetype popup
+  IsError = true;
+
   // Media upload variables
   ref;
   task;
@@ -359,7 +362,14 @@ export class ChatsComponent implements OnInit {
   }
 
   sendImage(event) {
+    const ImageFileName = event.target.files[0].name;
+
+    if (this.validateImage(ImageFileName)) {
     this.uploadStorageFile(event, this.messageType.image_message);
+    } else {
+      this.IsError = true;
+    }
+
   }
 
   sendAudio(event) {
@@ -406,6 +416,18 @@ export class ChatsComponent implements OnInit {
         });
       })
     ).subscribe();
+  }
+
+  // Validation Methods
+
+  validateImage(name: string) {
+    const ext = name.substring(name.lastIndexOf('.') + 1);
+    if (ext.toLowerCase() === 'png' || ext.toLowerCase() === 'jpg' || ext.toLowerCase() === 'jpeg' || ext.toLowerCase() === 'gif'
+      || ext.toLowerCase() === 'webp') {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   ngOnInit() {

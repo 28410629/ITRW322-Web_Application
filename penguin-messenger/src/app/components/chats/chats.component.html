@@ -188,6 +188,9 @@
                     <div class="fileUpload btn btn-primary">
                       <input type="file" class="upload" (change)="sendImage($event)" accept="image/*"/>
                     </div>
+                    <div *ngIf="IsError">
+                      <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
+                    </div>
                     <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
                   </div>
 
