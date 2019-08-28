@@ -38,6 +38,9 @@ export class ChatsComponent implements OnInit {
   IsVideoUpload = false;
   IsVoiceNoteUpload = false;
 
+  // Error filetype popup
+  IsError = false;
+
   // Media upload variables
   ref;
   task;
@@ -327,6 +330,8 @@ export class ChatsComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>) {
+    this.DeselectMedia();
+    this.IsError = false;
     this.modalRef = this.modalService.show(template, { backdrop: true , keyboard: true});
   }
 
@@ -359,15 +364,37 @@ export class ChatsComponent implements OnInit {
   }
 
   sendImage(event) {
-    this.uploadStorageFile(event, this.messageType.image_message);
+    const ImageFileName = event.target.files[0].name;
+
+    if (this.validateImage(ImageFileName)) {
+      this.IsError = false;
+      this.uploadStorageFile(event, this.messageType.image_message);
+    } else {
+      this.IsError = true;
+    }
+
   }
 
   sendAudio(event) {
-    this.uploadStorageFile(event, this.messageType.audio_message);
+    const AudioFileName = event.target.files[0].name;
+
+    if (this.validateAudio(AudioFileName)) {
+      this.IsError = false;
+      this.uploadStorageFile(event, this.messageType.audio_message);
+    } else {
+      this.IsError = true;
+    }
   }
 
   sendVideo(event) {
-    this.uploadStorageFile(event, this.messageType.video_message);
+    const VideoFileName = event.target.files[0].name;
+
+    if (this.validateVideo(VideoFileName)) {
+      this.IsError = false;
+      this.uploadStorageFile(event, this.messageType.video_message);
+    } else {
+      this.IsError = true;
+    }
   }
 
   sendVoiceNote(event) {
@@ -406,6 +433,38 @@ export class ChatsComponent implements OnInit {
         });
       })
     ).subscribe();
+  }
+
+  // Validation Methods
+
+  validateImage(name: string) {
+    const ext = name.substring(name.lastIndexOf('.') + 1);
+    if (ext.toLowerCase() === 'png' || ext.toLowerCase() === 'jpg' || ext.toLowerCase() === 'jpeg' || ext.toLowerCase() === 'gif'
+      || ext.toLowerCase() === 'webp') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  validateVideo(name: string) {
+    const ext = name.substring(name.lastIndexOf('.') + 1);
+    if (ext.toLowerCase() === 'mp4' || ext.toLowerCase() === 'm4a' || ext.toLowerCase() === 'mov' || ext.toLowerCase() === 'webm'
+      || ext.toLowerCase() === 'avi' || ext.toLowerCase() === 'wmv') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  validateAudio(name: string) {
+    const ext = name.substring(name.lastIndexOf('.') + 1);
+    if (ext.toLowerCase() === 'mp3' || ext.toLowerCase() === 'wav' || ext.toLowerCase() === 'aac' || ext.toLowerCase() === 'flac'
+      || ext.toLowerCase() === 'wma') {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   ngOnInit() {
