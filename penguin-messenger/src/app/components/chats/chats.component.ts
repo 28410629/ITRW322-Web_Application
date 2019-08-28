@@ -367,7 +367,8 @@ export class ChatsComponent implements OnInit {
     const ImageFileName = event.target.files[0].name;
 
     if (this.validateImage(ImageFileName)) {
-    this.uploadStorageFile(event, this.messageType.image_message);
+      this.IsError = false;
+      this.uploadStorageFile(event, this.messageType.image_message);
     } else {
       this.IsError = true;
     }
@@ -378,6 +379,7 @@ export class ChatsComponent implements OnInit {
     const AudioFileName = event.target.files[0].name;
 
     if (this.validateAudio(AudioFileName)) {
+      this.IsError = false;
       this.uploadStorageFile(event, this.messageType.audio_message);
     } else {
       this.IsError = true;
@@ -388,6 +390,7 @@ export class ChatsComponent implements OnInit {
     const VideoFileName = event.target.files[0].name;
 
     if (this.validateVideo(VideoFileName)) {
+      this.IsError = false;
       this.uploadStorageFile(event, this.messageType.video_message);
     } else {
       this.IsError = true;
@@ -430,8 +433,6 @@ export class ChatsComponent implements OnInit {
         });
       })
     ).subscribe();
-
-    this.IsError = false;
   }
 
   // Validation Methods
