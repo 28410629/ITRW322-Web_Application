@@ -39,7 +39,7 @@ export class ChatsComponent implements OnInit {
   IsVoiceNoteUpload = false;
 
   // Error filetype popup
-  IsError = true;
+  IsError = false;
 
   // Media upload variables
   ref;
@@ -330,6 +330,7 @@ export class ChatsComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>) {
+    this.DeselectMedia();
     this.modalRef = this.modalService.show(template, { backdrop: true , keyboard: true});
   }
 
@@ -424,6 +425,26 @@ export class ChatsComponent implements OnInit {
     const ext = name.substring(name.lastIndexOf('.') + 1);
     if (ext.toLowerCase() === 'png' || ext.toLowerCase() === 'jpg' || ext.toLowerCase() === 'jpeg' || ext.toLowerCase() === 'gif'
       || ext.toLowerCase() === 'webp') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  validateVideo(name: string) {
+    const ext = name.substring(name.lastIndexOf('.') + 1);
+    if (ext.toLowerCase() === 'mp4' || ext.toLowerCase() === 'm4a' || ext.toLowerCase() === 'mov' || ext.toLowerCase() === 'webm'
+      || ext.toLowerCase() === 'avi' || ext.toLowerCase() === 'wmv') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  validateAudio(name: string) {
+    const ext = name.substring(name.lastIndexOf('.') + 1);
+    if (ext.toLowerCase() === 'mp3' || ext.toLowerCase() === 'wav' || ext.toLowerCase() === 'aac' || ext.toLowerCase() === 'flac'
+      || ext.toLowerCase() === 'wma') {
       return true;
     } else {
       return false;
