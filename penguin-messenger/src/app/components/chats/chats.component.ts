@@ -331,6 +331,7 @@ export class ChatsComponent implements OnInit {
 
   openModal(template: TemplateRef<any>) {
     this.DeselectMedia();
+    this.IsError = false;
     this.modalRef = this.modalService.show(template, { backdrop: true , keyboard: true});
   }
 
@@ -429,6 +430,8 @@ export class ChatsComponent implements OnInit {
         });
       })
     ).subscribe();
+
+    this.IsError = false;
   }
 
   // Validation Methods

@@ -189,7 +189,7 @@
                       <input type="file" class="upload" (change)="sendImage($event)" accept="image/*"/>
                     </div>
                     <div *ngIf="IsError">
-                      <p><i>Invalid file uploaded, please try again.</i></p>
+                      Invalid file uploaded, please try again.
                     </div>
                     <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
                   </div>
