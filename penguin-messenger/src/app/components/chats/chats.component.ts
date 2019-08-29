@@ -23,9 +23,10 @@ import {DomSanitizer} from '@angular/platform-browser';
 
 export class ChatsComponent implements OnInit {
 
+  // check for audio sending
+  hasSent = false;
   // All user data from firebase to add their display names and photos to the chats
   users: Array<UserData>;
-
   // Message being sent via input box
   msgValue = '';
   messageType = {
@@ -354,12 +355,16 @@ export class ChatsComponent implements OnInit {
 
   openModal(template: TemplateRef<any>) {
     this.DeselectMedia();
+    this.clearRecordedData();
+    this.abortRecording();
     this.IsError = false;
     this.modalRef = this.modalService.show(template, { backdrop: true , keyboard: true});
+    this.hasSent = true;
   }
 
   closeModal() {
     this.modalRef.hide();
+    this.abortRecording();
   }
 
   // ------------------ Media functionality ------------------
@@ -421,9 +426,9 @@ export class ChatsComponent implements OnInit {
   }
 
   sendVoiceNote() {
-    this.stopRecording();
-     // this.uploadVoiceFile(this.blobUrl, this.messageType.voicenote_message);
-    console.log(this.blobUrl.toString());
+
+    this.uploadVoiceFile(this.messageType.voicenote_message);
+
 
   }
   startRecording() {
@@ -458,6 +463,7 @@ export class ChatsComponent implements OnInit {
     this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/file');
 
     this.task = this.ref.put(event.target.files[0]);
+    console.log(event.target.files[0]);
     this.uploadProgress = this.task.percentageChanges();
     this.task.snapshotChanges().pipe(
       finalize(() => {
@@ -486,12 +492,13 @@ export class ChatsComponent implements OnInit {
     ).subscribe();
   }
 
-  uploadVoiceFile(blob, messagetype) {
+  uploadVoiceFile(messagetype) {
     const messageid = this.afs.createId();
 
     this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/file');
-
-    this.task = this.ref.put(this.blobToFile(blob, Date.now().toString() + '.wav'));
+    console.log(this.blobUrl);
+    const file = new File([this.blobUrl], 'voice.webm', { type: 'audio/webm' })
+    this.task = this.ref.put(file);
     this.uploadProgress = this.task.percentageChanges();
     this.task.snapshotChanges().pipe(
       finalize(() => {
@@ -515,16 +522,10 @@ export class ChatsComponent implements OnInit {
             this.closeModal();
             // Deselect media upload
             this.DeselectMedia();
+            this.hasSent = true;
           });
       })
     ).subscribe();
-  }
-
-  public blobToFile = (theBlob: Blob, fileName: string): File => {
-    const b: any = theBlob;
-    b.lastModifiedDate = new Date();
-    b.name = fileName;
-    return theBlob as File;
   }
 
   // Validation Methods
