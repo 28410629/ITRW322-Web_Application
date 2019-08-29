@@ -14,7 +14,9 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import { Injectable } from '@angular/core';
 import * as RecordRTC from 'recordrtc';
 import {Observable, Subject} from 'rxjs';
-import {moment} from 'ngx-bootstrap/chronos/test/chain';
+import * as moment from 'moment';
+
+
 
 @Component({
   selector: 'app-chats',
@@ -100,18 +102,6 @@ export class ChatsComponent implements OnInit {
   private recordingTimeSubject = new Subject<string>();
   private recordingFailedSubject = new Subject<string>();
 
-
-  getRecordedBlob(): Observable<RecordedAudioOutput> {
-    return this.recordedSubject.asObservable();
-  }
-
-  getRecordedTime(): Observable<string> {
-    return this.recordingTimeSubject.asObservable();
-  }
-
-  recordingFailed(): Observable<string> {
-    return this.recordingFailedSubject.asObservable();
-  }
 
   constructor(private firebaseService: FirebaseService,
               private afs: AngularFirestore,
@@ -363,6 +353,7 @@ export class ChatsComponent implements OnInit {
   }
 
   closeModal() {
+    this.abortRecording();
     this.modalRef.hide();
   }
 
@@ -424,10 +415,8 @@ export class ChatsComponent implements OnInit {
     }
   }
 
-  sendVoiceNote(event) {
-
-
-    // this.uploadStorageFile(event, this.messageType.voicenote_message);
+  sendVoiceNote(data) {
+    this.uploadStorageFile(data, this.messageType.voicenote_message);
   }
 
   startRecording() {
@@ -459,23 +448,13 @@ export class ChatsComponent implements OnInit {
       () => {
         const currentTime = moment();
         const diffTime = moment.duration(currentTime.diff(this.startTime));
-        const time = this.toString(diffTime.minutes()) + ':' + this.toString(diffTime.seconds());
+        const time = diffTime.toString();
         this.recordingTimeSubject.next(time);
       },
       1000
     );
   }
 
-  private toString(value) {
-    let val = value;
-    if (!value) {
-      val = '00';
-    }
-    if (value < 10) {
-      val = '0' + value;
-    }
-    return val;
-  }
 
   stopRecording() {
 
@@ -492,7 +471,10 @@ export class ChatsComponent implements OnInit {
       });
     }
 
+    // window.open(this.blobToFile(this.recordedSubject., 'newVN.mp3'), '_blank');
+
   }
+
 
   private stopMedia() {
     if (this.recorder) {
