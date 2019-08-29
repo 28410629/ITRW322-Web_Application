@@ -127,8 +127,8 @@
                   </video>
 
                   <!--VOICENOTE MESSAGE-->
-                  <audio *ngIf="message.type === messageType.voicenote_message" controls src="{{ message.message }}">
-                    Your browser does not support the <code>audio</code> element.
+                  <audio *ngIf="message.type === messageType.voicenote_message"  controls>
+                    <source src="{{message.message }}" type="audio/webm">
                   </audio>
 
                   <!--IMAGE MESSAGE-->
@@ -219,8 +219,6 @@
                         <audio *ngIf="!isRecording && blobUrl"  controls>
                           <source [src]="blobUrl" type="audio/webm">
                         </audio>
-                        <br>
-                        <button class="send-button" *ngIf="!isRecording && blobUrl" (click)="sendVoiceNote()">Send</button>
                       </div>
                     </div>
                     <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
