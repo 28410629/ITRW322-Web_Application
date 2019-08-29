@@ -11,11 +11,6 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { MessageTypeEnum } from '../../enums/messagetype.enum';
 import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
-import { Injectable } from '@angular/core';
-import * as RecordRTC from 'recordrtc';
-import {Observable, Subject} from 'rxjs';
-import * as moment from 'moment';
-
 
 
 @Component({
@@ -24,9 +19,11 @@ import * as moment from 'moment';
   styleUrls: ['./chats.component.scss']
 })
 
-@Injectable()
+
 export class ChatsComponent implements OnInit {
 
+  //service for voice notes
+  
 
   // All user data from firebase to add their display names and photos to the chats
   users: Array<UserData>;
@@ -94,13 +91,6 @@ export class ChatsComponent implements OnInit {
     lastsentmessagedatetime: null,
     lastsentmessagetype: null
   };
-  private stream;
-  private recorder;
-  private interval;
-  private startTime;
-  private recordedSubject = new Subject<any>();
-  private recordingTimeSubject = new Subject<string>();
-  private recordingFailedSubject = new Subject<string>();
 
 
   constructor(private firebaseService: FirebaseService,
@@ -115,7 +105,6 @@ export class ChatsComponent implements OnInit {
       GroupName: ['', Validators.required],
       SelectedUsers: new FormArray([])
     });
-
 
     // Set the sidebar to active conversations
     this.SelectNewConversation = false;
@@ -353,7 +342,6 @@ export class ChatsComponent implements OnInit {
   }
 
   closeModal() {
-    this.abortRecording();
     this.modalRef.hide();
   }
 
@@ -416,80 +404,16 @@ export class ChatsComponent implements OnInit {
   }
 
   sendVoiceNote(data) {
-    this.uploadStorageFile(data, this.messageType.voicenote_message);
+// this.uploadStorageFile(data, this.messageType.voicenote_message);
+
   }
 
   startRecording() {
 
-    if (this.recorder) {
-      // It means recording is already started or it is already recording something
-      return;
-    }
-    this.recordingTimeSubject.next('00:00');
-    navigator.mediaDevices.getUserMedia({ audio: true }).then(s => {
-      this.stream = s;
-      this.record();
-    }).catch(error => {
-      this.recordingFailedSubject.next();
-    });
-
   }
-
-  private record() {
-
-    this.recorder = new RecordRTC.StereoAudioRecorder(this.stream, {
-      type: 'audio',
-      mimeType: 'audio/webm'
-    });
-
-    this.recorder.record();
-    this.startTime = moment();
-    this.interval = setInterval(
-      () => {
-        const currentTime = moment();
-        const diffTime = moment.duration(currentTime.diff(this.startTime));
-        const time = diffTime.toString();
-        this.recordingTimeSubject.next(time);
-      },
-      1000
-    );
-  }
-
 
   stopRecording() {
 
-    if (this.recorder) {
-      this.recorder.stop((blob) => {
-        if (this.startTime) {
-          const mp3Name = encodeURIComponent('audio_' + new Date().getTime() + '.mp3');
-          this.stopMedia();
-          this.recordedSubject.next({ blob, title: mp3Name });
-        }
-      }, () => {
-        this.stopMedia();
-        this.recordingFailedSubject.next();
-      });
-    }
-
-    // window.open(this.blobToFile(this.recordedSubject., 'newVN.mp3'), '_blank');
-
-  }
-
-
-  private stopMedia() {
-    if (this.recorder) {
-      this.recorder = null;
-      clearInterval(this.interval);
-      this.startTime = null;
-      if (this.stream) {
-        this.stream.getAudioTracks().forEach(track => track.stop());
-        this.stream = null;
-      }
-    }
-  }
-
-  abortRecording() {
-    this.stopMedia();
   }
 
 

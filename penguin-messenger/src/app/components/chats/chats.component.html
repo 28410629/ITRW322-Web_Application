@@ -210,8 +210,7 @@
 
                   <div class="container" *ngIf="IsVoiceNoteUpload">
                     <div class="fileUpload btn btn-primary">
-                      <button (click)="startRecording()">Start VN</button>
-                      <button (click)="stopRecording()">Stop VN</button>
+
                     </div>
                     <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
                   </div>
