@@ -11,7 +11,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { MessageTypeEnum } from '../../enums/messagetype.enum';
 import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
-
+import { AudioRecordingService } from '../../services/AudioRecordingService';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-chats',
@@ -21,9 +22,6 @@ import {AngularFireStorage} from '@angular/fire/storage';
 
 
 export class ChatsComponent implements OnInit {
-
-  //service for voice notes
-  
 
   // All user data from firebase to add their display names and photos to the chats
   users: Array<UserData>;
@@ -92,13 +90,20 @@ export class ChatsComponent implements OnInit {
     lastsentmessagetype: null
   };
 
+  // audio variables
+  isRecording = false;
+  recordedTime;
+  blobUrl;
+
 
   constructor(private firebaseService: FirebaseService,
               private afs: AngularFirestore,
               private chatService: ChatService,
               private modalService: BsModalService,
               private afStorage: AngularFireStorage,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private audioRecordingService: AudioRecordingService,
+              private sanitizer: DomSanitizer) {
 
     // Group form
     this.GroupForm = this.formBuilder.group({
@@ -120,6 +125,18 @@ export class ChatsComponent implements OnInit {
 
     // Set active user's open conversation in sidebar
     this.getActiveConversations();
+
+    this.audioRecordingService.recordingFailed().subscribe(() => {
+      this.isRecording = false;
+    });
+
+    this.audioRecordingService.getRecordedTime().subscribe((time) => {
+      this.recordedTime = time;
+    });
+
+    this.audioRecordingService.getRecordedBlob().subscribe((data) => {
+      this.blobUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(data.blob));
+    });
   }
 
   // ------------------ Get data methods ------------------
@@ -407,13 +424,29 @@ export class ChatsComponent implements OnInit {
 // this.uploadStorageFile(data, this.messageType.voicenote_message);
 
   }
-
   startRecording() {
+    if (!this.isRecording) {
+      this.isRecording = true;
+      this.audioRecordingService.startRecording();
+    }
+  }
 
+  abortRecording() {
+    if (this.isRecording) {
+      this.isRecording = false;
+      this.audioRecordingService.abortRecording();
+    }
   }
 
   stopRecording() {
+    if (this.isRecording) {
+      this.audioRecordingService.stopRecording();
+      this.isRecording = false;
+    }
+  }
 
+  clearRecordedData() {
+    this.blobUrl = null;
   }
 
 
@@ -485,4 +518,6 @@ export class ChatsComponent implements OnInit {
 
   ngOnInit() {
   }
+
+
 }
