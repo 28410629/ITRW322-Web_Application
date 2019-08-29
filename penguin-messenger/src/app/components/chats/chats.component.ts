@@ -422,8 +422,8 @@ export class ChatsComponent implements OnInit {
     }
   }
 
-  sendVoiceNote(event) {
-    this.uploadStorageFile(event, this.messageType.voicenote_message);
+  sendVoiceNote() {
+    this.uploadVoiceFile(this.messageType.voicenote_message);
 
 
   }
@@ -492,8 +492,8 @@ export class ChatsComponent implements OnInit {
   uploadVoiceFile(messagetype) {
     const messageid = this.afs.createId();
     this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/file');
-    // const file = new File([this.blobUrl], 'voice.mp3', { type: 'audio/mp3' })
-    this.task = this.ref.put(this.blobUrl);
+    const file = new File([this.blobUrl], 'voice.mp3', { type: 'audio/mp3' })
+    this.task = this.ref.put(file);
     this.uploadProgress = this.task.percentageChanges();
     this.task.snapshotChanges().pipe(
       finalize(() => {
