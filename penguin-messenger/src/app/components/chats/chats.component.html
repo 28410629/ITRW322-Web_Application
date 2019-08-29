@@ -212,13 +212,15 @@
                     <div class="fileUpload btn btn-primary">
                       <div>
                         <button class="start-button" *ngIf="!isRecording && !blobUrl" (click)="startRecording()">Start Recording</button>
-                        <button class="stop-button" *ngIf="isRecording && !blobUrl" (click)="stopRecording()">Send</button>
+                        <button class="stop-button" *ngIf="isRecording && !blobUrl" (click)="stopRecording()">Stop</button>
                         <div *ngIf="isRecording && !blobUrl"> {{recordedTime}} </div>
-                        <div>
-                          <div *ngIf="!isRecording && blobUrl && !hasSent">
-                            {{sendVoiceNote()}}
-                          </div>
-                        </div>
+                      </div>
+                      <div>
+                        <audio *ngIf="!isRecording && blobUrl"  controls>
+                          <source [src]="blobUrl" type="audio/webm">
+                        </audio>
+                        <br>
+                        <button class="send-button" *ngIf="!isRecording && blobUrl" (click)="sendVoiceNote()">Send</button>
                       </div>
                     </div>
                     <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>

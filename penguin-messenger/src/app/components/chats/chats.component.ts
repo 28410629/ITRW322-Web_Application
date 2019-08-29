@@ -13,6 +13,7 @@ import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
 import { AudioRecordingService } from '../../services/AudioRecordingService';
 import {DomSanitizer} from '@angular/platform-browser';
+import {tick} from '@angular/core/testing';
 
 @Component({
   selector: 'app-chats',
@@ -22,9 +23,6 @@ import {DomSanitizer} from '@angular/platform-browser';
 
 
 export class ChatsComponent implements OnInit {
-
-  // check for audio sending
-  hasSent = false;
   // All user data from firebase to add their display names and photos to the chats
   users: Array<UserData>;
   // Message being sent via input box
@@ -359,7 +357,6 @@ export class ChatsComponent implements OnInit {
     this.abortRecording();
     this.IsError = false;
     this.modalRef = this.modalService.show(template, { backdrop: true , keyboard: true});
-    this.hasSent = true;
   }
 
   closeModal() {
@@ -426,7 +423,6 @@ export class ChatsComponent implements OnInit {
   }
 
   sendVoiceNote() {
-
     this.uploadVoiceFile(this.messageType.voicenote_message);
 
 
@@ -492,11 +488,10 @@ export class ChatsComponent implements OnInit {
     ).subscribe();
   }
 
+
   uploadVoiceFile(messagetype) {
     const messageid = this.afs.createId();
-
     this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/file');
-    console.log(this.blobUrl);
     const file = new File([this.blobUrl], 'voice.webm', { type: 'audio/webm' })
     this.task = this.ref.put(file);
     this.uploadProgress = this.task.percentageChanges();
@@ -522,7 +517,7 @@ export class ChatsComponent implements OnInit {
             this.closeModal();
             // Deselect media upload
             this.DeselectMedia();
-            this.hasSent = true;
+
           });
       })
     ).subscribe();
