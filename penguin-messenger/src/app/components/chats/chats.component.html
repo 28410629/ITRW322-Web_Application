@@ -181,6 +181,9 @@
                     <div class="fileUpload btn btn-primary">
                       <input type="file" class="upload" (change)="sendAudio($event)" accept="audio/*"/>
                     </div>
+                    <div *ngIf="IsError">
+                      Invalid file uploaded, please try again.
+                    </div>
                     <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
                   </div>
 
@@ -198,15 +201,21 @@
                     <div class="fileUpload btn btn-primary">
                       <input type="file" class="upload" (change)="sendVideo($event)" accept="video/*"/>
                     </div>
-                    <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
-                  </div>
-
-                  <div class="container" *ngIf="IsVoiceNoteUpload">
-                    <div class="fileUpload btn btn-primary">
-                      <input type="file" class="upload" (change)="sendVoiceNote($event)" accept="audio/*"/>
+                    <div *ngIf="IsError">
+                      Invalid file uploaded, please try again.
                     </div>
                     <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
                   </div>
+
+
+                  <div class="container" *ngIf="IsVoiceNoteUpload">
+                    <div class="fileUpload btn btn-primary">
+                      <button (click)="sendVoiceNote($event)">Upload Audio</button>
+                    </div>
+                    <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
+                  </div>
+
+
                 </div>
               </ng-template>
 
