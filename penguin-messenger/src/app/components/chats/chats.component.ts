@@ -420,8 +420,10 @@ export class ChatsComponent implements OnInit {
     }
   }
 
-  sendVoiceNote(data) {
-// this.uploadStorageFile(data, this.messageType.voicenote_message);
+  sendVoiceNote() {
+    this.stopRecording();
+     // this.uploadVoiceFile(this.blobUrl, this.messageType.voicenote_message);
+    console.log(this.blobUrl.toString());
 
   }
   startRecording() {
@@ -482,6 +484,47 @@ export class ChatsComponent implements OnInit {
         });
       })
     ).subscribe();
+  }
+
+  uploadVoiceFile(blob, messagetype) {
+    const messageid = this.afs.createId();
+
+    this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/file');
+
+    this.task = this.ref.put(this.blobToFile(blob, Date.now().toString() + '.wav'));
+    this.uploadProgress = this.task.percentageChanges();
+    this.task.snapshotChanges().pipe(
+      finalize(() => {
+        this.ref.getDownloadURL()
+          .subscribe(FileDownloadURL => {
+            // Send media message
+            if (messagetype === MessageTypeEnum.voicenote_message) {
+              this.chatService.sendVoiceNoteMessage(this.CurrentConversation.id, FileDownloadURL, this.activeUser.uid, messageid);
+            } else if (messagetype === MessageTypeEnum.image_message) {
+              this.chatService.sendImageMessage(this.CurrentConversation.id, FileDownloadURL, this.activeUser.uid, messageid);
+            } else if (messagetype === MessageTypeEnum.video_message) {
+              this.chatService.sendVideoMessage(this.CurrentConversation.id, FileDownloadURL, this.activeUser.uid, messageid);
+            } else if (messagetype === MessageTypeEnum.audio_message) {
+              this.chatService.sendAudioMessage(this.CurrentConversation.id, FileDownloadURL, this.activeUser.uid, messageid);
+            } else {
+              console.log('Error sending media message.');
+            }
+            // Reset progressbar
+            this.uploadProgress = 0;
+            // Close modal
+            this.closeModal();
+            // Deselect media upload
+            this.DeselectMedia();
+          });
+      })
+    ).subscribe();
+  }
+
+  public blobToFile = (theBlob: Blob, fileName: string): File => {
+    const b: any = theBlob;
+    b.lastModifiedDate = new Date();
+    b.name = fileName;
+    return theBlob as File;
   }
 
   // Validation Methods
