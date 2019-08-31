@@ -401,6 +401,9 @@ export class ChatsComponent implements OnInit {
     this.uploadStorageFile(event, this.messageType.voicenote_message);
   }
 
+  download(messageMedia: string) {
+    window.open(messageMedia);
+  }
   uploadStorageFile(event, messagetype) {
     const messageid = this.afs.createId();
 
