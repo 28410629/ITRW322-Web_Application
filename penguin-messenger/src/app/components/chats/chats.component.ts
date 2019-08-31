@@ -86,6 +86,7 @@ export class ChatsComponent implements OnInit {
     lastsentmessagedatetime: null,
     lastsentmessagetype: null
   };
+  textlabel: string;
 
   constructor(private firebaseService: FirebaseService,
               private afs: AngularFirestore,
@@ -404,6 +405,9 @@ export class ChatsComponent implements OnInit {
 
   download(messageMedia: string) {
     window.open(messageMedia);
+  }
+  setLabeltext() {
+
   }
   uploadStorageFile(event, messagetype) {
     const messageid = this.afs.createId();
