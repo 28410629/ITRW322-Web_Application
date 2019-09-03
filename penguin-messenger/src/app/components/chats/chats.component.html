@@ -180,52 +180,52 @@
                   <div class="container" *ngIf="IsAudioUpload">
                     <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile01"(change)="sendAudio($event)" accept="audio/*"/>
-                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                        <input type="file" [(ngModel)]="inputdir" class="custom-file-input" id="inputGroupFile01"(change)="sendAudio($event)" accept="audio/*"/>
+                        <label class="custom-file-label" for="inputGroupFile01">{{uploadStringLabel(inputdir)}}</label>
                       </div>
                     </div>
                     <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax ="100"
-                         style="min-width: 2em;" [style.width]="(uploadProgress | async) + '%'">
-                      {{uploadProgress | async}}%
+                         style="min-width: 2em; min-height: 10px" [style.width]="(uploadProgress | async) + '%'">
+                      <label></label>
                     </div>
                   </div>
 
                   <div class="container" *ngIf="IsImageUpload">
                     <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" [(ngModel)]="textlabel" class="custom-file-input" id="inputGroupFile02"(change)="sendImage($event)" accept="image/*"/>
-                        <label id="labelImageUpload" class="custom-file-label" for="inputGroupFile01">{{textlabel}}</label>
+                        <input type="file" [(ngModel)]="inputdir" class="custom-file-input" id="inputGroupFile02"(change)="sendImage($event)" accept="image/*"/>
+                        <label id="labelImageUpload" class="custom-file-label" for="inputGroupFile01">{{uploadStringLabel(inputdir)}}</label>
                       </div>
                     </div>
-                      <div class="progress-bar progress-bar-success progress-bar-animated" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax ="100"
-                           style="min-width: 2em;" [style.width]="(uploadProgress | async) + '%'">
-                        {{uploadProgress | async}}%
+                      <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax ="100"
+                           style="min-width: 2em; min-height: 10px" [style.width]="(uploadProgress | async) + '%'">
+                        <label></label>
                       </div>
                   </div>
 
                   <div class="container" *ngIf="IsVideoUpload">
                     <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" [(ngModel)]="textlabel"  class="custom-file-input" id="inputGroupFile03"(change)="sendVideo($event)" accept="video/*"/>
-                        <label class="custom-file-label" for="inputGroupFile01">{{textlabel}}</label>
+                        <input type="file" [(ngModel)]="inputdir"  class="custom-file-input" id="inputGroupFile03"(change)="sendVideo($event)" accept="video/*"/>
+                        <label class="custom-file-label" for="inputGroupFile01">{{uploadStringLabel(inputdir)}}</label>
                       </div>
                     </div>
                     <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax ="100"
-                         style="min-width: 2em;" [style.width]="(uploadProgress | async) + '%'">
-                      {{uploadProgress | async}}%
+                         style="min-width: 2em; min-height: 10px" [style.width]="(uploadProgress | async) + '%'">
+                      <label></label>
                     </div>
                   </div>
 
                   <div class="container" *ngIf="IsVoiceNoteUpload">
                     <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" [(ngModel)]="textlabel"  class="custom-file-input" id="inputGroupFile04"(change)="sendVoiceNote($event)" accept="audio/*"/>
-                        <label class="custom-file-label" for="inputGroupFile01">{{textlabel}}</label>
+                        <input type="file" [(ngModel)]="inputdir"  class="custom-file-input" id="inputGroupFile04"(change)="sendVoiceNote($event)" accept="audio/*"/>
+                        <label class="custom-file-label" for="inputGroupFile01">{{uploadStringLabel(inputdir)}}</label>
                       </div>
                     </div>
                     <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax ="100"
-                         style="min-width: 2em;" [style.width]="(uploadProgress | async) + '%'">
-                      {{uploadProgress | async}}%
+                         style="min-width: 2em; min-height: 10px" [style.width]="(uploadProgress | async) + '%'">
+                      <label></label>
                     </div>
                   </div>
                 </div>

@@ -86,7 +86,8 @@ export class ChatsComponent implements OnInit {
     lastsentmessagedatetime: null,
     lastsentmessagetype: null
   };
-  textlabel: string;
+  inputlabeltext: string[];
+  inputdir: string;
 
   constructor(private firebaseService: FirebaseService,
               private afs: AngularFirestore,
@@ -344,18 +345,22 @@ export class ChatsComponent implements OnInit {
   // ------------------ Media functionality ------------------
   SelectMediaImage() {
     this.IsImageUpload = true;
+    this.inputdir = '';
   }
 
   SelectMediaAudio() {
     this.IsAudioUpload = true;
+    this.inputdir = '';
   }
 
   SelectMediaVideo() {
     this.IsVideoUpload = true;
+    this.inputdir = '';
   }
 
   SelectMediaVoiceNote() {
     this.IsVoiceNoteUpload = true;
+    this.inputdir = '';
   }
 
   DeselectMedia() {
@@ -363,6 +368,7 @@ export class ChatsComponent implements OnInit {
     this.IsImageUpload = false;
     this.IsVideoUpload = false;
     this.IsVoiceNoteUpload = false;
+    this.inputdir = '';
   }
 
   sendImage(event) {
@@ -406,9 +412,12 @@ export class ChatsComponent implements OnInit {
   download(messageMedia: string) {
     window.open(messageMedia);
   }
-  setLabeltext() {
 
+  uploadStringLabel(dir: string) {
+    this.inputlabeltext = dir.split('\\');
+    return this.inputlabeltext[this.inputlabeltext.length - 1];
   }
+
   uploadStorageFile(event, messagetype) {
     const messageid = this.afs.createId();
 
