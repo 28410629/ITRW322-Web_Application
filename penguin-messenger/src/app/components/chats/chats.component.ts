@@ -335,6 +335,8 @@ export class ChatsComponent implements OnInit {
   openModal(template: TemplateRef<any>) {
     this.DeselectMedia();
     this.IsError = false;
+    this.uploadProgress = 0;
+    this.inputdir = '';
     this.modalRef = this.modalService.show(template, { backdrop: true , keyboard: true});
   }
 
@@ -345,22 +347,18 @@ export class ChatsComponent implements OnInit {
   // ------------------ Media functionality ------------------
   SelectMediaImage() {
     this.IsImageUpload = true;
-    this.inputdir = '';
   }
 
   SelectMediaAudio() {
     this.IsAudioUpload = true;
-    this.inputdir = '';
   }
 
   SelectMediaVideo() {
     this.IsVideoUpload = true;
-    this.inputdir = '';
   }
 
   SelectMediaVoiceNote() {
     this.IsVoiceNoteUpload = true;
-    this.inputdir = '';
   }
 
   DeselectMedia() {
@@ -368,7 +366,6 @@ export class ChatsComponent implements OnInit {
     this.IsImageUpload = false;
     this.IsVideoUpload = false;
     this.IsVoiceNoteUpload = false;
-    this.inputdir = '';
   }
 
   sendImage(event) {

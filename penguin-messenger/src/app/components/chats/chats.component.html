@@ -106,7 +106,7 @@
               <li [ngClass]="(message.uid == activeUser.uid)?'replies':'sent'">
                 <img src="{{ getSenderImage(message.uid)}}"/>
                 <p>
-                  <b class="name-of-user">{{getSenderName(message.uid)}}</b><button *ngIf="message.type !== messageType.text_message && message.uid === this.activeUser.uid " (click)="download(message.message)" class="media-download-1"><i class="fa fa-cloud-download-alt" aria-hidden="true"></i></button><button *ngIf="message.type !== messageType.text_message && message.uid !== this.activeUser.uid" (click)="download(message.message)" class="media-download-2"><i class="fa fa-cloud-download-alt" aria-hidden="true"></i></button><br>
+                  <b class="name-of-user">{{getSenderName(message.uid)}}</b><button *ngIf="message.type !== messageType.text_message" (click)="download(message.message)" [ngClass]="(message.uid == activeUser.uid)?'media-download-1':'media-download-2'"><i class="fa fa-cloud-download-alt" aria-hidden="true"></i></button>
                   <span style="font-size: smaller">{{ getGoodDate(message.datetime) | date:'dd MMM hh:mm' }}</span>
                   <markdown [data]="newLine"></markdown>
 
@@ -210,7 +210,7 @@
                         <label class="custom-file-label" for="inputGroupFile01">{{uploadStringLabel(inputdir)}}</label>
                       </div>
                     </div>
-                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax ="100"
+                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0"  aria-valuemax ="100"
                          style="min-width: 2em; min-height: 10px" [style.width]="(uploadProgress | async) + '%'">
                       <label></label>
                     </div>
