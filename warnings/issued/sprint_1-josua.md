@@ -1,11 +1,11 @@
 # Warning
 
-This warning is issued during sprint 1 (12 August 2019 - 23 August 2019), due to member not meeting sprint deadline for their task.
+This warning is issued during **Sprint 1 (12 August 2019 - 23 August 2019)**, due to member not meeting sprint deadline for their task.
 
 To meet the deadline the member is expected to make a pull request to merge their branch into develop:
 
 * Upon which the member will receive constructive feedback to improve/fix the work, if needed.
-* Thereafter the branch will be tested and reviewed again...
+* Thereafter the branch will be tested and reviewed again.
 
 This process is repeated until work is deemed of high quality and merged into develop, which is then consider a completed task.
 
@@ -17,11 +17,14 @@ This process is repeated until work is deemed of high quality and merged into de
 
 ## Brief Task Description
 
-* Description: Fix scrolling bug within conversation and add headers for new conversations to differenciate between group and direct conversations.
+* Description: 
+Fix scrolling bug within conversation and add headers for new conversations to differenciate between group and direct conversations.
 
-* Technologies involved: HTML
+* Technologies involved: 
+HTML
 
-* Expected time to complete: HTML work, 30 minutes. Debugging of bug, 1 hour.
+* Expected time to complete: 
+HTML work, 30 minutes. Debugging of bug, 1 hour.
 
 ## Issued By Group Leaders
 
