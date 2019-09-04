@@ -23,10 +23,6 @@ This process is repeated until work is deemed of high quality and merged into de
 
 * Expected time to complete: HTML work, 30 minutes. Debugging of bug, 1 hour.
 
-## Trello Card Screenshot
-
-![trello-card]()
-
 ## Issued By Group Leaders
 
 * Coenraad Human, 28410629.
