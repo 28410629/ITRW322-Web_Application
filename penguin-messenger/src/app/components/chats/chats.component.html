@@ -107,6 +107,7 @@
                 <img src="{{ getSenderImage(message.uid)}}"/>
                 <p>
                   <b class="name-of-user">{{getSenderName(message.uid)}}</b><button *ngIf="message.type !== messageType.text_message" (click)="download(message.message)" [ngClass]="(message.uid == activeUser.uid)?'media-download-1':'media-download-2'"><i class="fa fa-cloud-download-alt" aria-hidden="true"></i></button>
+                  <br>
                   <span style="font-size: smaller">{{ getGoodDate(message.datetime) | date:'dd MMM hh:mm' }}</span>
                   <markdown [data]="newLine"></markdown>
 
@@ -114,21 +115,20 @@
                   <markdown *ngIf="message.type === messageType.text_message" [data]="message.message"></markdown>
 
                   <!--AUDIO MESSAGE-->
-                  <!--Works perfectly when providing a URL in the source!-->
                   <audio *ngIf="message.type === messageType.audio_message" controls src="{{ message.message }}">
-                    Your browser does not support the <code>audio</code> element.
+                    Your browser does not support the audio playback, here is a <a href="{{ message.message }}">link</a>..
                   </audio>
 
                   <!--VIDEO MESSAGE-->
                   <video *ngIf="message.type === messageType.video_message" controls width="100%">
                     <source src="{{ message.message }}" type="video/mp4">
                     <!-- <source src="mov_bbb.ogg" type="video/ogg">-->
-                    Your browser does not support HTML5 video.
+                    Your browser does not support HTML5 video, here is a <a href="{{ message.message }}">link</a>.
                   </video>
 
                   <!--VOICENOTE MESSAGE-->
                   <audio *ngIf="message.type === messageType.voicenote_message" controls src="{{ message.message }}">
-                    Your browser does not support the <code>audio</code> element.
+                    Your browser does not support the audio playback, here is a <a href="{{ message.message }}">link</a>..
                   </audio>
 
                   <!--IMAGE MESSAGE-->
