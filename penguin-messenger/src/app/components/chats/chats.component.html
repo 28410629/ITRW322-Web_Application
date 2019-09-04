@@ -231,14 +231,14 @@
                         <button class="stop-button btn btn-primary btn-block" *ngIf="!isRecording && blobUrl" (click)="sendVoiceNote()">Send</button>
                       </div>
                     </div>
-                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax ="100"
-                         style="min-width: 2em; min-height: 10px" [style.width]="(uploadProgress | async) + '%'">
-                      <label></label>
-                    </div>
-                    <div>
-                      <audio *ngIf="!isRecording && blobUrl" controls>
+                    <div *ngIf="!isRecording && blobUrl">
+                      <audio *ngIf="!isRecording && blobUrl" controls style="width: 100%">
                         <source [src]="blobUrl" type="audio/mpeg">
                       </audio>
+                    </div>
+                    <div *ngIf="!isRecording && blobUrl" class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax ="100"
+                         style="min-width: 2em; min-height: 10px" [style.width]="(uploadProgress | async) + '%'">
+                      <label></label>
                     </div>
                   </div>
                 </div>
