@@ -13,7 +13,7 @@ import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
 import { AudioRecordingService } from '../../services/AudioRecordingService';
 import {DomSanitizer} from '@angular/platform-browser';
-import {tick} from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
 
@@ -105,7 +105,8 @@ export class ChatsComponent implements OnInit {
               private afStorage: AngularFireStorage,
               private formBuilder: FormBuilder,
               private audioRecordingService: AudioRecordingService,
-              private sanitizer: DomSanitizer) {
+              private sanitizer: DomSanitizer,
+              private http: HttpClient) {
 
     // Group form
     this.GroupForm = this.formBuilder.group({
@@ -247,16 +248,6 @@ export class ChatsComponent implements OnInit {
     }
   }
 
-  // ------------------ Set attachments to active ----------------------------
-
-  SetAttachmentsMenu() {
-      this.showAttachmentMenu = true;
-  }
-
-  setAttachmentsFale() {
-    this.showAttachmentMenu = false;
-  }
-
   // ------------------ Change to other active chat methods ------------------
   SetSelectedConversation(conversationid, conversationobject: Conversation) {
     this.ChatIsSelected = true;
@@ -315,14 +306,6 @@ export class ChatsComponent implements OnInit {
     }
   }
 
-  getChatType(isgroupchat: boolean) {
-      if (isgroupchat) {
-        return 'Group conversation.';
-      } else {
-        return 'Direct conversation.';
-      }
-  }
-
   getChatName(isgroupchat: boolean, name: string, participants: string[]) {
     if (isgroupchat) {
       return name;
@@ -344,14 +327,6 @@ export class ChatsComponent implements OnInit {
       } else {
         return this.getSenderImage(participants[0]);
       }
-    }
-  }
-
-  getChatPicture(isgroupchat: boolean) {
-    if (isgroupchat) {
-      return name;
-    } else {
-      return 'still need to detect other person';
     }
   }
 
@@ -399,7 +374,7 @@ export class ChatsComponent implements OnInit {
 
     if (this.validateImage(ImageFileName)) {
       this.IsError = false;
-      this.uploadStorageFile(event, this.messageType.image_message);
+      this.uploadStorageFile(event, this.messageType.image_message, ImageFileName.substring(ImageFileName.lastIndexOf('\\') + 1));
     } else {
       this.IsError = true;
     }
@@ -411,7 +386,7 @@ export class ChatsComponent implements OnInit {
 
     if (this.validateAudio(AudioFileName)) {
       this.IsError = false;
-      this.uploadStorageFile(event, this.messageType.audio_message);
+      this.uploadStorageFile(event, this.messageType.audio_message, AudioFileName.substring(AudioFileName.lastIndexOf('\\') + 1));
     } else {
       this.IsError = true;
     }
@@ -422,7 +397,7 @@ export class ChatsComponent implements OnInit {
 
     if (this.validateVideo(VideoFileName)) {
       this.IsError = false;
-      this.uploadStorageFile(event, this.messageType.video_message);
+      this.uploadStorageFile(event, this.messageType.video_message, VideoFileName.substring(VideoFileName.lastIndexOf('\\') + 1));
     } else {
       this.IsError = true;
     }
@@ -468,10 +443,10 @@ export class ChatsComponent implements OnInit {
     return this.inputlabeltext[this.inputlabeltext.length - 1];
   }
 
-  uploadStorageFile(event, messagetype) {
+  uploadStorageFile(event, messagetype, filename) {
     const messageid = this.afs.createId();
 
-    this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/file');
+    this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/' + filename);
 
     this.task = this.ref.put(event.target.files[0]);
     console.log(event.target.files[0]);
@@ -506,8 +481,8 @@ export class ChatsComponent implements OnInit {
 
   uploadVoiceFile(messagetype) {
     const messageid = this.afs.createId();
-    this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/file');
-    const file = new File([this.blobFile], 'voice.mp3', { type: 'audio/mp3' })
+    this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/voice.mp3');
+    const file = new File([this.blobFile], 'voice.mp3', { type: 'audio/mpeg' });
     this.task = this.ref.put(file);
     this.uploadProgress = this.task.percentageChanges();
     this.task.snapshotChanges().pipe(
@@ -532,14 +507,11 @@ export class ChatsComponent implements OnInit {
             this.closeModal();
             // Deselect media upload
             this.DeselectMedia();
-
           });
-      })
-    ).subscribe();
+      })).subscribe();
   }
 
   // Validation Methods
-
   validateImage(name: string) {
     const ext = name.substring(name.lastIndexOf('.') + 1);
     if (ext.toLowerCase() === 'png' || ext.toLowerCase() === 'jpg' || ext.toLowerCase() === 'jpeg' || ext.toLowerCase() === 'gif'
