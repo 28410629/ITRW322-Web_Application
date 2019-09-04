@@ -115,8 +115,8 @@
                   <markdown *ngIf="message.type === messageType.text_message" [data]="message.message"></markdown>
 
                   <!--AUDIO MESSAGE-->
-                  <audio *ngIf="message.type === messageType.audio_message" controls src="{{ message.message }}">
-                    Your browser does not support the audio playback, here is a <a href="{{ message.message }}">link</a>..
+                  <audio *ngIf="message.type === messageType.audio_message" controls src="{{ message.message }}" style="width: 100%">
+                    Your browser does not support the audio playback, here is a <a href="{{ message.message }}">link</a>.
                   </audio>
 
                   <!--VIDEO MESSAGE-->
@@ -127,8 +127,8 @@
                   </video>
 
                   <!--VOICENOTE MESSAGE-->
-                  <audio *ngIf="message.type === messageType.voicenote_message" controls src="{{ message.message }}">
-                    Your browser does not support the audio playback, here is a <a href="{{ message.message }}">link</a>..
+                  <audio *ngIf="message.type === messageType.voicenote_message" controls src="{{ message.message }}" style="width: 100%">
+                    Your browser does not support the audio playback, here is a <a href="{{ message.message }}">link</a>.
                   </audio>
 
                   <!--IMAGE MESSAGE-->
