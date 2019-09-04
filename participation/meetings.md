@@ -44,13 +44,13 @@
       <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
-      <td color="red">No</td>
+      <td style="color:red">No</td>
     </tr>
     <tr>
       <td>Josua</td>
-      <td color="red">No</td>
-      <td color="red">No</td>
-      <td color="red">No</td>
+      <td style="color:red">No</td>
+      <td style="color:red">No</td>
+      <td style="color:red">No</td>
       <td>Yes</td>
     </tr>
     <tr>
@@ -69,7 +69,7 @@
     </tr>
     <tr>
       <td>Gustav</td>
-      <td color="red">No</td>
+      <td style="color:red">No</td>
       <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
