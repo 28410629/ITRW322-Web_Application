@@ -1,6 +1,6 @@
 # Warning
 
-This warning is issued during **Sprint _ (_day_ _month_ 2019 - _day_ _month_ 2019)**, due to member not meeting sprint deadline for their task.
+This warning is issued during **Sprint 1 (12 August 2019 - 23 August 2019)**, due to member not meeting sprint deadline for their task.
 
 To meet the deadline the member is expected to make a pull request to merge their branch into develop:
 
@@ -11,17 +11,17 @@ This process is repeated until work is deemed of high quality and merged into de
 
 ## Member Details
 
-* **Member Name:** xxxxxxxxx xxxxxxxxx
-* **Student Number:** xxxxxxxxx
-* **Email:** xxxxxxxxx
+* **Member Name:** Ettiene Smith
+* **Student Number:** 26356295 
+* **Email:** 26356295@student.g.nwu.ac.za
 
 ## Brief Task Description
 
-* **Description:** _xxxxxxxxx_
+* **Description:** _Make the media attachment modal pretty by applying CSS to the HTML elements._
 
-* **Technologies involved:** _xxxxxxxxx_
+* **Technologies involved:** _HTML, CSS and Typescript_
 
-* **Expected time to complete:** _xxxxxxxxx_
+* **Expected time to complete:** _HTML, CSS and Typescript work, 30 minutes. Testing, 10 minutes._
 
 ## Issued By Group Leaders
 

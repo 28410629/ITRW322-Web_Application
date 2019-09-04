@@ -1,6 +1,6 @@
 # Warning
 
-This warning is issued during **Sprint _ (_day_ _month_ 2019 - _day_ _month_ 2019)**, due to member not meeting sprint deadline for their task.
+This warning is issued during **Sprint 1 (12 August 2019 - 23 August 2019)**, due to member not meeting sprint deadline for their task.
 
 To meet the deadline the member is expected to make a pull request to merge their branch into develop:
 
@@ -11,17 +11,17 @@ This process is repeated until work is deemed of high quality and merged into de
 
 ## Member Details
 
-* **Member Name:** xxxxxxxxx xxxxxxxxx
-* **Student Number:** xxxxxxxxx
-* **Email:** xxxxxxxxx
+* **Member Name:** Josua Wilken
+* **Student Number:** 26939908
+* **Email:** josua.wilken1@gmail.com
 
 ## Brief Task Description
 
-* **Description:** _xxxxxxxxx_
+* **Description:** _Fix scrolling bug within conversation and add headers for new conversations to differenciate between group and direct conversations._
 
-* **Technologies involved:** _xxxxxxxxx_
+* **Technologies involved:** _HTML_
 
-* **Expected time to complete:** _xxxxxxxxx_
+* **Expected time to complete:** _HTML work, 30 minutes. Debugging of bug, 1 hour._
 
 ## Issued By Group Leaders
 
