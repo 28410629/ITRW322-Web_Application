@@ -223,28 +223,24 @@
                     </div>
                   </div>
 
-
                   <div class="container" *ngIf="IsVoiceNoteUpload">
-                    <div class="fileUpload btn btn-primary">
+                    <div>
                       <div>
-                        <button class="start-button" *ngIf="!isRecording && !blobUrl" (click)="startRecording()">Start Recording</button>
-                        <button class="stop-button" *ngIf="isRecording && !blobUrl" (click)="stopRecording()">Stop</button>
-                        <div *ngIf="isRecording && !blobUrl"> {{recordedTime}} </div>
+                        <button class="start-button btn btn-primary btn-block" *ngIf="!isRecording && !blobUrl" (click)="startRecording()">Start Recording</button>
+                        <button class="stop-button btn btn-primary btn-block" *ngIf="isRecording && !blobUrl" (click)="stopRecording()">Press to stop, recorded time: <span *ngIf="isRecording && !blobUrl">{{recordedTime}}</span></button>
+                        <button class="stop-button btn btn-primary btn-block" *ngIf="!isRecording && blobUrl" (click)="sendVoiceNote()">Send</button>
                       </div>
-                      <div>
-                        <audio *ngIf="!isRecording && blobUrl"  controls>
-                          <source [src]="blobUrl" type="audio/mp3">
-                        </audio>
-                      </div>
-                      <button class="stop-button" *ngIf="!isRecording && blobUrl" (click)="sendVoiceNote()">Send</button>
                     </div>
                     <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax ="100"
                          style="min-width: 2em; min-height: 10px" [style.width]="(uploadProgress | async) + '%'">
                       <label></label>
                     </div>
+                    <div>
+                      <audio *ngIf="!isRecording && blobUrl" controls>
+                        <source [src]="blobUrl" type="audio/mpeg">
+                      </audio>
+                    </div>
                   </div>
-
-
                 </div>
               </ng-template>
 
