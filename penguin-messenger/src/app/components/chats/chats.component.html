@@ -185,7 +185,7 @@
                       </div>
                     </div>
                     <div *ngIf="IsError">
-                      Invalid file uploaded, please try again.
+                      Invalid file selected, please try again.
                     </div>
                     <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax ="100"
                          style="min-width: 2em; min-height: 10px" [style.width]="(uploadProgress | async) + '%'">
@@ -200,10 +200,13 @@
                         <label id="labelImageUpload" class="custom-file-label" for="inputGroupFile01">{{uploadStringLabel(inputdir)}}</label>
                       </div>
                     </div>
-                      <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax ="100"
+                    <div *ngIf="IsError">
+                      Invalid file selected, please try again.
+                    </div>
+                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax ="100"
                            style="min-width: 2em; min-height: 10px" [style.width]="(uploadProgress | async) + '%'">
-                        <label></label>
-                      </div>
+                      <label></label>
+                    </div>
                   </div>
 
                   <div class="container" *ngIf="IsVideoUpload">
@@ -214,7 +217,7 @@
                       </div>
                     </div>
                     <div *ngIf="IsError">
-                      Invalid file uploaded, please try again.
+                      Invalid file selected, please try again.
                     </div>
                     <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0"  aria-valuemax ="100"
                          style="min-width: 2em; min-height: 10px" [style.width]="(uploadProgress | async) + '%'">
