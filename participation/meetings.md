@@ -44,13 +44,13 @@
       <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
-      <td style="color:red">No</td>
+      <td>No</td>
     </tr>
     <tr>
       <td>Josua</td>
-      <td style="color:red">No</td>
-      <td style="color:red">No</td>
-      <td style="color:red">No</td>
+      <td>No</td>
+      <td>No</td>
+      <td>No</td>
       <td>Yes</td>
     </tr>
     <tr>
@@ -69,7 +69,7 @@
     </tr>
     <tr>
       <td>Gustav</td>
-      <td style="color:red">No</td>
+      <td>No</td>
       <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
@@ -83,3 +83,6 @@
     </tr>
   </tbody>
 </table>
+
+# Excused from meetings
+Entails being sick, a valid excuse or having a pre-arrangement with the group.
