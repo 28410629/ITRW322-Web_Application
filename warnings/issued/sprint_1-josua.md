@@ -17,11 +17,11 @@ This process is repeated until work is deemed of high quality and merged into de
 
 ## Brief Task Description
 
-* Description: _Fix scrolling bug within conversation and add headers for new conversations to differenciate between group and direct conversations._
+* **Description:** _Fix scrolling bug within conversation and add headers for new conversations to differenciate between group and direct conversations._
 
-* Technologies involved: _HTML_
+* **Technologies involved:** _HTML_
 
-* Expected time to complete: _HTML work, 30 minutes. Debugging of bug, 1 hour._
+* **Expected time to complete:** _HTML work, 30 minutes. Debugging of bug, 1 hour._
 
 ## Issued By Group Leaders
 
