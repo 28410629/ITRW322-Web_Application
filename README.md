@@ -24,7 +24,7 @@ Details available at [link](https://github.com/coenraadhuman/ITRW322-Semester_Pr
 ## Warnings
 
 * [Template](https://github.com/coenraadhuman/ITRW322-Semester_Project/blob/develop/warnings/template.md)
-* [Warnings Issued]()
+* [Warnings Issued](https://github.com/coenraadhuman/ITRW322-Semester_Project/tree/develop/warnings/issued)
 * [Guidelines](https://github.com/coenraadhuman/ITRW322-Semester_Project/blob/develop/warnings/guidelines-for-dismissal.pdf) for dismissal of group member.
 
 ## Documentation
