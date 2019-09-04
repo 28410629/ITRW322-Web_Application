@@ -11,6 +11,9 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { MessageTypeEnum } from '../../enums/messagetype.enum';
 import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
+import { AudioRecordingService } from '../../services/AudioRecordingService';
+import {DomSanitizer} from '@angular/platform-browser';
+import {tick} from '@angular/core/testing';
 
 @Component({
 
@@ -18,11 +21,11 @@ import {AngularFireStorage} from '@angular/fire/storage';
   templateUrl: './chats.component.html',
   styleUrls: ['./chats.component.scss']
 })
-export class ChatsComponent implements OnInit {
 
+
+export class ChatsComponent implements OnInit {
   // All user data from firebase to add their display names and photos to the chats
   users: Array<UserData>;
-
   // Message being sent via input box
   msgValue = '';
   messageType = {
@@ -89,19 +92,26 @@ export class ChatsComponent implements OnInit {
   inputlabeltext: string[];
   inputdir: string;
 
+  // audio variables
+  isRecording = false;
+  recordedTime;
+  blobUrl;
+
+
   constructor(private firebaseService: FirebaseService,
               private afs: AngularFirestore,
               private chatService: ChatService,
               private modalService: BsModalService,
               private afStorage: AngularFireStorage,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private audioRecordingService: AudioRecordingService,
+              private sanitizer: DomSanitizer) {
 
     // Group form
     this.GroupForm = this.formBuilder.group({
       GroupName: ['', Validators.required],
       SelectedUsers: new FormArray([])
     });
-
 
     // Set the sidebar to active conversations
     this.SelectNewConversation = false;
@@ -117,6 +127,18 @@ export class ChatsComponent implements OnInit {
 
     // Set active user's open conversation in sidebar
     this.getActiveConversations();
+
+    this.audioRecordingService.recordingFailed().subscribe(() => {
+      this.isRecording = false;
+    });
+
+    this.audioRecordingService.getRecordedTime().subscribe((time) => {
+      this.recordedTime = time;
+    });
+
+    this.audioRecordingService.getRecordedBlob().subscribe((data) => {
+      this.blobUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(data.blob));
+    });
   }
 
   // ------------------ Get data methods ------------------
@@ -334,6 +356,8 @@ export class ChatsComponent implements OnInit {
 
   openModal(template: TemplateRef<any>) {
     this.DeselectMedia();
+    this.clearRecordedData();
+    this.abortRecording();
     this.IsError = false;
     this.uploadProgress = 0;
     this.inputdir = '';
@@ -342,6 +366,7 @@ export class ChatsComponent implements OnInit {
 
   closeModal() {
     this.modalRef.hide();
+    this.abortRecording();
   }
 
   // ------------------ Media functionality ------------------
@@ -402,9 +427,36 @@ export class ChatsComponent implements OnInit {
     }
   }
 
-  sendVoiceNote(event) {
-    this.uploadStorageFile(event, this.messageType.voicenote_message);
+  sendVoiceNote() {
+    this.uploadVoiceFile(this.messageType.voicenote_message);
+
+
   }
+  startRecording() {
+    if (!this.isRecording) {
+      this.isRecording = true;
+      this.audioRecordingService.startRecording();
+    }
+  }
+
+  abortRecording() {
+    if (this.isRecording) {
+      this.isRecording = false;
+      this.audioRecordingService.abortRecording();
+    }
+  }
+
+  stopRecording() {
+    if (this.isRecording) {
+      this.audioRecordingService.stopRecording();
+      this.isRecording = false;
+    }
+  }
+
+  clearRecordedData() {
+    this.blobUrl = null;
+  }
+
 
   download(messageMedia: string) {
     window.open(messageMedia);
@@ -421,6 +473,7 @@ export class ChatsComponent implements OnInit {
     this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/file');
 
     this.task = this.ref.put(event.target.files[0]);
+    console.log(event.target.files[0]);
     this.uploadProgress = this.task.percentageChanges();
     this.task.snapshotChanges().pipe(
       finalize(() => {
@@ -445,6 +498,41 @@ export class ChatsComponent implements OnInit {
           // Deselect media upload
           this.DeselectMedia();
         });
+      })
+    ).subscribe();
+  }
+
+
+  uploadVoiceFile(messagetype) {
+    const messageid = this.afs.createId();
+    this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/file');
+    const file = new File([this.blobUrl], 'voice.mp3', { type: 'audio/mp3' })
+    this.task = this.ref.put(file);
+    this.uploadProgress = this.task.percentageChanges();
+    this.task.snapshotChanges().pipe(
+      finalize(() => {
+        this.ref.getDownloadURL()
+          .subscribe(FileDownloadURL => {
+            // Send media message
+            if (messagetype === MessageTypeEnum.voicenote_message) {
+              this.chatService.sendVoiceNoteMessage(this.CurrentConversation.id, FileDownloadURL, this.activeUser.uid, messageid);
+            } else if (messagetype === MessageTypeEnum.image_message) {
+              this.chatService.sendImageMessage(this.CurrentConversation.id, FileDownloadURL, this.activeUser.uid, messageid);
+            } else if (messagetype === MessageTypeEnum.video_message) {
+              this.chatService.sendVideoMessage(this.CurrentConversation.id, FileDownloadURL, this.activeUser.uid, messageid);
+            } else if (messagetype === MessageTypeEnum.audio_message) {
+              this.chatService.sendAudioMessage(this.CurrentConversation.id, FileDownloadURL, this.activeUser.uid, messageid);
+            } else {
+              console.log('Error sending media message.');
+            }
+            // Reset progressbar
+            this.uploadProgress = 0;
+            // Close modal
+            this.closeModal();
+            // Deselect media upload
+            this.DeselectMedia();
+
+          });
       })
     ).subscribe();
   }
@@ -483,4 +571,6 @@ export class ChatsComponent implements OnInit {
 
   ngOnInit() {
   }
+
+
 }
