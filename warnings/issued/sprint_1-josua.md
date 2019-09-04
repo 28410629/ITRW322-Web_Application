@@ -11,9 +11,9 @@ This process is repeated until work is deemed of high quality and merged into de
 
 ## Member Details
 
-* Member Name: Josua Wilken
-* Student Number: 26939908
-* Email: josua.wilken1@gmail.com
+* **Member Name:** Josua Wilken
+* **Student Number:** 26939908
+* **Email:** josua.wilken1@gmail.com
 
 ## Brief Task Description
 
