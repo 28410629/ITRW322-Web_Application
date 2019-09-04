@@ -116,8 +116,8 @@
 
                   <!--AUDIO MESSAGE-->
                   <markdown *ngIf="message.type === messageType.audio_message" ngPreserveWhitespaces>*Audio Received:*</markdown>
-                  <audio *ngIf="message.type === messageType.audio_message" controls src="{{ message.message }}" style="width: 100%">
-                    Your browser does not support the audio playback, here is a <a href="{{ message.message }}">link</a>.
+                  <audio *ngIf="message.type === messageType.audio_message" controls src="{{ message.message }}" class="audio-width">
+                    Your browser does not support audio playback, here is a <a href="{{ message.message }}">link</a>.
                   </audio>
 
                   <!--VIDEO MESSAGE-->
@@ -127,8 +127,8 @@
 
                   <!--VOICE NOTE MESSAGE-->
                   <markdown *ngIf="message.type === messageType.voicenote_message" ngPreserveWhitespaces>*Voice Note Received:*</markdown>
-                  <audio *ngIf="message.type === messageType.voicenote_message" controls src="{{ message.message }}" style="width: 100%">
-                    Your browser does not support the audio playback, here is a <a href="{{ message.message }}">link</a>.
+                  <audio *ngIf="message.type === messageType.voicenote_message" controls src="{{ message.message }}" class="audio-width">
+                    Your browser does not support audio playback, here is a <a href="{{ message.message }}">link</a>.
                   </audio>
 
                   <!--IMAGE MESSAGE-->
