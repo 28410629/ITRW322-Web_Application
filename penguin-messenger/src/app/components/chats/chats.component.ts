@@ -16,6 +16,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {tick} from '@angular/core/testing';
 
 @Component({
+
   selector: 'app-chats',
   templateUrl: './chats.component.html',
   styleUrls: ['./chats.component.scss']
@@ -88,12 +89,14 @@ export class ChatsComponent implements OnInit {
     lastsentmessagedatetime: null,
     lastsentmessagetype: null
   };
+  inputlabeltext: string[];
+  inputdir: string;
 
   // audio variables
   isRecording = false;
   recordedTime;
   blobUrl;
-
+  blobFile;
 
   constructor(private firebaseService: FirebaseService,
               private afs: AngularFirestore,
@@ -134,6 +137,7 @@ export class ChatsComponent implements OnInit {
     });
 
     this.audioRecordingService.getRecordedBlob().subscribe((data) => {
+      this.blobFile = data.blob;
       this.blobUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(data.blob));
     });
   }
@@ -356,6 +360,8 @@ export class ChatsComponent implements OnInit {
     this.clearRecordedData();
     this.abortRecording();
     this.IsError = false;
+    this.uploadProgress = 0;
+    this.inputdir = '';
     this.modalRef = this.modalService.show(template, { backdrop: true , keyboard: true});
   }
 
@@ -453,6 +459,15 @@ export class ChatsComponent implements OnInit {
   }
 
 
+  download(messageMedia: string) {
+    window.open(messageMedia);
+  }
+
+  uploadStringLabel(dir: string) {
+    this.inputlabeltext = dir.split('\\');
+    return this.inputlabeltext[this.inputlabeltext.length - 1];
+  }
+
   uploadStorageFile(event, messagetype) {
     const messageid = this.afs.createId();
 
@@ -492,7 +507,7 @@ export class ChatsComponent implements OnInit {
   uploadVoiceFile(messagetype) {
     const messageid = this.afs.createId();
     this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/file');
-    const file = new File([this.blobUrl], 'voice.mp3', { type: 'audio/mp3' })
+    const file = new File([this.blobFile], 'voice.mp3', { type: 'audio/mp3' })
     this.task = this.ref.put(file);
     this.uploadProgress = this.task.percentageChanges();
     this.task.snapshotChanges().pipe(

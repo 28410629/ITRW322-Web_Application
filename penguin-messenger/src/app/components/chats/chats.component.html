@@ -106,7 +106,8 @@
               <li [ngClass]="(message.uid == activeUser.uid)?'replies':'sent'">
                 <img src="{{ getSenderImage(message.uid)}}"/>
                 <p>
-                  <b class="name-of-user">{{getSenderName(message.uid)}}</b><br>
+                  <b class="name-of-user">{{getSenderName(message.uid)}}</b><button *ngIf="message.type !== messageType.text_message && message.type !== messageType.voicenote_message" (click)="download(message.message)" [ngClass]="(message.uid == activeUser.uid)?'media-download-1':'media-download-2'"><i class="fa fa-cloud-download-alt" aria-hidden="true"></i></button>
+                  <br>
                   <span style="font-size: smaller">{{ getGoodDate(message.datetime) | date:'dd MMM hh:mm' }}</span>
                   <markdown [data]="newLine"></markdown>
 
@@ -114,21 +115,20 @@
                   <markdown *ngIf="message.type === messageType.text_message" [data]="message.message"></markdown>
 
                   <!--AUDIO MESSAGE-->
-                  <!--Works perfectly when providing a URL in the source!-->
-                  <audio *ngIf="message.type === messageType.audio_message" controls src="{{ message.message }}">
-                    Your browser does not support the <code>audio</code> element.
+                  <audio *ngIf="message.type === messageType.audio_message" controls src="{{ message.message }}" style="width: 100%">
+                    Your browser does not support the audio playback, here is a <a href="{{ message.message }}">link</a>.
                   </audio>
 
                   <!--VIDEO MESSAGE-->
                   <video *ngIf="message.type === messageType.video_message" controls width="100%">
                     <source src="{{ message.message }}" type="video/mp4">
                     <!-- <source src="mov_bbb.ogg" type="video/ogg">-->
-                    Your browser does not support HTML5 video.
+                    Your browser does not support HTML5 video, here is a <a href="{{ message.message }}">link</a>.
                   </video>
 
                   <!--VOICENOTE MESSAGE-->
-                  <audio *ngIf="message.type === messageType.voicenote_message"  controls>
-                    <source src="{{message.message }}" type="audio/webm">
+                  <audio *ngIf="message.type === messageType.voicenote_message" controls src="{{ message.message }}" style="width: 100%">
+                    Your browser does not support the audio playback, here is a <a href="{{ message.message }}">link</a>.
                   </audio>
 
                   <!--IMAGE MESSAGE-->
@@ -178,33 +178,51 @@
                   </div>
 
                   <div class="container" *ngIf="IsAudioUpload">
-                    <div class="fileUpload btn btn-primary">
-                      <input type="file" class="upload" (change)="sendAudio($event)" accept="audio/*"/>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" [(ngModel)]="inputdir" class="custom-file-input" id="inputGroupFile01"(change)="sendAudio($event)" accept="audio/*"/>
+                        <label class="custom-file-label" for="inputGroupFile01">{{uploadStringLabel(inputdir)}}</label>
+                      </div>
                     </div>
                     <div *ngIf="IsError">
-                      Invalid file uploaded, please try again.
+                      Invalid file selected, please try again.
                     </div>
-                    <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
+                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax ="100"
+                         style="min-width: 2em; min-height: 10px" [style.width]="(uploadProgress | async) + '%'">
+                      <label></label>
+                    </div>
                   </div>
 
                   <div class="container" *ngIf="IsImageUpload">
-                    <div class="fileUpload btn btn-primary">
-                      <input type="file" class="upload" (change)="sendImage($event)" accept="image/*"/>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" [(ngModel)]="inputdir" class="custom-file-input" id="inputGroupFile02"(change)="sendImage($event)" accept="image/*"/>
+                        <label id="labelImageUpload" class="custom-file-label" for="inputGroupFile01">{{uploadStringLabel(inputdir)}}</label>
+                      </div>
                     </div>
                     <div *ngIf="IsError">
-                      Invalid file uploaded, please try again.
+                      Invalid file selected, please try again.
                     </div>
-                    <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
+                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax ="100"
+                           style="min-width: 2em; min-height: 10px" [style.width]="(uploadProgress | async) + '%'">
+                      <label></label>
+                    </div>
                   </div>
 
                   <div class="container" *ngIf="IsVideoUpload">
-                    <div class="fileUpload btn btn-primary">
-                      <input type="file" class="upload" (change)="sendVideo($event)" accept="video/*"/>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" [(ngModel)]="inputdir"  class="custom-file-input" id="inputGroupFile03"(change)="sendVideo($event)" accept="video/*"/>
+                        <label class="custom-file-label" for="inputGroupFile01">{{uploadStringLabel(inputdir)}}</label>
+                      </div>
                     </div>
                     <div *ngIf="IsError">
-                      Invalid file uploaded, please try again.
+                      Invalid file selected, please try again.
                     </div>
-                    <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
+                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0"  aria-valuemax ="100"
+                         style="min-width: 2em; min-height: 10px" [style.width]="(uploadProgress | async) + '%'">
+                      <label></label>
+                    </div>
                   </div>
 
 
@@ -217,12 +235,15 @@
                       </div>
                       <div>
                         <audio *ngIf="!isRecording && blobUrl"  controls>
-                          <source [src]="blobUrl" type="audio/webm">
+                          <source [src]="blobUrl" type="audio/mp3">
                         </audio>
                       </div>
                       <button class="stop-button" *ngIf="!isRecording && blobUrl" (click)="sendVoiceNote()">Send</button>
                     </div>
-                    <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
+                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax ="100"
+                         style="min-width: 2em; min-height: 10px" [style.width]="(uploadProgress | async) + '%'">
+                      <label></label>
+                    </div>
                   </div>
 
 

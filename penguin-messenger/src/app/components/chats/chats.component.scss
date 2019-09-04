@@ -5,6 +5,25 @@
   justify-content: center;
 }
 
+.media-download-1 {
+  color: #007bff;
+  float: right;
+  background: #f5f5f5;
+  border: #f5f5f5;
+  :hover {
+    color: #4b4b4b;
+  }
+}
+.media-download-2 {
+  color: #f5f5f5;
+  float: right;
+  background: #007bff;
+  border: #007bff;
+  :hover {
+    color: #4b4b4b;
+  }
+}
+
 body {
   display: flex;
   align-items: center;
