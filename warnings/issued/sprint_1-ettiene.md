@@ -19,9 +19,9 @@ This process is repeated until work is deemed of high quality and merged into de
 
 * **Description:** _Make the media attachment modal pretty by applying CSS to the HTML elements._
 
-* **Technologies involved:** _HTML, CSS and typescript_
+* **Technologies involved:** _HTML, CSS and Typescript_
 
-* **Expected time to complete:** _CSS and typescript work, 30 minutes. Testing, 10 minutes._
+* **Expected time to complete:** _HTML, CSS and Typescript work, 30 minutes. Testing, 10 minutes._
 
 ## Issued By Group Leaders
 
