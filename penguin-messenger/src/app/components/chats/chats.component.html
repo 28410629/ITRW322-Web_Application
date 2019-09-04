@@ -127,8 +127,8 @@
                   </video>
 
                   <!--VOICENOTE MESSAGE-->
-                  <audio *ngIf="message.type === messageType.voicenote_message" controls src="{{ message.message }}">
-                    Your browser does not support the <code>audio</code> element.
+                  <audio *ngIf="message.type === messageType.voicenote_message"  controls>
+                    <source src="{{message.message }}" type="audio/webm">
                   </audio>
 
                   <!--IMAGE MESSAGE-->
@@ -181,6 +181,9 @@
                     <div class="fileUpload btn btn-primary">
                       <input type="file" class="upload" (change)="sendAudio($event)" accept="audio/*"/>
                     </div>
+                    <div *ngIf="IsError">
+                      Invalid file uploaded, please try again.
+                    </div>
                     <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
                   </div>
 
@@ -198,15 +201,31 @@
                     <div class="fileUpload btn btn-primary">
                       <input type="file" class="upload" (change)="sendVideo($event)" accept="video/*"/>
                     </div>
-                    <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
-                  </div>
-
-                  <div class="container" *ngIf="IsVoiceNoteUpload">
-                    <div class="fileUpload btn btn-primary">
-                      <input type="file" class="upload" (change)="sendVoiceNote($event)" accept="audio/*"/>
+                    <div *ngIf="IsError">
+                      Invalid file uploaded, please try again.
                     </div>
                     <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
                   </div>
+
+
+                  <div class="container" *ngIf="IsVoiceNoteUpload">
+                    <div class="fileUpload btn btn-primary">
+                      <div>
+                        <button class="start-button" *ngIf="!isRecording && !blobUrl" (click)="startRecording()">Start Recording</button>
+                        <button class="stop-button" *ngIf="isRecording && !blobUrl" (click)="stopRecording()">Stop</button>
+                        <div *ngIf="isRecording && !blobUrl"> {{recordedTime}} </div>
+                      </div>
+                      <div>
+                        <audio *ngIf="!isRecording && blobUrl"  controls>
+                          <source [src]="blobUrl" type="audio/webm">
+                        </audio>
+                      </div>
+                      <button class="stop-button" *ngIf="!isRecording && blobUrl" (click)="sendVoiceNote()">Send</button>
+                    </div>
+                    <progress max=100 [value]="(uploadProgress | async)">{{uploadProgress | async}}%</progress>
+                  </div>
+
+
                 </div>
               </ng-template>
 
