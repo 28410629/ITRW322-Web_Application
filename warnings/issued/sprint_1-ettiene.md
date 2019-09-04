@@ -21,7 +21,7 @@ This process is repeated until work is deemed of high quality and merged into de
 
 * **Technologies involved:** _HTML_ and _CSS_
 
-* **Expected time to complete:** CSS work, 30 minutes. Debugging of bug, 10 minutes._
+* **Expected time to complete:** _CSS work, 30 minutes. Debugging of bug, 10 minutes._
 
 ## Issued By Group Leaders
 
