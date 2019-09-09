@@ -8,6 +8,7 @@
       <th>16 Aug</th>
       <th>20 Aug</th>
       <th>28 Aug</th>
+      <th>6 Sept</th>
     </tr>
   </thead>
   <tbody>
@@ -16,10 +17,12 @@
       <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
+      <td>Yes</td> 
       <td>Yes</td>
     </tr>
     <tr>
       <td>Coenraad</td>
+      <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
@@ -31,9 +34,11 @@
       <td>Excused</td>
       <td>Yes</td>
       <td>Yes</td>
+      <td>No</td>
     </tr>
     <tr>
       <td>Eon</td>
+      <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
@@ -45,6 +50,7 @@
       <td>Yes</td>
       <td>Yes</td>
       <td>No</td>
+      <td>No</td>
     </tr>
     <tr>
       <td>Josua</td>
@@ -52,9 +58,11 @@
       <td>No</td>
       <td>No</td>
       <td>Yes</td>
+      <td>Yes</td>
     </tr>
     <tr>
       <td>Rikus</td>
+      <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
@@ -66,6 +74,7 @@
       <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
+      <td>Yes</td>
     </tr>
     <tr>
       <td>Gustav</td>
@@ -73,9 +82,11 @@
       <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
+      <td>Yes</td>
     </tr>
     <tr>
       <td>Simone</td>
+      <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
