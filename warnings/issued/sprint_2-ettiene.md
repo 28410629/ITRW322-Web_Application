@@ -19,9 +19,13 @@ This process is repeated until work is deemed of high quality and merged into de
 
 * **Description:** _Create the user manual. This member was one of four members assigned to this task. All other members completed their parts._
 
-* **Technologies involved:** _Typing, Internet research, Google Docs._
+* **Technologies involved:** _Typing, Internet Research, Google Docs._
 
-* **Expected time to complete:** _Around 2 hours. No longer than 3._
+* **Expected time to complete:** _Around 2 hours. No longer than 3 hours._
+
+## Reason For Warning
+
+* _Member did not improve their work after review or contributed any further after initial add of their work to the document._
 
 ## Issued By Group Leaders
 
