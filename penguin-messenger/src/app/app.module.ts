@@ -29,6 +29,9 @@ import { HeaderUserComponent } from './components/application/header-user/header
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ModalProfileComponent } from './components/modal-profile/modal-profile.component';
 import { LoadscreenComponent } from './components/loadscreen/loadscreen.component';
+import {VerifyEmailComponent} from './components/verify-email/verify-email.component';
+import {ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
+import {SignUpComponent} from './components/sign-up/sign-up.component';
 
 export function markedOptions(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -58,7 +61,10 @@ export function markedOptions(): MarkedOptions {
     HeaderUserComponent,
     ChatsComponent,
     ModalProfileComponent,
-    LoadscreenComponent
+    LoadscreenComponent,
+    VerifyEmailComponent,
+    ForgotPasswordComponent,
+    SignUpComponent
   ],
   imports: [
     HttpClientModule,

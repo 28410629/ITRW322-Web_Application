@@ -2,7 +2,7 @@ import {Component, OnInit, TemplateRef} from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
 import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
-import { User, UserData} from '../../models/user.model';
+import { User} from '../../models/user.model';
 import { Conversation, Message } from '../../models/message.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ChatService} from '../../services/chat.service';
@@ -25,7 +25,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class ChatsComponent implements OnInit {
   // All user data from firebase to add their display names and photos to the chats
-  users: Array<UserData>;
+  users: Array<User>;
   // Message being sent via input box
   msgValue = '';
   messageType = {

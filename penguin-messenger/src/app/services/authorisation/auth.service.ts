@@ -3,7 +3,7 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import {User, UserData} from '../../models/user.model';
+import {User} from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,6 @@ import {User, UserData} from '../../models/user.model';
 
 export class AuthService {
   user: User; // Save logged in user data
-  userData: UserData;
 
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
@@ -25,7 +24,6 @@ export class AuthService {
       if (user) {
         this.user = user;
         localStorage.setItem('user', JSON.stringify(this.user));
-        this.UserData();
         JSON.parse(localStorage.getItem('user'));
       } else {
         localStorage.setItem('user', null);
@@ -34,22 +32,52 @@ export class AuthService {
     });
   }
 
-  // Our authorisation methods:
-
-  LoginWithFacebook() {
-    return this.AuthProvider(new auth.FacebookAuthProvider());
+  // Sign in with email/password
+  SignIn(email, password) {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      .then((result) => {
+        this.ngZone.run(() => {
+          if (result.user.emailVerified) {
+            this.router.navigate(['application']);
+          } else {
+            this.SendVerificationMail();
+            window.alert('Verification email was sent, please verify email address.');
+          }
+        });
+      }).catch((error) => {
+        window.alert(error.message);
+      });
   }
 
-  LoginWithGithub() {
-    return this.AuthProvider(new auth.GithubAuthProvider());
+  // Sign up with email/password
+  SignUp(email, password, displayname) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        /* Call the SendVerificaitonMail() function when new user sign
+        up and returns promise */
+        this.SendVerificationMail();
+        this.SetUserData(result.user, displayname);
+      }).catch((error) => {
+        window.alert(error.message);
+      });
   }
 
-  LoginWithGoogle() {
-    return this.AuthProvider(new auth.GoogleAuthProvider());
+  // Reset Forgot password
+  ForgotPassword(passwordResetEmail) {
+    return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail)
+      .then(() => {
+        window.alert('Password reset email sent, check your inbox.');
+      }).catch((error) => {
+        window.alert(error);
+      });
   }
 
-  LoginWithTwitter() {
-    return this.AuthProvider(new auth.TwitterAuthProvider());
+  // Send email verification when new user sign up
+  SendVerificationMail() {
+    return this.afAuth.auth.currentUser.sendEmailVerification()
+      .then(() => {
+        this.router.navigate(['verify-email']);
+      });
   }
 
   SignOut() {
@@ -60,54 +88,18 @@ export class AuthService {
     });
   }
 
-  AuthProvider(provider) {
-    return this.afAuth.auth.signInWithPopup(provider)
-      .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['application']);
-        })
-        this.SetUserData(result.user);
-      }).catch((error) => {
-        window.alert(error);
-      });
-  }
-
-  SetUserData(user) {
+  SetUserData(user, displayname) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     this.user = {
       uid: user.uid,
       email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
+      displayName: displayname,
+      photoURL: 'https://firebasestorage.googleapis.com/v0/b/itrw322-semester-project.appspot.com/o/defaults%2FdefaultUserPhoto.png?alt=media&token=5222876d-ea95-4cb9-a8a4-71d898c595d4',
       emailVerified: user.emailVerified
-    }
+    };
     return userRef.set(this.user, {
       merge: true
     });
-  }
-
-  UserData() {
-    const followDoc =
-      this.afs.collection(`usersdata`).doc(this.user.uid).ref;
-
-    return followDoc.get().then((doc) => {
-      if (!doc.exists) {
-        this.afs.collection('usersdata').doc(this.user.uid).set({
-          displayName: this.user.displayName,
-          photoURL: this.user.photoURL,
-          uid: this.user.uid
-        });
-        const x: UserData =  {
-          displayName: this.user.displayName,
-          photoURL: this.user.photoURL,
-          uid: this.user.uid
-        };
-        localStorage.setItem('usersData', JSON.stringify(x));
-      } else {
-        localStorage.setItem('usersData', null);
-      }
-    });
-
   }
 
   get isLoggedIn(): boolean {

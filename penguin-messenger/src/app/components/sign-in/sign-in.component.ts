@@ -28,22 +28,9 @@ export class SignInComponent implements OnInit {
     });
   }
 
-  tryGoogle() {
-    this.authService.LoginWithGoogle();
+  tryLogin() {
+    this.authService.SignIn(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value);
   }
-
-  tryGithub() {
-    this.authService.LoginWithGithub();
-  }
-
-  tryFacebook() {
-    this.authService.LoginWithFacebook();
-  }
-
-  tryTwitter() {
-    this.authService.LoginWithTwitter();
-  }
-
 
   ngOnInit() {
   }

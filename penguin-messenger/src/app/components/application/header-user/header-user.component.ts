@@ -2,7 +2,7 @@ import {Component, OnInit, TemplateRef} from '@angular/core';
 import { FirebaseService } from '../../../services/firebase.service';
 import { AuthService} from '../../../services/authorisation/auth.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { User, UserData } from '../../../models/user.model';
+import { User } from '../../../models/user.model';
 
 @Component({
   selector: 'app-header-user',
@@ -17,7 +17,6 @@ export class HeaderUserComponent implements OnInit {
   showAttachmentMenu: boolean;
   modalRef: BsModalRef;
   user: User;
-  userdata: UserData;
 
   constructor(public fireBaseService: FirebaseService,
               public authService: AuthService,
@@ -38,6 +37,8 @@ export class HeaderUserComponent implements OnInit {
 
   getInitialData() {
     this.user = JSON.parse(localStorage.getItem('user'));
+    this.displayName = this.user.displayName;
+    this.photoURL = this.user.displayName;
   }
 
   openModal(template: TemplateRef<any>) {
