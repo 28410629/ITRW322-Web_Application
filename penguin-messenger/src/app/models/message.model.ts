@@ -1,6 +1,7 @@
-import * as firebase from 'firebase';
-import Timestamp = firebase.firestore.Timestamp;
+import {firestore} from 'firebase';
+import Timestamp = firestore.Timestamp;
 import {MessageTypeEnum} from '../enums/messagetype.enum';
+
 
 export interface Conversations {
   conversations?: (Conversation)[] | null;

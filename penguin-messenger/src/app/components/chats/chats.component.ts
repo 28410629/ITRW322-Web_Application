@@ -1,7 +1,7 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
-import * as firebase from 'firebase';
-import Timestamp = firebase.firestore.Timestamp;
+import { firestore } from 'firebase';
+import Timestamp = firestore.Timestamp;
 import { User} from '../../models/user.model';
 import { Conversation, Message } from '../../models/message.model';
 import { AngularFirestore } from '@angular/fire/firestore';

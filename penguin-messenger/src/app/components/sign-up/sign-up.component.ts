@@ -32,10 +32,10 @@ export class SignUpComponent implements OnInit {
 
   tryRegister() {
     if (this.loginForm.controls['password'].value === this.loginForm.controls['password2'].value) {
-      this.authService.SignUp(
-        this.loginForm.controls['email'].value,
-        this.loginForm.controls['password'].value,
-        this.loginForm.controls['displayname'].value
+        this.authService.SignUp(
+          this.loginForm.controls['email'].value.toString().trim(),
+          this.loginForm.controls['password'].value.toString().trim(),
+          this.loginForm.controls['displayname'].value.toString().trim()
       );
     } else {
 

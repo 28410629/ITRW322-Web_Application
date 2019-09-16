@@ -6,7 +6,7 @@
           <div class="card-body">
             <h5 style="margin: 0px;" class="card-title text-center">Penguin Messenger Thanks you For Registering</h5>
             <img style="margin-top: 15px" class="mx-auto d-block" src="assets/12545216.png" width="150" height="150">
-            <div class="form-signin" *ngIf="authService.userData as user">
+            <div class="form-signin" *ngIf="authService.user as user">
 
               <label class="text-center">We have sent a confirmation email to <strong>{{user.email}}</strong></label>
 

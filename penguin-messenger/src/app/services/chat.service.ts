@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import {Conversation, Message, Messages, NewConversation} from '../models/message.model';
 import { CryptoService } from './crypto.service';
 import { MessageTypeEnum } from '../enums/messagetype.enum';
-import * as firebase from 'firebase';
-import Timestamp = firebase.firestore.Timestamp;
+import { firestore } from 'firebase';
+import Timestamp = firestore.Timestamp;
 
 
 @Injectable({
