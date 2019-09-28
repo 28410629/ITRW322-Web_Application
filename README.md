@@ -3,7 +3,7 @@
 
 Instant messenger built using Angular, Firebase, Electron and hosted via Github Pages:
 * Web application, [https://penguinmessenger.tech](https://penguinmessenger.tech)
-* Electron Builds.
+* Electron Builds are available at [link](https://drive.google.com/drive/folders/1ij1RET6k-zySQs-ndkLmhZiRfFbMcXKn?usp=sharing).
 * User Manual is available at [link](https://docs.google.com/document/d/1A2Pklte0RKe5nMMJvPiWID0tFXdJFSNbe_3ipA14lyo/edit?usp=sharing).
 
 ## Project Details
