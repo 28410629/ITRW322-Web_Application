@@ -1,25 +1,13 @@
-<div class="body">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-        <div class="card card-signin my-5">
-          <div class="card-body">
-            <h5 style="margin: 0px;" class="card-title text-center">Penguin Messenger Thanks you For Registering</h5>
-            <img style="margin-top: 15px" class="mx-auto d-block" src="assets/12545216.png" width="150" height="150">
-            <div class="form-signin" *ngIf="authService.user as user">
-
-              <label class="text-center">We have sent a confirmation email to <strong>{{user.email}}</strong></label>
-
-              <label class="text-center">Please check your email and click on the link to verfiy your email address</label>
-
-
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="goToSignIn()">Sign in</button>
-              <hr class="my-4">
-              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit" (click)="authService.SendVerificationMail()">Resend Verificaiton Email</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<body class="text-center">
+<form class="form-signin">
+  <img class="mb-4" src="/assets/12545216.png" alt="" width="72" height="72">
+  <h1 class="h3 mb-3 font-weight-normal">Penguin Messenger</h1>
+  <div class="checkbox mb-3" *ngIf="authService.user as user">
+    <label class="text-center" style="margin-top: 8px; margin-bottom: 0px">We have sent a confirmation email to <strong>{{user.email}}</strong></label>
   </div>
-</div>
+  <button class="btn btn-lg btn-warning btn-block" (click)="tryLogin()">Sign in</button>
+  <div class="checkbox mb-3">
+    <label class="text-center" (click)="authService.SendVerificationMail()" style="cursor: pointer; margin-top: 18px; margin-bottom: 0px">Resend verification email?</label>
+  </div>
+</form>
+</body>

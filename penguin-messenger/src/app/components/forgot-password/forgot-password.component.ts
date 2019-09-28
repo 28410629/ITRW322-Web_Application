@@ -35,4 +35,8 @@ export class ForgotPasswordComponent implements OnInit {
   tryForgotPassword() {
     this.authService.ForgotPassword(this.forgotForm.controls['email'].value);
   }
+
+  trySignIn() {
+    this.router.navigate(['/']);
+  }
 }

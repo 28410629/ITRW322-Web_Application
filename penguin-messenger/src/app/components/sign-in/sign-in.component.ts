@@ -35,4 +35,11 @@ export class SignInComponent implements OnInit {
   ngOnInit() {
   }
 
+  tryForgot() {
+    this.router.navigate(['/forgot-password']);
+  }
+
+  trySignUp() {
+    this.router.navigate(['/sign-up']);
+  }
 }

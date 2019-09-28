@@ -15,8 +15,7 @@ export class VerifyEmailComponent implements OnInit {
   ngOnInit() {
   }
 
-  goToSignIn() {
-    this.router.navigate(['']);
+  tryLogin() {
+    this.router.navigate(['/']);
   }
-
 }
