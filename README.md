@@ -5,7 +5,7 @@ Firstly you need to install the required software from [link](https://drive.goog
 
 ```bash
 # Clone this repository
-git clone https://github.com/coenraadhuman/ITRW322-Semester_Project
+git clone -b electron https://github.com/coenraadhuman/ITRW322-Semester_Project
 # Go into the repository
 cd penguin-messenger
 # Install dependencies
