@@ -21,7 +21,7 @@ const msiCreator = new MSICreator({
     exe: 'penguin-messenger',
     name: 'Penguin Messenger',
     manufacturer: 'ITRW322-NPG_014',
-    version: '0.2',
+    version: '0.4',
 
     // Configure installer User Interface
     ui: {
