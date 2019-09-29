@@ -1,0 +1,15 @@
+{
+    "proxy": {
+        "use": "false",
+        "url": "",
+        "port": "",
+        "one": "true",
+        "info": "The proxy WAS NOT used on startup."
+    },
+    "session": {
+        "cache": "false",
+        "storage": "false",
+        "cacheinfo": "Cache WAS NOT cleared during startup.",
+        "storageinfo": "Storage WAS NOT cleared during startup."
+    }
+}

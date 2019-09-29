@@ -1,0 +1,28 @@
+{
+  "name": "penguin-messenger",
+  "version": "1.0.0",
+  "description": "Instant messenger application, built using Angular, Firebase, Bootstrap and Electron.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+	"pack": "electron-packager . --platform=win32 --overwrite",
+	"install": "node create-installer.js"
+  },
+  "repository": "https://github.com/coenraadhuman/ITRW322-Semester_Project",
+  "keywords": [
+    "Electron",
+	"Messenger",
+	"Firebase",
+	"Angular"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^6.0.10",
+    "electron-packager": "^14.0.6",
+    "electron-wix-msi": "^2.1.1"
+  },
+  "dependencies": {
+    "electron-preferences": "^2.0.0"
+  }
+}
