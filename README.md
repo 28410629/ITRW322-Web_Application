@@ -36,6 +36,8 @@ Details available at [link](https://github.com/coenraadhuman/ITRW322-Semester_Pr
 
 ## Mark Allocation
 
+Please see the [final marksheet for the project](https://github.com/coenraadhuman/ITRW322-Semester_Project/blob/develop/documentation/project-marksheet.pdf).
+
 Mark allocation for application is as follows:
 * Minimum system requirements (points 1 to 4) : 50%
 * Extra features (percentage according to working feature’s score) : 40%
