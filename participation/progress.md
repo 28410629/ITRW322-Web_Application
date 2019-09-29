@@ -17,7 +17,7 @@ Other
 - [x] Show and store conversations, i.e. sent and received messages can still be viewed offline;
 - [x] Send voice notes;
 - [x] The application should be user friendly;
-- [ ] The application should be able to function through a proxy;
+- [x] The application should be able to function through a proxy;
 - [ ] A  user  manual,  in  PDF  format, must be included. The user manual should also describe the basic workings of all features in brief technical detail. **See progress of user manual further down.**
 
 ## Extra Features [40/100]
