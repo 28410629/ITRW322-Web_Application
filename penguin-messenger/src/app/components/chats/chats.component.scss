@@ -24,6 +24,10 @@
   }
 }
 
+.invisible {
+  position: absolute;
+  left: -9999px;
+}
 
 body {
   display: flex;
