@@ -14,6 +14,7 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import { AudioRecordingService } from '../../services/AudioRecordingService';
 import {DomSanitizer} from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
+import {IImage, ImageCompressService} from "ng2-image-compress";
 
 @Component({
 
@@ -98,6 +99,9 @@ export class ChatsComponent implements OnInit {
   blobUrl;
   blobFile;
 
+
+  processedImages: any = [];
+
   constructor(private firebaseService: FirebaseService,
               private afs: AngularFirestore,
               private chatService: ChatService,
@@ -106,7 +110,8 @@ export class ChatsComponent implements OnInit {
               private formBuilder: FormBuilder,
               private audioRecordingService: AudioRecordingService,
               private sanitizer: DomSanitizer,
-              private http: HttpClient) {
+              private http: HttpClient,
+              private imgCompressService: ImageCompressService) {
 
     // Group form
     this.GroupForm = this.formBuilder.group({
@@ -153,7 +158,7 @@ export class ChatsComponent implements OnInit {
 
   getActiveConversations() {
     this.chatService.getConversations(this.activeUser.uid).subscribe(responseData => {
-      this.conversations  = responseData;
+      this.conversations = responseData;
     });
   }
 
@@ -259,7 +264,7 @@ export class ChatsComponent implements OnInit {
         this.Messages = responseData;
         this.ConversationName = this.GetConversationName();
 
-    });
+      });
   }
 
   GetConversationName(): string {
@@ -271,7 +276,7 @@ export class ChatsComponent implements OnInit {
         this.ConversationPhoto = this.getSenderImage(this.CurrentConversation.participants[1]);
         return this.getSenderName(this.CurrentConversation.participants[1]);
       } else {
-        this.ConversationPhoto  = this.getSenderImage(this.CurrentConversation.participants[0]);
+        this.ConversationPhoto = this.getSenderImage(this.CurrentConversation.participants[0]);
         return this.getSenderName(this.CurrentConversation.participants[0]);
       }
     }
@@ -337,7 +342,7 @@ export class ChatsComponent implements OnInit {
     this.IsError = false;
     this.uploadProgress = 0;
     this.inputdir = '';
-    this.modalRef = this.modalService.show(template, { backdrop: true , keyboard: true});
+    this.modalRef = this.modalService.show(template, {backdrop: true, keyboard: true});
   }
 
   closeModal() {
@@ -379,6 +384,21 @@ export class ChatsComponent implements OnInit {
       this.IsError = true;
     }
 
+  }
+
+  compress(fileInput: any) {
+    const images: Array<IImage> = [];
+
+    ImageCompressService.filesToCompressedImageSource(fileInput.target.files).then(observableImages => {
+      observableImages.subscribe((image) => {
+        images.push(image);
+      }, (error) => {
+        console.log('Error while converting');
+      }, () => {
+        this.processedImages = images;
+        return this.processedImages.first;
+      });
+    });
   }
 
   sendAudio(event) {
@@ -448,8 +468,12 @@ export class ChatsComponent implements OnInit {
 
     this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/' + filename);
 
-    this.task = this.ref.put(event.target.files[0]);
-    console.log(event.target.files[0]);
+    if (messagetype === this.messageType.image_message ) {
+      this.task = this.ref.put(this.compress(event));
+    } else {
+      this.task = this.ref.put(event.target.files[0]);
+    }
+
     this.uploadProgress = this.task.percentageChanges();
     this.task.snapshotChanges().pipe(
       finalize(() => {
