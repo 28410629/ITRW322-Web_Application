@@ -14,6 +14,7 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import { AudioRecordingService } from '../../services/AudioRecordingService';
 import {DomSanitizer} from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
+import {ImageCroppedEvent} from 'ngx-image-cropper';
 
 @Component({
 
@@ -97,6 +98,9 @@ export class ChatsComponent implements OnInit {
   recordedTime;
   blobUrl;
   blobFile;
+  croppedImage;
+  imageChangedEvent: any;
+  compressedImgName;
 
   constructor(private firebaseService: FirebaseService,
               private afs: AngularFirestore,
@@ -342,6 +346,8 @@ export class ChatsComponent implements OnInit {
 
   closeModal() {
     this.modalRef.hide();
+    this.croppedImage = null;
+    this.imageChangedEvent = null;
     this.abortRecording();
   }
 
@@ -369,16 +375,32 @@ export class ChatsComponent implements OnInit {
     this.IsVoiceNoteUpload = false;
   }
 
-  sendImage(event) {
+  setImageDetails(event) {
     const ImageFileName = event.target.files[0].name;
 
     if (this.validateImage(ImageFileName)) {
       this.IsError = false;
-      this.uploadStorageFile(event, this.messageType.image_message, ImageFileName.substring(ImageFileName.lastIndexOf('\\') + 1));
+      this.compressedImgName = ImageFileName;
     } else {
       this.IsError = true;
     }
 
+  }
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.file;
+    this.uploadImageFile(this.messageType.image_message);
+  }
+  imageLoaded() {
+    // show cropper
+  }
+  cropperReady() {
+    // cropper ready
+  }
+  loadImageFailed() {
+    // show error message at later stage
+  }
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
   }
 
   sendAudio(event) {
@@ -449,7 +471,7 @@ export class ChatsComponent implements OnInit {
     this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/' + filename);
 
     this.task = this.ref.put(event.target.files[0]);
-    console.log(event.target.files[0]);
+
     this.uploadProgress = this.task.percentageChanges();
     this.task.snapshotChanges().pipe(
       finalize(() => {
@@ -474,6 +496,41 @@ export class ChatsComponent implements OnInit {
           // Deselect media upload
           this.DeselectMedia();
         });
+      })
+    ).subscribe();
+  }
+
+  uploadImageFile(messagetype) {
+    const messageid = this.afs.createId();
+
+    this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/' + this.compressedImgName);
+
+    this.task = this.ref.put(this.croppedImage);
+
+    this.uploadProgress = this.task.percentageChanges();
+    this.task.snapshotChanges().pipe(
+      finalize(() => {
+        this.ref.getDownloadURL()
+          .subscribe(FileDownloadURL => {
+            // Send media message
+            if (messagetype === MessageTypeEnum.voicenote_message) {
+              this.chatService.sendVoiceNoteMessage(this.CurrentConversation.id, FileDownloadURL, this.activeUser.uid, messageid);
+            } else if (messagetype === MessageTypeEnum.image_message) {
+              this.chatService.sendImageMessage(this.CurrentConversation.id, FileDownloadURL, this.activeUser.uid, messageid);
+            } else if (messagetype === MessageTypeEnum.video_message) {
+              this.chatService.sendVideoMessage(this.CurrentConversation.id, FileDownloadURL, this.activeUser.uid, messageid);
+            } else if (messagetype === MessageTypeEnum.audio_message) {
+              this.chatService.sendAudioMessage(this.CurrentConversation.id, FileDownloadURL, this.activeUser.uid, messageid);
+            } else {
+              console.log('Error sending media message.');
+            }
+            // Reset progressbar
+            this.uploadProgress = 0;
+            // Close modal
+            this.closeModal();
+            // Deselect media upload
+            this.DeselectMedia();
+          });
       })
     ).subscribe();
   }
