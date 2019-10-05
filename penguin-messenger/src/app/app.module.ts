@@ -32,7 +32,6 @@ import { LoadscreenComponent } from './components/loadscreen/loadscreen.componen
 import {VerifyEmailComponent} from './components/verify-email/verify-email.component';
 import {ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
 import {SignUpComponent} from './components/sign-up/sign-up.component';
-import {ImageCompressService, ResizeOptions} from 'ng2-image-compress';
 
 export function markedOptions(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -88,7 +87,7 @@ export function markedOptions(): MarkedOptions {
     FormsModule,
     ModalModule.forRoot(),
   ],
-  providers: [FirebaseService, AuthService, ChatService, CryptoService, BsModalRef, ImageCompressService, ResizeOptions],
+  providers: [FirebaseService, AuthService, ChatService, CryptoService, BsModalRef],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
