@@ -36,6 +36,8 @@ MIT
 
 @angular/fire/firestore
 
+@angular/fire/messaging
+
 @angular/fire/storage
 
 @angular/forms
@@ -45,6 +47,9 @@ MIT
 MIT
 
 @angular/router
+MIT
+
+@angular/service-worker
 MIT
 
 @firebase/app
@@ -345,6 +350,8 @@ firebase/app
 firebase/auth
 
 firebase/firestore
+
+firebase/messaging
 
 firebase/storage
 
