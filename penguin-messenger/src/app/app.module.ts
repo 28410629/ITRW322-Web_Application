@@ -32,6 +32,9 @@ import { LoadscreenComponent } from './components/loadscreen/loadscreen.componen
 import {VerifyEmailComponent} from './components/verify-email/verify-email.component';
 import {ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
 import {SignUpComponent} from './components/sign-up/sign-up.component';
+import {MessagingService} from './messaging.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import {AngularFireMessagingModule} from '@angular/fire/messaging';
 
 export function markedOptions(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -64,7 +67,7 @@ export function markedOptions(): MarkedOptions {
     LoadscreenComponent,
     VerifyEmailComponent,
     ForgotPasswordComponent,
-    SignUpComponent
+    SignUpComponent,
   ],
   imports: [
     HttpClientModule,
@@ -83,11 +86,13 @@ export function markedOptions(): MarkedOptions {
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    AngularFireMessagingModule,
     ReactiveFormsModule,
     FormsModule,
     ModalModule.forRoot(),
+    ServiceWorkerModule.register('/firebase-messaging-sw.js', { enabled: environment.production }),
   ],
-  providers: [FirebaseService, AuthService, ChatService, CryptoService, BsModalRef],
+  providers: [FirebaseService, AuthService, ChatService, CryptoService, BsModalRef, MessagingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
