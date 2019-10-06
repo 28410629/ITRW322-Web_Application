@@ -6,8 +6,7 @@ export interface User {
    emailVerified: boolean;
 }
 
-export interface UserData {
-  displayName: string;
-  photoURL: string;
+export interface Token {
   uid: string;
+  token: string;
 }

@@ -15,6 +15,7 @@ import { AudioRecordingService } from '../../services/AudioRecordingService';
 import {DomSanitizer} from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
+import {MessagingService} from '../../messaging.service';
 
 @Component({
 
@@ -110,7 +111,8 @@ export class ChatsComponent implements OnInit {
               private formBuilder: FormBuilder,
               private audioRecordingService: AudioRecordingService,
               private sanitizer: DomSanitizer,
-              private http: HttpClient) {
+              private http: HttpClient,
+              private msgService: MessagingService) {
 
     // Group form
     this.GroupForm = this.formBuilder.group({
@@ -600,6 +602,8 @@ export class ChatsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.msgService.getPermission();
+    this.msgService.receiveMessage();
   }
 
 
