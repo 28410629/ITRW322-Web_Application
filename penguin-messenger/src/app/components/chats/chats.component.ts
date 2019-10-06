@@ -16,6 +16,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
 import {MessagingService} from '../../messaging.service';
+import {Subscription} from 'rxjs';
 
 @Component({
 
@@ -43,6 +44,9 @@ export class ChatsComponent implements OnInit {
   IsImageUpload = false;
   IsVideoUpload = false;
   IsVoiceNoteUpload = false;
+
+  // subscription handling
+  subscriptionChat: Subscription;
 
   // Error filetype popup
   IsError = false;
@@ -256,11 +260,14 @@ export class ChatsComponent implements OnInit {
 
   // ------------------ Change to other active chat methods ------------------
   SetSelectedConversation(conversationid, conversationobject: Conversation) {
+    if (this.subscriptionChat != null) {
+      this.subscriptionChat.unsubscribe();
+    }
     this.ChatIsSelected = true;
     this.Messages = null;
     this.ConversationPhoto = '';
     this.CurrentConversation = conversationobject;
-    this.chatService.getConversationMessages(conversationid)
+    this.subscriptionChat = this.chatService.getConversationMessages(conversationid)
       .subscribe(responseData => {
         this.Messages = responseData;
         this.ConversationName = this.GetConversationName();
