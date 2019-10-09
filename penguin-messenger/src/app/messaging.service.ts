@@ -46,12 +46,19 @@ export class MessagingService {
   }
 
   getPermission() {
-    this.afMessaging.requestPermission
-      .pipe(mergeMapTo(this.afMessaging.tokenChanges))
-      .subscribe(
-        (token) => { this.updateToken(token); console.log('Updated token.'); },
-        (error) => { console.error(error); },
-      );
+    if ('Notification' in window) {
+      this.afMessaging.requestPermission
+        .pipe(mergeMapTo(this.afMessaging.tokenChanges))
+        .subscribe(
+          (token) => {
+            this.updateToken(token);
+            console.log('Updated token.');
+          },
+          (error) => {
+            console.error(error);
+          },
+        );
+    }
   }
 
   receiveMessage() {
