@@ -21,7 +21,6 @@ export class ModalProfileComponent implements OnInit {
   photoURL = 'assets/loadingProfile.png';
   angForm: FormGroup;
 
-  displayNameMessage = 'Display Name:';
   users: Array<User>;
   currentDisplayName = '';
 
@@ -69,13 +68,7 @@ export class ModalProfileComponent implements OnInit {
     // show error message at later stage
   }
 
-  getUsers() {
-    this.fireBaseService.getUsers().subscribe(responseData => {
-      this.users = responseData;
-    });
-  }
-
-  checkUsername(newdiysplayName) {
+  displayNameUniqueCheck(newdiysplayName) {
     for (const user of this.users) {
       if (user.displayName === newdiysplayName) {
         return false;
@@ -86,15 +79,14 @@ export class ModalProfileComponent implements OnInit {
 
   submitChanges() {
     const newdiysplayName = this.angForm.controls['DisplayName'].value;
-    if (newdiysplayName === this.currentDisplayName || this.checkUsername(newdiysplayName)) {
+    if (newdiysplayName === this.currentDisplayName || this.displayNameUniqueCheck(newdiysplayName)) {
       this.fireBaseService.updateUserData(
         this.user.uid,
         newdiysplayName,
         this.photoURL);
       this.currentDisplayName = newdiysplayName;
-      this.displayNameMessage = 'Display Name:';
     } else {
-      this.displayNameMessage = 'Display Name already exists. Please use a different one.';
+      window.alert('Display Name already exists. Please use a different one.');
     }
   }
 
@@ -113,6 +105,12 @@ export class ModalProfileComponent implements OnInit {
         });
       })
     ).subscribe();
+  }
+
+  getUsers() {
+    this.fireBaseService.getUsers().subscribe(responseData => {
+      this.users = responseData;
+    });
   }
 
   getAccountData() {
