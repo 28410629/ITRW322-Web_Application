@@ -21,6 +21,10 @@ export class ModalProfileComponent implements OnInit {
   photoURL = 'assets/loadingProfile.png';
   angForm: FormGroup;
 
+  displayNameMessage = 'Display Name:';
+  users: Array<User>;
+  currentDisplayName = '';
+
   // Photo upload
   ref;
   task;
@@ -39,6 +43,7 @@ export class ModalProfileComponent implements OnInit {
       UID: ['', Validators.required]
     });
     this.user = JSON.parse(localStorage.getItem('user'));
+    this.getUsers();
   }
 
   ngOnInit() {
@@ -64,11 +69,33 @@ export class ModalProfileComponent implements OnInit {
     // show error message at later stage
   }
 
+  getUsers() {
+    this.fireBaseService.getUsers().subscribe(responseData => {
+      this.users = responseData;
+    });
+  }
+
+  checkUsername(newdiysplayName) {
+    for (const user of this.users) {
+      if (user.displayName === newdiysplayName) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   submitChanges() {
-    this.fireBaseService.updateUserData(
-      this.user.uid,
-      this.angForm.controls['DisplayName'].value,
-      this.photoURL);
+    const newdiysplayName = this.angForm.controls['DisplayName'].value;
+    if (newdiysplayName === this.currentDisplayName || this.checkUsername(newdiysplayName)) {
+      this.fireBaseService.updateUserData(
+        this.user.uid,
+        newdiysplayName,
+        this.photoURL);
+      this.currentDisplayName = newdiysplayName;
+      this.displayNameMessage = 'Display Name:';
+    } else {
+      this.displayNameMessage = 'Display Name already exists. Please use a different one.';
+    }
   }
 
   uploadPhoto() {
@@ -97,6 +124,7 @@ export class ModalProfileComponent implements OnInit {
     this.fireBaseService.getUserData(this.user.uid)
       .subscribe(
         responseData => {
+          this.currentDisplayName = responseData.displayName;
           this.angForm.controls['DisplayName'].setValue(responseData.displayName);
           this.photoURL = responseData.photoURL;
         });
