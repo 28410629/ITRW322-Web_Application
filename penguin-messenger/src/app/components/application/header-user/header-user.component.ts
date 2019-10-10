@@ -30,7 +30,7 @@ export class HeaderUserComponent implements OnInit {
   tryLogout() {
     this.authService.SignOut();
     const audio = new Audio();
-    audio.src = 'assets/LogoutSound.mp3';
+    audio.src = 'assets/logout.mp4';
     audio.load();
     audio.play();
   }
