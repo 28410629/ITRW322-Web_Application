@@ -28,6 +28,10 @@ export class SignInComponent implements OnInit {
     });
   }
 
+  download() {
+    window.open('https://drive.google.com/file/d/19qVjbT56Z38g-fk_U0PwXJL96CLg1zcl/view');
+  }
+
   tryLogin() {
     this.authService.SignIn(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value);
   }
