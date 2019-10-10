@@ -135,8 +135,25 @@ export class ChatService {
     });
   }
 
+  public CreateIdForDirectConversation(activeuserid: string, selecteduserid: string): string {
+    for (let i = 0; i < activeuserid.length; i++) {
+      if (activeuserid.charAt(i) !== selecteduserid.charAt(i)) {
+        if (activeuserid.charAt(i) > selecteduserid.charAt(i)) {
+          return activeuserid.concat(selecteduserid);
+        } else {
+          return selecteduserid.concat(activeuserid);
+        }
+      }
+    }
+    return null;
+  }
+
+  public CheckIfDirectConversationExist(id) {
+
+  }
+
   public CreateNewDirectConversation(activeuserid, selecteduserid) {
-    const id = this.db.createId();
+    const id = this.CreateIdForDirectConversation(activeuserid, selecteduserid);
     const conversationRef: AngularFirestoreDocument<any> = this.db.doc(`conversations/${id}`);
     const Participants: string[] = [activeuserid, selecteduserid];
     const conversation: NewConversation = {
@@ -153,6 +170,7 @@ export class ChatService {
     conversationRef.set(conversation, {
       merge: true
     });
+    return id;
   }
   // this.GroupForm.get('GroupName').value, this.GroupForm.get('SelectedUsers').value
   public CreateNewGroupConversation(Name, Participants) {

@@ -186,28 +186,19 @@ export class ChatsComponent implements OnInit, OnDestroy {
   }
 
   CreateNewDirectConversation(selecteduseruid: string) {
-    if (this.CheckIfDirectConversationExists(selecteduseruid)) {
-      this.SelectNewConversation = false;
-      this.chatService.CreateNewDirectConversation(this.activeUser.uid, selecteduseruid);
-      this.HideSelectNewConversation();
-    } else {
-      this.HideSelectNewConversation();
-    }
-  }
+    const followDoc =
+      this.afs.collection(`conversations`).doc(
+        this.chatService.CreateIdForDirectConversation(this.activeUser.uid, selecteduseruid)
+      ).ref;
 
-  CheckIfDirectConversationExists(selecteduseruid): boolean {
-    for (const conversation of this.conversations) {
-      if (!conversation.isgroupchat) {
-        for (const participant of conversation.participants) {
-          if (participant === selecteduseruid) {
-            // Conversation exists!
-            return false;
-          }
-        }
+    return followDoc.get().then((doc) => {
+      if (doc.exists) {
+        this.HideSelectNewConversation();
+      } else {
+        this.SelectNewConversation = false;
+        this.chatService.CreateNewDirectConversation(this.activeUser.uid, selecteduseruid);
       }
-    }
-    // Create conversation!
-    return true;
+    });
   }
 
   CreateNewGroupConversation() {
