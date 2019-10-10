@@ -299,6 +299,30 @@ if (proxyUse === 'true') {
 
   // uncomment below to open the DevTools.
   //win.webContents.openDevTools()
+  
+   const isWindows = process.platform === 'win32';
+  let needsFocusFix = false;
+  let triggeringProgrammaticBlur = false;
+
+  win.on('blur', (event) => {
+    if(!triggeringProgrammaticBlur) {
+      needsFocusFix = true;
+    }
+  })
+
+  win.on('focus', (event) => {
+    if(isWindows && needsFocusFix) {
+      needsFocusFix = false;
+      triggeringProgrammaticBlur = true;
+      setTimeout(function () {
+        win.blur();
+        win.focus();
+        setTimeout(function () {
+          triggeringProgrammaticBlur = false;
+        }, 100);
+      }, 100);
+    }
+  })
 
   // Event when the window is closed.
   win.on('closed', function () {
