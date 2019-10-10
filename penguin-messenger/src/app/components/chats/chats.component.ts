@@ -387,10 +387,6 @@ export class ChatsComponent implements OnInit, OnDestroy {
     }
 
   }
-  imageCropped(event: ImageCroppedEvent) {
-    this.croppedImage = event.file;
-    this.uploadImageFile(this.messageType.image_message);
-  }
 
   imageLoaded() {
     // show cropper
@@ -428,11 +424,21 @@ export class ChatsComponent implements OnInit, OnDestroy {
           console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
           console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
 
-          this.uploadImageFileNew(
-            compressedFile,
-            this.messageType.image_message,
-            ImageFileName.substring(ImageFileName.lastIndexOf('\\') + 1)
-          );
+          if (imageFile.size > compressedFile.size) {
+            console.log('Compression successful, uploading compressed file.');
+            this.uploadImageFileNew(
+              compressedFile,
+              this.messageType.image_message,
+              ImageFileName.substring(ImageFileName.lastIndexOf('\\') + 1)
+            );
+          } else {
+            console.log('Compression failed, uploading original file.');
+            this.uploadImageFileNew(
+              imageFile,
+              this.messageType.image_message,
+              ImageFileName.substring(ImageFileName.lastIndexOf('\\') + 1)
+            );
+          }
         })
         .catch(error => {
           console.log(error.message);
