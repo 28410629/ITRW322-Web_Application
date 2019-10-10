@@ -19,6 +19,7 @@ Details available at [link](https://github.com/coenraadhuman/ITRW322-Semester_Pr
 * [Meetings](https://github.com/coenraadhuman/ITRW322-Semester_Project/blob/develop/participation/meetings.md).
 * [Trello](https://trello.com/en), kanban board for project.
 * [Discord](https://discordapp.com/), main communication platform.
+* [Spreadsheet](https://docs.google.com/spreadsheets/d/1JNBLaG2c2sVs9Ndyncb4_vNbYAdK6N_jvEjCgcDoops/edit?usp=sharing) with everyone's contribution.
 
 ## Warnings
 
