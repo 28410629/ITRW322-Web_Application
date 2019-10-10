@@ -28,7 +28,7 @@ export class MessagingService {
               private afAuth: AngularFireAuth,
               private afMessaging: AngularFireMessaging) {
                 if (firebase.messaging.isSupported()) {
-                  this.messaging = firebase.messaging()
+                  this.messaging = firebase.messaging();
                 }
               }
 

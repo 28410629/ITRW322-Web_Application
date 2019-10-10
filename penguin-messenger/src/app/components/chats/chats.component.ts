@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnDestroy, OnInit, TemplateRef} from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
 import { firestore } from 'firebase';
 import Timestamp = firestore.Timestamp;
@@ -26,7 +26,7 @@ import {Subscription} from 'rxjs';
 })
 
 
-export class ChatsComponent implements OnInit {
+export class ChatsComponent implements OnInit, OnDestroy {
   // All user data from firebase to add their display names and photos to the chats
   users: Array<User>;
   // Message being sent via input box
@@ -47,6 +47,7 @@ export class ChatsComponent implements OnInit {
 
   // subscription handling
   subscriptionChat: Subscription;
+  subscriptionToDestroy: Subscription[] = [];
 
   // Error filetype popup
   IsError = false;
@@ -156,15 +157,15 @@ export class ChatsComponent implements OnInit {
   // ------------------ Get data methods ------------------
 
   getUsers() {
-    this.firebaseService.getUsers().subscribe(responseData => {
+    this.subscriptionToDestroy.push(this.firebaseService.getUsers().subscribe(responseData => {
       this.users = responseData;
-    });
+    }));
   }
 
   getActiveConversations() {
-    this.chatService.getConversations(this.activeUser.uid).subscribe(responseData => {
+    this.subscriptionToDestroy.push(this.chatService.getConversations(this.activeUser.uid).subscribe(responseData => {
       this.conversations  = responseData;
-    });
+    }));
   }
 
   // ------------------ Start new chat methods ------------------
@@ -271,7 +272,6 @@ export class ChatsComponent implements OnInit {
       .subscribe(responseData => {
         this.Messages = responseData;
         this.ConversationName = this.GetConversationName();
-
     });
   }
 
@@ -399,15 +399,19 @@ export class ChatsComponent implements OnInit {
     this.croppedImage = event.file;
     this.uploadImageFile(this.messageType.image_message);
   }
+
   imageLoaded() {
     // show cropper
   }
+
   cropperReady() {
     // cropper ready
   }
+
   loadImageFailed() {
     // show error message at later stage
   }
+
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
   }
@@ -436,9 +440,8 @@ export class ChatsComponent implements OnInit {
 
   sendVoiceNote() {
     this.uploadVoiceFile(this.messageType.voicenote_message);
-
-
   }
+
   startRecording() {
     if (!this.isRecording) {
       this.isRecording = true;
@@ -463,7 +466,6 @@ export class ChatsComponent implements OnInit {
   clearRecordedData() {
     this.blobUrl = null;
   }
-
 
   download(messageMedia: string) {
     window.open(messageMedia);
@@ -613,5 +615,14 @@ export class ChatsComponent implements OnInit {
     this.msgService.receiveMessage();
   }
 
-
+  ngOnDestroy() {
+    this.subscriptionToDestroy.forEach(x => {
+      if (x != null) {
+        x.unsubscribe();
+      }
+    });
+    if (this.subscriptionChat != null) {
+      this.subscriptionChat.unsubscribe();
+    }
+  }
 }
