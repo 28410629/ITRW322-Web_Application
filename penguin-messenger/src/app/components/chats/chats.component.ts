@@ -17,6 +17,7 @@ import { HttpClient } from '@angular/common/http';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
 import {MessagingService} from '../../messaging.service';
 import {Subscription} from 'rxjs';
+import imageCompression from 'browser-image-compression';
 
 @Component({
 
@@ -407,6 +408,42 @@ export class ChatsComponent implements OnInit, OnDestroy {
     this.imageChangedEvent = event;
   }
 
+  sendImage(event) {
+    const ImageFileName = event.target.files[0].name;
+
+    if (this.validateImage(ImageFileName)) {
+      this.IsError = false;
+      const imageFile = event.target.files[0];
+      console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
+      console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true
+      };
+
+      imageCompression(imageFile, options)
+        .then(compressedFile => {
+          console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+          console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+
+          this.uploadImageFileNew(
+            compressedFile,
+            this.messageType.image_message,
+            ImageFileName.substring(ImageFileName.lastIndexOf('\\') + 1)
+          );
+        })
+        .catch(error => {
+          console.log(error.message);
+        });
+
+    } else {
+      this.IsError = true;
+    }
+
+  }
+
   sendAudio(event) {
     const AudioFileName = event.target.files[0].name;
 
@@ -502,12 +539,12 @@ export class ChatsComponent implements OnInit, OnDestroy {
     ).subscribe();
   }
 
-  uploadImageFile(messagetype) {
+  uploadImageFileNew(event, messagetype, filename) {
     const messageid = this.afs.createId();
 
-    this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/' + this.compressedImgName);
+    this.ref = this.afStorage.ref('conversations/' + this.CurrentConversation.id + '/messages/' + messageid + '/' + filename);
 
-    this.task = this.ref.put(this.croppedImage);
+    this.task = this.ref.put(event);
 
     this.uploadProgress = this.task.percentageChanges();
     this.task.snapshotChanges().pipe(
@@ -536,7 +573,6 @@ export class ChatsComponent implements OnInit, OnDestroy {
       })
     ).subscribe();
   }
-
 
   uploadVoiceFile(messagetype) {
     const messageid = this.afs.createId();

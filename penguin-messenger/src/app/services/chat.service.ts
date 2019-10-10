@@ -148,10 +148,6 @@ export class ChatService {
     return null;
   }
 
-  public CheckIfDirectConversationExist(id) {
-
-  }
-
   public CreateNewDirectConversation(activeuserid, selecteduserid) {
     const id = this.CreateIdForDirectConversation(activeuserid, selecteduserid);
     const conversationRef: AngularFirestoreDocument<any> = this.db.doc(`conversations/${id}`);
