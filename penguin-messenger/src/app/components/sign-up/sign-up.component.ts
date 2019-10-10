@@ -35,9 +35,9 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  displayNameUniqueCheck(newdiysplayName) {
+  displayNameUniqueCheck(newDiysplayName) {
     for (const user of this.users) {
-      if (user.displayName === newdiysplayName) {
+      if (user.displayName === newDiysplayName) {
         return false;
       }
     }
@@ -45,7 +45,8 @@ export class SignUpComponent implements OnInit {
   }
 
   tryRegister() {
-    if (!this.displayNameUniqueCheck(this.loginForm.controls['displayname'].value.toString().trim())) {
+    const newDiysplayName = this.loginForm.controls['displayname'].value.toString().trim();
+    if (!this.displayNameUniqueCheck(newDiysplayName)) {
       window.alert('Display Name already exists. Please use a different one.');
     } else if (this.loginForm.controls['password'].value !== this.loginForm.controls['password2'].value)  {
       window.alert('Passwords does not match.');
@@ -53,7 +54,7 @@ export class SignUpComponent implements OnInit {
       this.authService.SignUp(
         this.loginForm.controls['email'].value.toString().trim(),
         this.loginForm.controls['password'].value.toString().trim(),
-        this.loginForm.controls['displayname'].value.toString().trim()
+        newDiysplayName
       );
     }
   }

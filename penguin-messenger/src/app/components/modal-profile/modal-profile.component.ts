@@ -68,9 +68,9 @@ export class ModalProfileComponent implements OnInit {
     // show error message at later stage
   }
 
-  displayNameUniqueCheck(newdiysplayName) {
+  displayNameUniqueCheck(newDiysplayName) {
     for (const user of this.users) {
-      if (user.displayName === newdiysplayName) {
+      if (user.displayName === newDiysplayName) {
         return false;
       }
     }
@@ -78,13 +78,15 @@ export class ModalProfileComponent implements OnInit {
   }
 
   submitChanges() {
-    const newdiysplayName = this.angForm.controls['DisplayName'].value;
-    if (newdiysplayName === this.currentDisplayName || this.displayNameUniqueCheck(newdiysplayName)) {
+    const newDiysplayName = this.angForm.controls['DisplayName'].value.trim();
+    if (newDiysplayName === '') {
+      window.alert('Please insert a Display Name.');
+    } else if (newDiysplayName === this.currentDisplayName || this.displayNameUniqueCheck(newDiysplayName)) {
       this.fireBaseService.updateUserData(
         this.user.uid,
-        newdiysplayName,
+        newDiysplayName,
         this.photoURL);
-      this.currentDisplayName = newdiysplayName;
+      this.currentDisplayName = newDiysplayName;
     } else {
       window.alert('Display Name already exists. Please use a different one.');
     }
