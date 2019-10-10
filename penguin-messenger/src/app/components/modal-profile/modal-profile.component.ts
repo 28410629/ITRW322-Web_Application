@@ -21,6 +21,9 @@ export class ModalProfileComponent implements OnInit {
   photoURL = 'assets/loadingProfile.png';
   angForm: FormGroup;
 
+  users: Array<User>;
+  currentDisplayName = '';
+
   // Photo upload
   ref;
   task;
@@ -39,6 +42,7 @@ export class ModalProfileComponent implements OnInit {
       UID: ['', Validators.required]
     });
     this.user = JSON.parse(localStorage.getItem('user'));
+    this.getUsers();
   }
 
   ngOnInit() {
@@ -64,11 +68,28 @@ export class ModalProfileComponent implements OnInit {
     // show error message at later stage
   }
 
+  displayNameUniqueCheck(newDiysplayName) {
+    for (const user of this.users) {
+      if (user.displayName === newDiysplayName) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   submitChanges() {
-    this.fireBaseService.updateUserData(
-      this.user.uid,
-      this.angForm.controls['DisplayName'].value,
-      this.photoURL);
+    const newDiysplayName = this.angForm.controls['DisplayName'].value.trim();
+    if (newDiysplayName === '') {
+      window.alert('Please insert a Display Name.');
+    } else if (newDiysplayName === this.currentDisplayName || this.displayNameUniqueCheck(newDiysplayName)) {
+      this.fireBaseService.updateUserData(
+        this.user.uid,
+        newDiysplayName,
+        this.photoURL);
+      this.currentDisplayName = newDiysplayName;
+    } else {
+      window.alert('Display Name already exists. Please use a different one.');
+    }
   }
 
   uploadPhoto() {
@@ -88,6 +109,12 @@ export class ModalProfileComponent implements OnInit {
     ).subscribe();
   }
 
+  getUsers() {
+    this.fireBaseService.getUsers().subscribe(responseData => {
+      this.users = responseData;
+    });
+  }
+
   getAccountData() {
     this.angForm.controls['Email'].setValue(this.user.email);
     this.angForm.controls['UID'].setValue(this.user.uid);
@@ -97,6 +124,7 @@ export class ModalProfileComponent implements OnInit {
     this.fireBaseService.getUserData(this.user.uid)
       .subscribe(
         responseData => {
+          this.currentDisplayName = responseData.displayName;
           this.angForm.controls['DisplayName'].setValue(responseData.displayName);
           this.photoURL = responseData.photoURL;
         });
