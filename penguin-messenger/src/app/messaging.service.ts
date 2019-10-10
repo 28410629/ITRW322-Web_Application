@@ -20,12 +20,17 @@ import {AngularFireMessaging} from '@angular/fire/messaging';
 @Injectable()
 export class MessagingService {
 
-  messaging = firebase.messaging();
+  // messaging = firebase.messaging();
+  messaging = null;
   currentMessage = new BehaviorSubject(null);
 
   constructor(private db: AngularFirestore,
               private afAuth: AngularFireAuth,
-              private afMessaging: AngularFireMessaging) { }
+              private afMessaging: AngularFireMessaging) {
+                if (firebase.messaging.isSupported()) {
+                  this.messaging = firebase.messaging()
+                }
+              }
 
   updateToken(newtoken) {
     this.afAuth.authState.subscribe(user => {
@@ -46,7 +51,7 @@ export class MessagingService {
   }
 
   getPermission() {
-    if ('Notification' in window) {
+    if (this.messaging != null) {
       this.afMessaging.requestPermission
         .pipe(mergeMapTo(this.afMessaging.tokenChanges))
         .subscribe(
@@ -62,10 +67,10 @@ export class MessagingService {
   }
 
   receiveMessage() {
-    this.messaging.onMessage((payload) => {
-      console.log('Message received. ', payload);
-      this.currentMessage.next(payload);
-    });
-
+    if (this.messaging != null) {
+      this.messaging.onMessage((payload) => {
+        this.currentMessage.next(payload);
+      });
+    }
   }
 }
