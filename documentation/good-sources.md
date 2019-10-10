@@ -15,3 +15,5 @@ Nice chat UI, [site](https://bootsnipp.com/snippets/0e3Ma).
 Audio in HTML, [site](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio).
 
 Nice dynamic checkbox example, [site](https://stackoverflow.com/questions/40927167/angular-reactiveforms-producing-an-array-of-checkbox-values).
+
+https://www.npmjs.com/package/browser-image-compression
