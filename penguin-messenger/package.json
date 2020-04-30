@@ -28,7 +28,7 @@
     "browser-image-compression": "^1.0.6",
     "crypto-js": "^3.1.9-1",
     "firebase": "^6.3.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lamejs": "^1.2.0",
     "media-recorder-js": "^2.1.0",
     "mic-recorder-to-mp3": "^2.2.1",
